@@ -27,22 +27,22 @@ void	free_str_str(char **str)
 	}
 }
 
-void free_shell(t_shell *shell)
+void	free_shell(t_shell *shell)
 {
-        t_command       *command;
-        t_command       *next;
+	t_command	*command;
+	t_command	*next;
 
-        free_str_str(shell->env);
-        command = shell->commands;
-        while (command)
-        {
-                next = command->next;
-                free_str_str(command->args);
-                free_str(command->input_file);
-                free_str(command->output_file);
-                free(command);
-                command = next;
-        }
-        free_str(shell->line);
-        free(shell);
+	free_str_str(shell->env);
+	command = shell->commands;
+	while (command)
+	{
+		next = command->next;
+		free_str_str(command->args);
+		free_str(command->input_file);
+		free_str(command->output_file);
+		free(command);
+		command = next;
+	}
+	free_str(shell->line);
+	free(shell);
 }
