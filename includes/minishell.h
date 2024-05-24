@@ -13,12 +13,15 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include "../libft/libft.h"
 # include <errno.h>
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/wait.h>
 # include <unistd.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 typedef enum e_token_type
 {
@@ -55,6 +58,10 @@ typedef struct s_shell
 	char				*line;
 }						t_shell;
 
+t_shell	*init_shell(char **env);
+void	free_str(char *str);
+void	free_str_str(char **str);
+void	free_shell(t_shell *shell);
 char	*ft_strdup(const char *s1);
 
 #endif

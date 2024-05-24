@@ -15,24 +15,35 @@ CC = cc
 CFLAGS = -Wall -Werror -Wextra 
 RM = rm -f
 INCLUDE = includes/minishell.h Makefile
+LIBRARY = -lreadline -lhistory
+LIBFT = libft/libft.a
 
-SRC = src/main.c
+SRC = src/main.c src/init.c src/tokenaizer.c src/free_data.c src/utils.c
 	  
 OBJ := $(SRC:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJ) $(INCLUDE)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) 
+$(NAME): $(OBJ) $(LIBFT) $(INCLUDE)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT) $(LIBRARY)
 
 %.o: %.c $(INCLUDE)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
-clean:
-	$(RM) $(OBJ) 
+$(LIBFT):
+	make -C libft/
 
-fclean: clean
-	$(RM) $(NAME) 
+clean:	libft_clean
+	$(RM) $(OBJ)
+
+libft_clean:
+	make clean -C libft/
+
+fclean: clean libft_fclean
+	$(RM) $(NAME)
+
+libft_fclean:
+	make fclean -C libft/
 
 re: fclean all
 

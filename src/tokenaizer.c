@@ -12,6 +12,7 @@
 
 #include "../includes/minishell.h"
 
+/*
 static t_token *new_token(t_token_type type, char *value)
 {
     t_token *token;
@@ -125,3 +126,5 @@ static t_token *tokenize(char *line)
     }
     return (tokens);
 }
+
+*/

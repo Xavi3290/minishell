@@ -12,23 +12,23 @@
 
 #include "../includes/minishell.h"
 
-int    main(int argc, char **argv, char **env)
+int	main(int argc, char **argv, char **env)
 {
-    t_shell *shell;
-    
-    (void)argc;
-    (void)argv;
-    shell = init_shell(env);
-    while (1)
-    {
-        shell->line = readline("minishell: ");
-        // Tokenize the input line
-        // Parse the tokens into commands
-        // Execute the commands
-        // Free the commands    
-        free(shell->line);
-        shell->line = NULL;
-    }   
-    
-    return (0);
+	t_shell	*shell;
+
+	(void)argc;
+	(void)argv;
+	shell = init_shell(env);
+	while (1)
+	{
+		shell->line = readline("minishell: ");
+		// Tokenize the input line
+		// Parse the tokens into commands
+		// Execute the commands
+		// Free the commands    
+		free(shell->line);
+		shell->line = NULL;
+	}
+	free_shell(shell);
+	return (0);
 }
