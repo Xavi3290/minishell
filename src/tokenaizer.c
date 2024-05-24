@@ -6,13 +6,13 @@
 /*   By: xroca-pe <xroca-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:05:46 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/05/23 19:04:36 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/05/24 16:41:22 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-/*
+
 static t_token *new_token(t_token_type type, char *value)
 {
     t_token *token;
@@ -71,9 +71,15 @@ static t_token *tokenize(char *line)
         if (line[i] == '|')
             token = new_token(PIPE, ft_strdup("|"));
         else if (line[i] == '<' && line[i + 1] == '<')
-            token = new_token(REDIRECT_IN, ft_strdup("<"));
+        {
+            token = new_token(HEREDOC, ft_strdup("<<"));
+            i++;
+        }
         else if (line[i] == '>' && line[i + 1] == '>')
-            token = new_token(REDIRECT_OUT, ft_strdup(">"));
+        {
+            token = new_token(APPEND, ft_strdup(">>"));
+            i++;
+        }
         else if (line[i] == '<')
             token = new_token(REDIRECT_IN, ft_strdup("<"));
         else if (line[i] == '>')
@@ -81,50 +87,54 @@ static t_token *tokenize(char *line)
         else if (line[i] == '\'')
         {
             i++;
-            value = ft_strdup(&line[i]);
-            j = 0;
+            j = i;
             while (line[i] && line[i] != '\'')
-            {    
-                j++;
                 i++;
-            }
-            value[j] = '\0';
+            value = ft_strndup(&line[j], i - j);
             token = new_token(WORD, value);
+            free(value);
+            if  (line[i] == '\'')
+                i++;
+            else
+            {
+                free_tokens(tokens);
+                return (NULL);
+            }
         }            
         else if (line[i] == '"')
         {
             i++;
-            value = ft_strdup(&line[i]);
-            j = 0;
+            j = i;
             while (line[i] && line[i] != '"')
-            {    
-                j++;
-                i++;
-            }
-            value[j] = '\0';
+               i++;
+            value = ft_strndup(&line[j], i - j);
             token = new_token(WORD, value);
+            free(value);
+            if (line[i] == '"')
+                i++;
+            else
+            {
+                free_tokens(tokens);
+                return (NULL);
+            }
         }            
-        else if (line[i] == ' ' && line[i] == '\n' && line[i] == '\t' && line[i] == '\v' && line[i] == '\f' && line[i] == '\r')
+        else if (line[i] == ' ' || line[i] == '\n' || line[i] == '\t' || line[i] == '\v' || line[i] == '\f' || line[i] == '\r')
         {
             i++;
             continue ;
         }
         else
         {
-            value = ft_strdup(&line[i]);
-            j = 0;
+            j = i;
             while (line[i] && line[i] != ' ' && line[i] != '|' && line[i] != '<' && line[i] != '>' && line[i] != '\'' && line[i] != '"')
-            {    
-                j++;
                 i++;
-            }
-            value[j] = '\0';
+            value = ft_strndup(&line[j], i - j);
             token = new_token(WORD, value);
+            free(value);
+            i--;
         }
         add_token(&tokens, token);
         i++;
     }
     return (tokens);
 }
-
-*/

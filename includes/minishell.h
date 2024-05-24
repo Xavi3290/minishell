@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 20:02:49 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/05/23 18:54:47 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/05/24 15:16:31 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,6 @@ t_shell	*init_shell(char **env);
 void	free_str(char *str);
 void	free_str_str(char **str);
 void	free_shell(t_shell *shell);
-char	*ft_strdup(const char *s1);
+char	*ft_strndup(const char *s, size_t n);
 
 #endif
