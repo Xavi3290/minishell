@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 20:02:49 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/05/24 15:16:31 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/05/27 13:33:45 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef enum e_token_type
 	REDIRECT_OUT, // El símbolo de redirección de salida '>'
 	APPEND,       // El símbolo de redirección de salida con append '>>'
 	HEREDOC,      // El símbolo de heredoc '<<'
+	SPACE       // Espacio en blanco
 	//SINGLE_QUOTE, // Comilla simple '
 	//DOUBLE_QUOTE,  // Comilla doble "
 }						t_token_type;
@@ -63,5 +64,7 @@ void	free_str(char *str);
 void	free_str_str(char **str);
 void	free_shell(t_shell *shell);
 char	*ft_strndup(const char *s, size_t n);
+
+t_token *tokenize(char *line);
 
 #endif
