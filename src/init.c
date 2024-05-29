@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:37:33 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/05/23 18:45:55 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/05/29 17:56:46 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,6 @@ t_shell	*init_shell(char **env)
 		return (NULL);
 	shell->commands = NULL;
 	shell->line = NULL;
+	shell->last_exit_status = 0;
 	return (shell);
 }

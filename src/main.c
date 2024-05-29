@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/05/28 19:48:58 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/05/29 19:45:29 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,29 +21,31 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	shell = init_shell(env);
-	while (1)
+	if (!shell)
+	{
+		perror("minishell: Initialization failed\n");
+		return (errno);
+	}
+	while (42)
 	{
 		shell->line = readline("minishell: ");
-		if (!shell->line)
+		if (shell->line)
 		{
-			perror("minishell: Readline failed\n");
-			continue;
-		}
-		tokens = tokenize(shell->line);
-		if (!tokens)
-		{
-			free(shell->line);
-			perror("minishell: Tokenization failed\n");
-			continue;
-		}
-		add_history(shell->line);
-		// Parse the tokens into commands
-		// Execute the commands
-		// Free the commands
-		
-		free_tokens(tokens);  
-		free(shell->line);
-		shell->line = NULL;
+			tokens = tokenize(shell->line, shell);
+			if (!tokens)
+			{
+				free(shell->line);
+				handle_error("Tokenization failed", shell);
+				continue;
+			}
+			add_history(shell->line);
+			// Parse the tokens into commands
+			// Execute the commands
+			// Free the commands		
+			free_tokens(tokens);  
+			ree(shell->line);
+			shell->line = NULL;
+		}		
 	}
 	free_shell(shell);
 	return (0);
