@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:05:46 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/05/29 19:45:19 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/05/30 18:26:55 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,25 @@ static t_token	*handle_single_quotes(char *line, int *i, t_shell *shell)
 	int		start;
 	char	*value;
 	t_token	*token;
+	int count;
 
-	(*i)++;
+	count = handle_end_quotes(i, line, shell, '\'');
 	start = (*i)++;
 	while (line[*i] && line[*i] != '\'')
 		(*i)++;
-	if (line[*i] != '\'')
-	{
-		handle_error("syntax error: unmatched '", shell);
-		return (NULL);
-	}
 	value = ft_strndup(&line[start], *i - start);
 	if (!value)
 		handle_error(NULL, NULL);
+	while (count > 1)
+	{
+		if (line[*i] != '\'')
+		{
+			handle_error("syntax error: unmatched '", shell);
+			return (NULL);
+		}
+		(*i)++;
+		count--;
+	}
 	token = new_token(SINGLE_QUOTES, value);
 	return (token);
 }
@@ -39,29 +45,37 @@ static t_token	*handle_double_quotes(char *line, int *i, t_shell *shell)
 	int		start;
 	char	*value;
 	t_token	*token;
+	int count;
 
-	(*i)++;
+	count = handle_end_quotes(i, line, shell, '"');
 	start = (*i)++;
 	while (line[*i] && line[*i] != '"')
 		(*i)++;
-	if (line[*i] != '"')
-	{
-		handle_error("syntax error: unmatched '", shell);
-		return (NULL);
-	}
 	value = ft_strndup(&line[start], *i - start);
 	if (!value)
 		handle_error(NULL, NULL);
+	while (count > 1)
+	{
+		if (line[*i] != '"')
+		{
+			handle_error("syntax error: unmatched '", shell);
+			return (NULL);
+		}
+		(*i)++;
+		count--;
+	}
 	token = new_token(DOUBLE_QUOTES, value);
 	return (token);
 }
 
-static t_token	*handle_special_tokens(char *line, int *i)
+static t_token	*handle_special_tokens(char *line, int *i, t_shell *shell)
 {
 	if (line[*i] == '(')
-        return create_basic_token(LPAREN, "(", i);
+		return handle_left_parentheses(line, i, shell);
+        //return create_basic_token(LPAREN, "(", i);
     else if (line[*i] == ')')
-        return create_basic_token(RPAREN, ")", i);
+		return handle_right_parentheses(shell);
+        //return create_basic_token(RPAREN, ")", i);
     else if (line[*i] == '|' && line[*i + 1] == '|')
         return create_basic_token(OR, "||", i);
     else if (line[*i] == '|')
@@ -75,7 +89,7 @@ static t_token	*get_next_token(char *line, int *i, t_shell *shell)
 {
 	t_token	*token;
 
-	token = handle_special_tokens(line, i);
+	token = handle_special_tokens(line, i, shell);
 	if (token)
 		return (token);	
 	if (line[*i] == '<' && line[*i + 1] == '<')

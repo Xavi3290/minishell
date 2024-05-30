@@ -6,13 +6,13 @@
 /*   By: xroca-pe <xroca-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 13:29:10 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/05/29 19:46:02 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/05/30 15:36:06 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static t_command *new_command(void)
+/*static t_command *new_command(void)
 {
     t_command *cmd;
     
@@ -60,5 +60,5 @@ static void free_command(t_command *commands)
         free(cmd);
         cmd = next;
     }
-}
+}*/
 

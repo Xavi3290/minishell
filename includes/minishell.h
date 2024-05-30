@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 20:02:49 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/05/29 19:31:04 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/05/30 18:26:47 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include <fcntl.h>
 // # include <readline/history.h>
 // # include <readline/readline.h>
-//# include "../readline/history.h"
-//# include "../readline/readline.h"
+# include "readline/history.h"
+# include "readline/readline.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/wait.h>
@@ -67,6 +67,7 @@ typedef struct s_shell
 	t_command			*commands;
 	char				*line;
 	int					last_exit_status;
+	int					parentheses;
 }						t_shell;
 
 t_shell					*init_shell(char **env);
@@ -81,6 +82,9 @@ void					add_token(t_token **tokens, t_token *new_token);
 t_token					*new_token(t_token_type type, char *value);
 t_token					*handle_space(const char *line, int *i);
 t_token					*handle_word(char *line, int *i);
+int 					handle_end_quotes(int *i, char *line, t_shell *shell, char c);
+t_token *handle_left_parentheses(char *line, int *i, t_shell *shell);
+t_token *handle_right_parentheses(t_shell *shell);
 
 char					*ft_strndup(const char *s, size_t n);
 int 					ft_is_space(char line);
