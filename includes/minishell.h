@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 20:02:49 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/05/31 12:58:29 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/05/31 13:45:25 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_command
 	int heredoc;       // Flag de heredoc
 	int and;           // Flag de and
 	int or ;           // Flag de or
+	int parentheses;   // Flag de paréntesis
 	struct s_command	*next;
 }						t_command;
 

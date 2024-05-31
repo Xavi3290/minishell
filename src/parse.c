@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 13:29:10 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/05/31 13:00:32 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/05/31 15:01:57 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
     cmd->heredoc = 0;
     cmd->and = 0;
     cmd->or = 0;
+    cmd->parentheses = 0;
     cmd->next = NULL;
     return (cmd);    
 }

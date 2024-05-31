@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 19:19:21 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/05/31 13:14:24 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/05/31 15:03:01 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ t_token	*handle_left_parentheses(char *line, int *i, t_shell *shell)
 
 t_token	*handle_right_parentheses(t_shell *shell, int *i)
 {
-	printf("%d\n", shell->parentheses);
 	if (!shell->parentheses)
 	{
 		handle_error("syntax error: unmatched )", shell);
