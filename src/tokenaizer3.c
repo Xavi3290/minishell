@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 19:19:21 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/05/31 12:59:01 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/05/31 13:14:24 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ t_token	*handle_word(char *line, int *i)
 
 	start = *i;
 	while (line[*i] && line[*i] != ' ' && line[*i] != '|' && line[*i] != '<'
-		&& line[*i] != '>' && line[*i] != '(' && line[*i] != ')')
+		&& line[*i] != '>' && line[*i] != '(' && line[*i] != ')'
+		&& line[*i] != '"' && line[*i] != '\'')
 	{
 		if (line[*i] == '&' && line[*i + 1] == '&')
 			break ;
