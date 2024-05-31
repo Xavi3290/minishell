@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:05:46 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/05/31 12:58:49 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/05/31 15:59:12 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,11 @@ static t_token	*handle_single_quotes(char *line, int *i, t_shell *shell)
 {
 	int		start;
 	char	*value;
-	t_token	*token;
 	int		count;
 
 	count = handle_end_quotes(i, line, shell, '\'');
+	if (!count)
+		return (NULL);
 	start = (*i)++;
 	while (line[*i] && line[*i] != '\'')
 		(*i)++;
@@ -36,18 +37,18 @@ static t_token	*handle_single_quotes(char *line, int *i, t_shell *shell)
 		(*i)++;
 		count--;
 	}
-	token = new_token(SINGLE_QUOTES, value);
-	return (token);
+	return (new_token(SINGLE_QUOTES, value));
 }
 
 static t_token	*handle_double_quotes(char *line, int *i, t_shell *shell)
 {
 	int		start;
 	char	*value;
-	t_token	*token;
 	int		count;
 
 	count = handle_end_quotes(i, line, shell, '"');
+	if (!count)
+		return (NULL);
 	start = (*i)++;
 	while (line[*i] && line[*i] != '"')
 		(*i)++;
@@ -64,8 +65,7 @@ static t_token	*handle_double_quotes(char *line, int *i, t_shell *shell)
 		(*i)++;
 		count--;
 	}
-	token = new_token(DOUBLE_QUOTES, value);
-	return (token);
+	return (new_token(DOUBLE_QUOTES, value));
 }
 
 static t_token	*handle_special_tokens(char *line, int *i)
