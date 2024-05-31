@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 19:19:21 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/05/30 18:28:43 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/05/31 12:59:01 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 t_token	*handle_word(char *line, int *i)
 {
-	int start;
-	char *value;
-	t_token *token;
+	int		start;
+	char	*value;
+	t_token	*token;
 
 	start = *i;
 	while (line[*i] && line[*i] != ' ' && line[*i] != '|' && line[*i] != '<'
 		&& line[*i] != '>' && line[*i] != '(' && line[*i] != ')')
 	{
 		if (line[*i] == '&' && line[*i + 1] == '&')
-			break;
+			break ;
 		(*i)++;
 	}
 	value = ft_strndup(&line[start], *i - start);
@@ -34,11 +34,11 @@ t_token	*handle_word(char *line, int *i)
 	return (token);
 }
 
-int handle_end_quotes(int *i, char *line, t_shell *shell, char c)
+int	handle_end_quotes(int *i, char *line, t_shell *shell, char c)
 {
-	int j;
-	int count;
-	
+	int	j;
+	int	count;
+
 	j = *i;
 	count = 0;
 	while (line[j])
@@ -58,15 +58,15 @@ int handle_end_quotes(int *i, char *line, t_shell *shell, char c)
 		count++;
 		(*i)++;
 	}
-	return (count);	
+	return (count);
 }
 
-t_token *handle_left_parentheses(char *line, int *i, t_shell *shell)
+t_token	*handle_left_parentheses(char *line, int *i, t_shell *shell)
 {
-	int j;
-	int count;
-	t_token *token;
-	
+	int		j;
+	int		count;
+	t_token	*token;
+
 	if (!shell->parentheses)
 	{
 		j = (*i);
@@ -78,26 +78,26 @@ t_token *handle_left_parentheses(char *line, int *i, t_shell *shell)
 			if (line[j] == ')')
 				count--;
 			if (count < 0)
-				{
-					handle_error("syntax error: unmatched )", shell);
-					return (NULL);
-				}
+			{
+				handle_error("syntax error: unmatched )", shell);
+				return (NULL);
+			}
 			j++;
 		}
 		shell->parentheses = 1;
-	}	
-	token = new_token(LPAREN, "(");
+	}
+	token = create_basic_token(LPAREN, "(", i);
 	return (token);
 }
 
-t_token *handle_right_parentheses(t_shell *shell)
+t_token	*handle_right_parentheses(t_shell *shell, int *i)
 {
+	printf("%d\n", shell->parentheses);
 	if (!shell->parentheses)
 	{
 		handle_error("syntax error: unmatched )", shell);
 		return (NULL);
 	}
 	else
-		return (new_token(RPAREN, ")"));	
-
+		return (create_basic_token(RPAREN, ")", i));
 }

@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 15:05:55 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/05/29 19:30:57 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/05/31 13:00:45 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,44 +23,44 @@ char	*ft_strndup(const char *s, size_t n)
 	return (dup);
 }
 
-int ft_is_space(char line)
+int	ft_is_space(char line)
 {
-   if (line && (line == ' ' || line == '\n' || line == '\t'
-            || line == '\v' || line == '\f' || line == '\r'))
-        return (1);
-    return (0);       
+	if (line && (line == ' ' || line == '\n' || line == '\t' || line == '\v'
+			|| line == '\f' || line == '\r'))
+		return (1);
+	return (0);
 }
 
-void *ft_realloc(void *ptr, size_t original_size, size_t new_size)
+void	*ft_realloc(void *ptr, size_t original_size, size_t new_size)
 {
-    void *new_ptr;
+	void	*new_ptr;
 
-    if (new_size == 0)
-    {
-        free(ptr);
-        return (NULL);
-    }
-    new_ptr = malloc(new_size);
-    if (!new_ptr)
-        return (NULL);
-    if (ptr)
-    {
-        ft_memcpy(new_ptr, ptr, original_size);
-        free(ptr);
-    }
-    return (new_ptr);
-}
-
-void handle_error(char *message, t_shell *shell)
-{
-    if (message)
-        printf("minishell: %s: %s\n", message, strerror(errno));
-    else
+	if (new_size == 0)
 	{
-        perror("minishell");
+		free(ptr);
+		return (NULL);
+	}
+	new_ptr = malloc(new_size);
+	if (!new_ptr)
+		return (NULL);
+	if (ptr)
+	{
+		ft_memcpy(new_ptr, ptr, original_size);
+		free(ptr);
+	}
+	return (new_ptr);
+}
+
+void	handle_error(char *message, t_shell *shell)
+{
+	if (message)
+		printf("minishell: %s: %s\n", message, strerror(errno));
+	else
+	{
+		perror("minishell");
 		exit(errno);
 	}
-    shell->last_exit_status = errno;
+	shell->last_exit_status = errno;
 }
 
 int	ft_strcmp(const char *s1, const char *s2)

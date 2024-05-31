@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/05/30 15:57:57 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/05/31 12:58:40 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	main(int argc, char **argv, char **env)
 {
 	t_shell	*shell;
 	t_token	*tokens;
-	t_token *temp;
+	t_token	*temp;
 
 	(void)argc;
 	(void)argv;
@@ -36,7 +36,7 @@ int	main(int argc, char **argv, char **env)
 			{
 				free(shell->line);
 				handle_error("Tokenization failed", shell);
-				continue;
+				continue ;
 			}
 			add_history(shell->line);
 			temp = tokens;
@@ -47,13 +47,13 @@ int	main(int argc, char **argv, char **env)
 			}
 			// Parse the tokens into commands
 			// Execute the commands
-			// Free the commands		
-			free_tokens(tokens);  
+			// Free the commands
+			shell->parentheses = 0;
+			free_tokens(tokens);
 			free(shell->line);
 			shell->line = NULL;
-		}		
+		}
 	}
 	free_shell(shell);
 	return (0);
 }
-

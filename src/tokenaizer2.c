@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 15:02:05 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/05/29 17:25:15 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/05/31 12:58:55 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_token	*create_basic_token(char type, char *value, int *i)
 {
 	char	*val;
 	t_token	*token;
-	
+
 	if (!ft_strcmp(value, ">>") || !ft_strcmp(value, "<<") || !ft_strcmp(value,
 			"&&") || !ft_strcmp(value, "||"))
 		(*i)++;

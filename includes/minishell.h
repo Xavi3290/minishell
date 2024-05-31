@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 20:02:49 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/05/30 18:26:47 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/05/31 12:58:29 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef enum e_token_type
 	AND,
 	OR,
 	DOUBLE_QUOTES,
-    SINGLE_QUOTES,
+	SINGLE_QUOTES,
 	LPAREN,
 	RPAREN
 }						t_token_type;
@@ -55,9 +55,9 @@ typedef struct s_command
 	char *input_file;  // Archivo de input para redirección
 	char *output_file; // Archivo de output para redirección
 	int append_output; // Flag de append
-	int heredoc;        // Flag de heredoc
-	int and;			// Flag de and
-	int or;				// Flag de or
+	int heredoc;       // Flag de heredoc
+	int and;           // Flag de and
+	int or ;           // Flag de or
 	struct s_command	*next;
 }						t_command;
 
@@ -82,14 +82,17 @@ void					add_token(t_token **tokens, t_token *new_token);
 t_token					*new_token(t_token_type type, char *value);
 t_token					*handle_space(const char *line, int *i);
 t_token					*handle_word(char *line, int *i);
-int 					handle_end_quotes(int *i, char *line, t_shell *shell, char c);
-t_token *handle_left_parentheses(char *line, int *i, t_shell *shell);
-t_token *handle_right_parentheses(t_shell *shell);
+int						handle_end_quotes(int *i, char *line, t_shell *shell,
+							char c);
+t_token					*handle_left_parentheses(char *line, int *i,
+							t_shell *shell);
+t_token					*handle_right_parentheses(t_shell *shell, int *i);
 
 char					*ft_strndup(const char *s, size_t n);
-int 					ft_is_space(char line);
-void 					*ft_realloc(void *ptr, size_t original_size, size_t new_size);
-void 					handle_error(char *message, t_shell *shell);
+int						ft_is_space(char line);
+void					*ft_realloc(void *ptr, size_t original_size,
+							size_t new_size);
+void					handle_error(char *message, t_shell *shell);
 int						ft_strcmp(const char *s1, const char *s2);
 
 #endif
