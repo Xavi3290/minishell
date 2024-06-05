@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 20:02:49 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/05/31 15:45:13 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/06/05 18:55:57 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 # include "../libft/libft.h"
 # include <errno.h>
 # include <fcntl.h>
-// # include <readline/history.h>
-// # include <readline/readline.h>
 # include "readline/history.h"
 # include "readline/readline.h"
 # include <stdio.h>

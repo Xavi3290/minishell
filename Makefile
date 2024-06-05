@@ -6,22 +6,23 @@
 #    By: xroca-pe <xroca-pe@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/21 19:54:24 by xroca-pe          #+#    #+#              #
-#    Updated: 2024/05/28 18:26:30 by xroca-pe         ###   ########.fr        #
+#    Updated: 2024/06/05 18:31:13 by xroca-pe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = cc
-CFLAGS = -Wall -Werror -Wextra 
+CFLAGS = -Wall -Werror -Wextra -fsanitize=address
 RM = rm -f
 INCLUDE = includes/minishell.h Makefile
-LIBRARY = -lreadline -lhistory -ltermcap
+LIBRARY = -Lreadline -lreadline -lhistory -ltermcap
 LIBFT = libft/libft.a
 
 SRC = src/main.c \
 	  src/init.c \
 	  src/tokenaizer.c \
 	  src/tokenaizer2.c \
+	  src/tokenaizer3.c \
 	  src/free_data.c \
 	  src/utils.c
 	  
