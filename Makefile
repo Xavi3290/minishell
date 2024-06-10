@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: xroca-pe <xroca-pe@student.42.fr>          +#+  +:+       +#+         #
+#    By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/21 19:54:24 by xroca-pe          #+#    #+#              #
-#    Updated: 2024/06/05 18:31:13 by xroca-pe         ###   ########.fr        #
+#    Updated: 2024/06/10 14:33:24 by xroca-pe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,9 @@ SRC = src/main.c \
 	  src/tokenaizer2.c \
 	  src/tokenaizer3.c \
 	  src/free_data.c \
-	  src/utils.c
+	  src/utils.c \
+	  src/parse.c \
+	  src/expand.c
 	  
 OBJ := $(SRC:.c=.o)
 

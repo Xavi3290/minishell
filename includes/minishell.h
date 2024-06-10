@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 20:02:49 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/06/05 18:55:57 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/06/10 14:33:03 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <stdlib.h>
 # include <sys/wait.h>
 # include <unistd.h>
+# include <dirent.h>
 
 typedef enum e_token_type
 {
@@ -47,7 +48,7 @@ typedef struct s_token
 	struct s_token		*next;
 }						t_token;
 
-typedef struct s_command
+/*typedef struct s_command
 {
 	char **args;       // Argumentos del comando
 	char *input_file;  // Archivo de input para redirección
@@ -57,9 +58,25 @@ typedef struct s_command
 	int and;           // Flag de and
 	int or ;           // Flag de or
 	int parentheses;   // Flag de paréntesis
-	int right_pipe;    // Flag de pipe a la derecha
+	//int right_pipe;    // Flag de pipe a la derecha
 	struct s_command	*next;
 }						t_command;
+*/
+
+typedef struct s_command
+{
+    char **args;          // Argumentos del comando
+    char **input_files;   // Archivos de input para redirección
+    char **output_files;  // Archivos de output para redirección
+    int append_output;    // Flag de append
+    int heredoc;          // Flag de heredoc
+    int and;              // Flag de and
+    int or ;              // Flag de or
+    int parentheses;      // Flag de paréntesis
+	int fd;			   	  // File descriptor para heredoc
+    struct s_command *next;
+} t_command;
+
 
 typedef struct s_shell
 {
@@ -94,5 +111,11 @@ void					*ft_realloc(void *ptr, size_t original_size,
 							size_t new_size);
 void					handle_error(char *message, t_shell *shell);
 int						ft_strcmp(const char *s1, const char *s2);
+
+
+
+t_token *tokenize_and_expand(char *line, t_shell *shell);
+
+//void 					parse_tokens(t_token *tokens, t_shell *shell);
 
 #endif

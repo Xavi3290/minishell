@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42.fr>          +#+  +:+       +#+        */
+/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 15:06:13 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/05/28 15:06:16 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/06/07 16:28:05 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ void	free_shell(t_shell *shell)
 	{
 		next = command->next;
 		free_str_str(command->args);
-		free_str(command->input_file);
-		free_str(command->output_file);
+		free_str_str(command->input_files);
+		free_str_str(command->output_files);
 		free(command);
 		command = next;
 	}
