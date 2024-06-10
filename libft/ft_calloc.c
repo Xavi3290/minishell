@@ -3,33 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igarcia2 <igarcia2@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/10 17:56:46 by igarcia2          #+#    #+#             */
-/*   Updated: 2024/01/15 19:32:54 by igarcia2         ###   ########.fr       */
+/*   Created: 2024/01/18 16:39:32 by cgaratej          #+#    #+#             */
+/*   Updated: 2024/01/29 12:24:28 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_calloc(size_t nelem, size_t elsize)
+void	*ft_calloc(size_t count, size_t size)
 {
-	void	*res;
+	void	*ptr;
 
-	res = malloc(nelem * elsize);
-	if (res == NULL)
-		return (res);
-	else
-		ft_bzero(res, nelem * elsize);
-	return (res);
+	ptr = malloc(count * size);
+	if (ptr == NULL)
+		return (0);
+	ft_bzero(ptr, count * size);
+	return (ptr);
 }
 
-/*
-int	main(void)
-{
-	char	*ptr;
-	char	*ptr2;
+/*#include <stdio.h>
 
-	ptr = (char *)calloc(5, sizeof(char));
-	ptr2 = (char *)ft_calloc(5, sizeof(char));
+int main(void) 
+{
+    size_t num_elements = 5;
+    size_t element_size = sizeof(int);
+
+    int *arr = (int *)ft_calloc(num_elements, element_size);
+
+    if (arr != NULL) {
+        for (size_t i = 0; i < num_elements; i++) {
+            printf("arr[%zu] = %d\n", i, arr[i]);
+        }
+        free(arr);
+    } else {
+        printf("Error al asignar memoria.\n");
+    }
+    return (0);
 }*/

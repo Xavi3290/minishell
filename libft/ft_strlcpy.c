@@ -3,43 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igarcia2 <igarcia2@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/10 16:36:51 by igarcia2          #+#    #+#             */
-/*   Updated: 2024/01/15 15:13:54 by igarcia2         ###   ########.fr       */
+/*   Created: 2024/01/10 16:16:06 by cgaratej          #+#    #+#             */
+/*   Updated: 2024/01/29 11:51:05 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h" 
+#include "libft.h"
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t size)
+size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 {
-	int	i;
+	size_t	i;
+	size_t	leng;
 
 	i = 0;
-	if (size == 0)
-		return (ft_strlen(src));
-	while ((size - 1) > 0 && src[i] != '\0')
+	leng = ft_strlen(src);
+	if (size > 0)
 	{
-		dst[i] = src[i];
-		size--;
-		i++;
+		while (src[i] != '\0' && i < size - 1)
+		{
+			dest[i] = src[i];
+			i++;
+		}
+		dest[i] = '\0';
 	}
-	dst[i] = '\0';
-	return (ft_strlen(src));
+	return (leng);
 }
 
-/*
-#include <stdio.h>
+/*#include <stdio.h>
 
-int	main(void)
+int main(void)
 {
-	char	src[] = "Hello world!, 3";
-	char	dest[7];
-	char	src2[] = "Hello world!, 3";
-	char	dest2[7];
-
-
-	printf("%d\n", (int) ft_strlcpy(dest, src, 7));
-	printf("%d", (int) strlcpy(dest2, src2, 7));
+    char destination[20];
+    const char *source = "Hello, World!";
+    size_t copied_size = strlcpy(destination, source, sizeof(destination));
+    printf("Contenido de la destinación: %s\n", destination);
+    printf("Tamaño de la cadena copiada: %zu\n", copied_size);
+    return (0);
 }*/

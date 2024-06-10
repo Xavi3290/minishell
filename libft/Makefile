@@ -1,70 +1,71 @@
+
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: igarcia2 <igarcia2@student.42barcel>       +#+  +:+       +#+         #
+#    By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/01/13 17:28:56 by igarcia2          #+#    #+#              #
-#    Updated: 2024/02/24 16:52:43 by igarcia2         ###   ########.fr        #
+#    Created: 2024/01/17 12:27:13 by cgaratej          #+#    #+#              #
+#    Updated: 2024/01/29 18:40:12 by cgaratej         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libft.a
+PRINTF_MAKE= make --no-print-directory -C ft_printf
 
-SRC = \
-	   ft_atoi.c ft_itoa.c ft_putendl_fd.c ft_strlcat.c ft_substr.c \
-	   ft_bzero.c ft_memchr.c ft_putnbr_fd.c ft_strlcpy.c ft_tolower.c \
-	   ft_calloc.c ft_memcmp.c ft_putstr_fd.c ft_strlen.c ft_toupper.c \
-	   ft_isalnum.c ft_memcpy.c ft_split.c ft_strmapi.c ft_isalpha.c \
-	   ft_memmove.c ft_strchr.c ft_strncmp.c ft_isascii.c ft_memrchr.c \
-	   ft_strdup.c ft_strnstr.c ft_isdigit.c ft_memset.c ft_striteri.c \
-	   ft_strrchr.c ft_isprint.c ft_strjoin.c ft_strtrim.c ft_putchar_fd.c \
-	   ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c \
-	   ft_lstadd_back.c ft_lstclear.c ft_lstiter.c ft_lstmap.c ft_lstdelone.c
+GET_NEX_LINE_MAKE= make --no-print-directory -C get_next_line
 
-FT_PRINTF_SRC = ft_printf/ft_check_flags_bonus.c ft_printf/ft_int_flags_bonus.c \
-				ft_printf/ft_utoa.c ft_printf/ft_free_bonus.c \
-				ft_printf/ft_print_flags_bonus.c ft_printf/ft_utils.c \
-				ft_printf/ft_hexa_flags_bonus.c ft_printf/ft_printf.c \
-				ft_printf/ft_utils_bonus.c
+NAME=libft.a
+CC=cc
+CFLAGS=-Wall -Wextra -Werror
+INCLUDE=Makefile libft.h
+LIB=ar rcs
+RM=rm -f
 
-GET_NEXT_LINE_SRC = get_next_line/get_next_line.c get_next_line/get_next_line_utils.c
+GREEN=\033[32m
+LGREEN=\033[1;92m
+ORANGE=\033[33m
+RED = \033[1;91m
+NONE=\033[0m
 
-OBJECTS = $(SRC:.c=.o) $(FT_PRINTF_SRC:.c=.o) $(GET_NEXT_LINE_SRC:.c=.o)
+SRC=ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c ft_strlen.c \
+	ft_memset.c ft_bzero.c ft_memcpy.c ft_memmove.c ft_strlcpy.c ft_strlcat.c \
+	ft_toupper.c ft_tolower.c ft_strchr.c ft_strrchr.c ft_strncmp.c ft_memchr.c \
+	ft_memcmp.c ft_strnstr.c ft_atoi.c ft_calloc.c ft_strdup.c ft_substr.c \
+	ft_strjoin.c ft_strtrim.c ft_split.c ft_itoa.c ft_strmapi.c ft_striteri.c \
+	ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c 
 
-DEPS = $(SRC:.c=.d) $(FT_PRINTF_SRC:.c=.d) $(GET_NEXT_LINE_SRC:.c=.d)
+OBJ=$(SRC:.c=.o)
 
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror
-RM = rm -f
-AR = ar rcs
+all: $(NAME)
 
-# Compilation rules for files in the root folder
-%.o: %.c Makefile
-	$(CC) $(CFLAGS) -MMD -c -o $@ $<
+$(NAME): printf get_next_line $(OBJ) $(INCLUDE)
+	@$(LIB) $(NAME) $(OBJ)
+	@echo "\n$(LGREEN)Create $(NAME) ✔$(NONE)"
 
-# Compilation rules for files in the ft_printf folder
-ft_printf/%.o: ft_printf/%.c Makefile
-	$(CC) $(CFLAGS) -MMD -c -o $@ $<
+%.o: %.c $(INCLUDE)
+	@$(CC) $(CFLAGS) -o $@ -c $<
+	@echo "$(GREEN)File $< compiled ✔$(NONE)"
 
-# Compilation rules for files in the get_next_line folder
-get_next_line/%.o: get_next_line/%.c Makefile
-	$(CC) $(CFLAGS) -MMD -c -o $@ $<
+printf:
+	@echo "$(ORANGE)\nCompilando ft_printf$(NONE)"
+	@$(PRINTF_MAKE)
 
-all:	$(NAME)
+get_next_line:
+	@echo "$(ORANGE)\nCompilando get_next_line$(NONE)"
+	@$(GET_NEX_LINE_MAKE)
 
-$(NAME): $(OBJECTS) 
-	$(AR) $(NAME) $(OBJECTS)
-
-clean:	
-	$(RM) $(OBJECTS) $(DEPS)
+clean:
+	@$(RM) $(OBJ)
+	@$(GET_NEX_LINE_MAKE) clean
+	@$(PRINTF_MAKE) clean
 
 fclean: clean
-		$(RM) $(NAME)
+	@$(RM) $(NAME)
+	@$(PRINTF_MAKE) fclean
+	@$(GET_NEX_LINE_MAKE) fclean
+	@echo "$(RED)$(NAME) Deleted$(NONE)"
 
-re: fclean all
+re:	fclean all
 
--include $(DEPS)
-
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re printf get_next_line

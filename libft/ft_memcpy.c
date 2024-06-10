@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igarcia2 <igarcia2@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/10 15:43:36 by igarcia2          #+#    #+#             */
-/*   Updated: 2024/01/15 15:02:52 by igarcia2         ###   ########.fr       */
+/*   Created: 2024/01/09 16:38:16 by cgaratej          #+#    #+#             */
+/*   Updated: 2024/01/29 11:55:50 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,33 @@
 
 void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	unsigned char	*tmp_dest;
-	unsigned char	*tmp_src;
+	size_t			i;
+	unsigned char	*dest_ptr;
+	unsigned char	*src_ptr;
 
-	if (!dest && !src && n > 0)
-		return (0);
-	tmp_dest = (unsigned char *) dest;
-	tmp_src = (unsigned char *) src;
-	while (n > 0)
+	i = 0;
+	dest_ptr = (unsigned char *)dest;
+	src_ptr = (unsigned char *)src;
+	if (dest == src)
+		return (dest);
+	while (i < n)
 	{
-		*tmp_dest = *tmp_src;
-		tmp_dest++;
-		tmp_src++;
-		n--;
+		dest_ptr[i] = src_ptr[i];
+		i++;
 	}
 	return (dest);
 }
 
-/*
-#include <stdio.h>
+/*#include <stdio.h>
 
-int	main(void)
+int main(void)
 {
-	char	src[] = "Hello world";
-	char	dest[] = "How are you";
+    char src[] = "hola, mundo";
+    char dest[20];
 
-	printf("%s\n", memcpy(dest, src, 6));
-	printf("%s\n", ft_memcpy(dest, src, 6));
+    printf("Antes de ft_memcpy, src: %s\n", src);
+    ft_memcpy(dest, src, ft_strlen(src));
+    printf("Después de ft_memcpy, dest: %s\n", dest);
+
+    return (0);
 }*/

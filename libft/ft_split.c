@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igarcia2 <igarcia2@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/11 17:05:32 by igarcia2          #+#    #+#             */
-/*   Updated: 2024/01/17 19:03:38 by igarcia2         ###   ########.fr       */
+/*   Created: 2024/01/25 12:09:28 by cgaratej          #+#    #+#             */
+/*   Updated: 2024/04/09 13:17:08 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,121 +14,72 @@
 
 static int	count_words(char const *s, char c)
 {
+	int	i;
 	int	count;
-	int	pos;
 
-	pos = 0;
+	i = 0;
 	count = 0;
-	while (s[pos] != '\0')
+	while (s[i])
 	{
-		if (s[pos] == c && pos > 0)
+		if (s[i] && s[i] != c)
 		{
 			count++;
-			s += pos + 1;
-			pos = 0;
-		}
-		else if (s[pos] == c)
-		{
-			s++;
-			pos = 0;
+			while (s[i] && s[i] != c)
+				i++;
 		}
 		else
-			pos++;
+			while (s[i] && s[i] == c)
+				i++;
 	}
-	if (pos > 0)
-		count++;
 	return (count);
 }
 
-static char	*get_word(const char *s, int pos)
+static char	**free_words(char **words, int word_index)
 {
-	char	*res;
-	int		j;
-
-	j = 0;
-	res = (char *) malloc((pos + 1) * sizeof(char));
-	if (!res)
-		return (NULL);
-	while (j < pos)
+	while (word_index)
 	{
-		res[j] = s[j];
-		j++;
+		word_index--;
+		free(words[word_index]);
 	}
-	res[j] = '\0';
-	return (res);
-}
-
-static char	*read_word(const char *s, char c, int word)
-{
-	int		i;
-	int		x;
-
-	x = 0;
-	i = 0;
-	while (s[i] != '\0')
-	{
-		if (s[i] == c)
-		{
-			if (i > 0)
-			{
-				if (x == word)
-					return (get_word(s, i));
-				x++;
-			}
-			s += i + 1;
-			i = 0;
-		}
-		else
-			i++;
-	}
-	if (i > 0)
-		return (get_word(s, i));
-	return (NULL);
+	free(words);
+	return (0);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	char	**result;
+	char	**words;
 	int		i;
-	int		words;
+	int		start;
+	int		j;
 
-	words = count_words(s, c);
+	if (!s)
+		return (0);
+	words = ft_calloc(count_words(s, c) + 1, sizeof(char *));
+	if (!words)
+		return (0);
 	i = 0;
-	result = (char **) malloc((words +1) * sizeof(char *));
-	if (!result)
-		return (NULL);
-	while (words > 0)
+	j = 0;
+	while (j < count_words(s, c))
 	{
-		result[i] = read_word(s, c, i);
-		if (result[i] == NULL)
-		{
-			while (i >= 0)
-				free(result[i--]);
-			free (result);
-			return (NULL);
-		}
-		i++;
-		words--;
+		while (s[i] && s[i] == c)
+			i++;
+		start = i;
+		while (s[i] && s[i] != c)
+			i++;
+		words[j] = ft_substr(s, start, i - start);
+		if (!words[j])
+			return (free_words(words, j));
+		j++;
 	}
-	result[i] = NULL;
-	return (result);
+	return (words);
 }
 
-/*
-#include <stdio.h>
+/*#include <stdio.h>
 
-int	main(void)
+int main(void)
 {
-	char	str[] = " ,Hello, world, 87, how are you,,    2u , 3498";
-	char	c = ' ';
-	char	**res;
-	int		i;
-
-	i = 0;
-	res = ft_split(str, c);
-	while(res[i] != NULL)
-	{
-		printf("%d: %s\n", i, res[i]);
-		i++;
-	}
+	char **words = ft_split("^^^1^^2a,^^^^3^^^^--h^^^^", '^');
+	while (*words)
+		printf("%s\n", *words++);
+	return (0);
 }*/

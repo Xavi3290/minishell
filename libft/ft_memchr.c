@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igarcia2 <igarcia2@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/09 18:49:01 by igarcia2          #+#    #+#             */
-/*   Updated: 2024/01/15 17:15:48 by igarcia2         ###   ########.fr       */
+/*   Created: 2024/01/15 12:32:25 by cgaratej          #+#    #+#             */
+/*   Updated: 2024/01/26 15:00:37 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,31 @@
 
 void	*ft_memchr(const void *s, int c, size_t n)
 {
-	unsigned char	*tmp;
-	unsigned char	ch;
+	size_t			i;
+	unsigned char	*ch;
+	unsigned char	character;
 
-	tmp = (unsigned char *) s;
-	ch = (unsigned char) c;
-	while (n > 0)
+	i = 0;
+	ch = (unsigned char *)s;
+	character = (unsigned char)c;
+	while (i < n)
 	{
-		if (*tmp == ch)
-			return (tmp);
-		tmp++;
-		n--;
+		if (ch[i] == character)
+			return (&ch[i]);
+		i++;
 	}
-	return (NULL);
+	return (0);
 }
 
-/*
-#include <stdio.h>
+/*#include <stdio.h>
 
 int	main(void)
 {
-	int tab[7] = {-49, 49, 1, -1, 0, -2, 2};
-	char	*result;
-	char	*result2;
+	char *c = ft_memchr("hola mundo", 'a', 3);
 
-	result2 = memchr(str, '-1', 7);
-	result = ft_memchr(str, '-1', 7);
-	printf("%s\n", result);
-	printf("%s\n", result2);
+	if (c == 0)
+		printf("No se ha encontrado");
+	else 
+		printf("Lo ha encontrado");
+	return (0);
 }*/

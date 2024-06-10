@@ -1,20 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_bonus.c                                    :+:      :+:    :+:   */
+/*   ft_putnbr_nosig.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igarcia2 <igarcia2@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/01 16:52:32 by igarcia2          #+#    #+#             */
-/*   Updated: 2024/02/01 18:25:34 by igarcia2         ###   ########.fr       */
+/*   Created: 2024/02/02 16:23:26 by cgaratej          #+#    #+#             */
+/*   Updated: 2024/02/05 12:25:52 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-//Funcion que libera la memoria de char *s y retorna -1
-int	free_and_out(char *s)
+int	ft_putnbr_nosig(unsigned int n)
 {
-	free(s);
-	return (-1);
+	int	len;
+
+	len = 0;
+	if (n > 9)
+	{
+		len += ft_putnbr_nosig(n / 10);
+		if (len == -1)
+			return (-1);
+		n = n % 10;
+	}
+	if (n <= 9)
+	{
+		if (ft_putchar(n + '0') == -1)
+			return (-1);
+		len++;
+	}
+	return (len);
 }

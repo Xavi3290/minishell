@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igarcia2 <igarcia2@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/12 16:53:52 by igarcia2          #+#    #+#             */
-/*   Updated: 2024/01/13 14:44:24 by igarcia2         ###   ########.fr       */
+/*   Created: 2024/01/23 17:52:03 by cgaratej          #+#    #+#             */
+/*   Updated: 2024/01/24 13:22:10 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,36 @@
 
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	size_t	len;
-	int		i;
-	char	*res;
+	unsigned int	i;
+	char			*strnew;
 
 	i = 0;
-	len = ft_strlen(s);
-	res = (char *) malloc((sizeof(char) * len) + 1);
-	if (!res)
-		return (NULL);
-	while (len > 0)
+	if (!s || !f)
+		return (0);
+	strnew = (char *)malloc(ft_strlen(s) + 1);
+	if (!strnew)
+		return (0);
+	while (s[i] != '\0')
 	{
-		res[i] = f(i, s[i]);
-		len--;
+		strnew[i] = f(i, s[i]);
 		i++;
 	}
-	res[i] = '\0';
-	return (res);
+	strnew[i] = '\0';
+	return (strnew);
 }
 
-/*
-#include <stdio.h>
+/*#include <stdio.h>
+
+char	ft_myfuncion(unsigned int i, char c)
+{
+	printf("%d %c\n", i, c);
+	return (c - 32);
+}
+
 int	main(void)
 {
-	char	str[] = "Hello world";
-
-	printf("%s", ft_strmapi(str, *f));
+	char str[10] = "hola";
+	char *result = ft_strmapi(str, ft_myfuncion);
+	printf("%s\n", result);
+	return (0);
 }*/

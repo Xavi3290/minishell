@@ -1,24 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast.c                                       :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igarcia2 <igarcia2@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/16 17:26:13 by igarcia2          #+#    #+#             */
-/*   Updated: 2024/01/16 17:39:43 by igarcia2         ###   ########.fr       */
+/*   Created: 2024/02/02 13:40:00 by cgaratej          #+#    #+#             */
+/*   Updated: 2024/02/04 19:28:53 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-t_list	*ft_lstlast(t_list *lst)
+int	ft_putstr(char *str)
 {
-	if (!lst)
-		return (NULL);
-	while (lst -> next)
+	int	len;
+
+	len = 0;
+	if (!str)
 	{
-		lst = lst -> next;
+		if (write(1, "(null)", 6) != 6)
+			return (-1);
+		return (6);
 	}
-	return (lst);
+	while (str[len])
+	{
+		if (write(1, &str[len], 1) == -1)
+			return (-1);
+		len++;
+	}
+	return (len);
 }

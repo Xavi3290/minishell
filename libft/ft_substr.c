@@ -3,62 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igarcia2 <igarcia2@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/10 18:13:06 by igarcia2          #+#    #+#             */
-/*   Updated: 2024/01/15 19:45:08 by igarcia2         ###   ########.fr       */
+/*   Created: 2024/01/19 11:42:34 by cgaratej          #+#    #+#             */
+/*   Updated: 2024/01/23 16:19:01 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	get_size(char const *s, unsigned int start, size_t len)
-{
-	size_t	size;
-
-	size = 0;
-	while (s[start + size])
-		size++;
-	if (size > len)
-		size = len;
-	return (size);
-}
-
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char	*substr;
-	int		i;
-	size_t	size;
+	char	*str;
+	size_t	src_len;
 
-	if (start >= ft_strlen(s))
-	{
-		substr = malloc(1 * sizeof(char));
-		if (!substr)
-			return (NULL);
-		substr[0] = '\0';
-		return (substr);
-	}
-	i = 0;
-	size = get_size(s, start, len);
-	substr = malloc((size + 1) * sizeof(char));
-	if (substr == NULL)
-		return (NULL);
-	while (s[start + i] != '\0' && size-- > 0)
-	{
-		substr[i] = s[start + i];
-		i++;
-	}
-	substr[i] = '\0';
-	return (substr);
+	src_len = ft_strlen(s);
+	if (!s)
+		return (0);
+	if (src_len < start)
+		len = 0;
+	else if (ft_strlen(s + start) < len)
+		len = ft_strlen(s + start);
+	str = malloc(sizeof(char) * (len + 1));
+	if (!str)
+		return (0);
+	str[len] = 0;
+	if (len)
+		ft_strlcpy(str, s + start, len + 1);
+	return (str);
 }
 
-/*
-#include <stdio.h>
+/*#include <stdio.h>
+
 int	main(void)
 {
-	char	str[] = "Hello world";
-	unsigned int	start = 4;
-	size_t len = 7 * sizeof(char);
-	printf("%s", ft_substr(str, start, len));
+	const char	*sub = "";
+	char		*final = ft_substr(sub, 1, 1);
+	
+	printf("Contenido de la origimal: %s\n", sub);
+	printf("Contenido de la sub: %s\n", final);
+	free(final);
 	return (0);
 }*/

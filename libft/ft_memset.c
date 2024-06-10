@@ -3,37 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igarcia2 <igarcia2@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/09 18:11:31 by igarcia2          #+#    #+#             */
-/*   Updated: 2024/01/12 21:29:35 by igarcia2         ###   ########.fr       */
+/*   Created: 2024/01/09 16:03:31 by cgaratej          #+#    #+#             */
+/*   Updated: 2024/01/29 11:34:25 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memset(void *ptr, int c, size_t len)
+void	*ft_memset(void *str, int value, size_t len)
 {
-	char	*tmp;
+	int				i;
+	unsigned char	*c;
 
-	tmp = ptr;
+	i = 0;
+	c = (unsigned char *)str;
 	while (len > 0)
 	{
-		*tmp = c;
-		tmp++;
+		c[i] = value;
+		i++;
 		len--;
 	}
-	return (ptr);
+	return (str);
 }
 
-/*
-#include <stdio.h>
+/*#include <stdio.h>
 
-int	main(void)
-{
-	char	ptr[] = "Hello world";
-	char	c = 'H';
-	size_t	len = 5 * sizeof(char);
+int main() {
+    char myString[] = "hola, mundo";
 
-	printf("%s", ft_memset(ptr, c, len));
+    printf("Antes de ft_memset: %s\n", myString);
+    ft_memset(myString, 's', 5);
+    printf("Después de ft_memset: %s\n", myString);
+    return (0);
 }*/

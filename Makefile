@@ -3,12 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+         #
+#    By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/21 19:54:24 by xroca-pe          #+#    #+#              #
-#    Updated: 2024/06/10 14:33:24 by xroca-pe         ###   ########.fr        #
+#    Updated: 2024/06/10 16:38:47 by cgaratej         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+GNL= libft/get_next_line/libftget_next_line.a
+PRINTF= libft/ft_printf/libftprintf.a
 
 NAME = minishell
 CC = cc
@@ -33,7 +36,7 @@ OBJ := $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT) $(INCLUDE)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT) $(LIBRARY)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT) $(GNL) $(PRINTF) $(LIBRARY)
 
 %.o: %.c $(INCLUDE)
 	$(CC) $(CFLAGS) -c -o $@ $<

@@ -3,38 +3,50 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igarcia2 <igarcia2@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/10 18:05:39 by igarcia2          #+#    #+#             */
-/*   Updated: 2024/01/15 19:29:07 by igarcia2         ###   ########.fr       */
+/*   Created: 2024/01/18 17:38:12 by cgaratej          #+#    #+#             */
+/*   Updated: 2024/01/29 11:56:35 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *s)
+char	*ft_strdup(const char *s1)
 {
+	size_t	i;
+	size_t	len;
 	char	*cpy;
-	int		i;
 
 	i = 0;
-	cpy = malloc(ft_strlen(s) + 1 * sizeof(char));
-	if (!cpy)
-		return (NULL);
-	while (s[i] != '\0')
+	len = ft_strlen(s1);
+	cpy = (char *)malloc(sizeof(*s1) * len + 1);
+	if (cpy == NULL)
+		return (0);
+	while (s1[i] != '\0')
 	{
-		cpy[i] = s[i];
+		cpy[i] = s1[i];
 		i++;
 	}
 	cpy[i] = '\0';
 	return (cpy);
 }
 
-/*
-#include <stdio.h>
-int	main(void)
+/*#include <stdio.h>
+
+int main(void)
 {
-	char	str[] = "Hello world";
-	printf("%s\n", ft_strdup(str));
-	printf("%s\n", strdup(str));
+    const char *original = "Hola, Mundo!";
+    
+    char *duplicate = ft_strdup(original);
+
+    if (duplicate != NULL)
+	{
+        printf("Cadena original: %s\n", original);
+        printf("Cadena duplicada: %s\n", duplicate);
+        free(duplicate);
+    } else 
+        printf("Error al duplicar la cadena.\n");
+
+    return (0);
 }*/

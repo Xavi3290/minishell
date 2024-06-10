@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igarcia2 <igarcia2@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/04 14:07:12 by igarcia2          #+#    #+#             */
-/*   Updated: 2024/05/14 20:25:42 by igarcia2         ###   ########.fr       */
+/*   Created: 2024/02/08 19:03:21 by cgaratej          #+#    #+#             */
+/*   Updated: 2024/04/17 14:53:45 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,17 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 10
-# endif
-# ifndef OPEN_MAX
-#  define OPEN_MAX 65534
+#  define BUFFER_SIZE 42
 # endif
 
 # include <unistd.h>
 # include <stdlib.h>
-# include <limits.h>
-# include <stdio.h>
-# include <fcntl.h>
 
-typedef struct s_line_list
-{
-	char	*line;
-	int		fd;
-}	t_line_list;
-
-int		is_next_line(char *str);
 char	*get_next_line(int fd);
-char	*free_out(char **str);
-int		check_stack(char **saved, int i, char **res);
-char	*cut_after_next_line(char **str);
+int		ft_strlen_gnl(const char *str);
+char	*ft_strchr_gnl(const char *s, int c);
+char	*ft_strjoin_gnl(char const *s1, char const *s2);
+char	*ft_create_start_gnl(char *start, char *buffer);
+char	*freeoffree_gnl(char **str);
 
 #endif

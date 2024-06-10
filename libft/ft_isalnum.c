@@ -3,31 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igarcia2 <igarcia2@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/09 18:09:24 by igarcia2          #+#    #+#             */
-/*   Updated: 2024/01/12 20:34:15 by igarcia2         ###   ########.fr       */
+/*   Created: 2024/01/09 14:33:27 by cgaratej          #+#    #+#             */
+/*   Updated: 2024/01/12 12:21:05 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
+
 int	ft_isalnum(int c)
 {
-	if ((c >= 48 && c <= 57) || (c >= 65 && c <= 90) || (c >= 97 && c <= 122))
-	{
-		return (1);
-	}
-	else
-	{
-		return (0);
-	}
+	return ((c >= 'a' && c <= 'z')
+		|| (c >= 'A' && c <= 'Z')
+		|| (c >= '0' && c <= '9'));
 }
-
-/*
-#include <stdio.h>
-
-int	main(void)
-{
-	printf("%d: %s\n", ft_isalnum('H'), "H");
-	printf("%d: %s\n", ft_isalnum('4'), "4");
-	printf("%d: %s\n", ft_isalnum('*'), "*");
-}*/

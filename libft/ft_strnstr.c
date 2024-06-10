@@ -3,52 +3,54 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igarcia2 <igarcia2@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/10 16:23:45 by igarcia2          #+#    #+#             */
-/*   Updated: 2024/01/15 17:26:36 by igarcia2         ###   ########.fr       */
+/*   Created: 2024/01/15 14:40:19 by cgaratej          #+#    #+#             */
+/*   Updated: 2024/01/29 11:52:39 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnstr(const char *big, const char *little, size_t len)
+char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
-	int		i;
-	int		j;
-	char	*res;
+	size_t		i;
+	size_t		j;
+	char		*hys;
 
 	i = 0;
-	res = (char *) big;
-	if (ft_strlen(little) == 0)
-		return (res);
-	while (big[i] != '\0' && len > 0)
+	j = 0;
+	hys = (char *)haystack;
+	if (needle[j] == '\0')
+		return (hys);
+	while (hys[i] != '\0' && i < len)
 	{
-		j = 0;
-		while (big[i] == little[j])
-		{
-			len--;
-			i++;
+		while (hys[i + j] == needle[j] && hys[i + j] != '\0'
+			&& (i + j) < len)
 			j++;
-			if (little[j] == '\0')
-				return (&res[i - j]);
-			if (len == 0)
-				return (NULL);
-		}
-		len += j - 1;
-		i -= j - 1;
+		if (needle[j] == '\0')
+			return (hys + i);
+		i++;
+		j = 0;
 	}
-	return (NULL);
+	return (0);
 }
 
-/*
-#include <stdio.h>
+/*#include <stdio.h>
 
-int	main(void)
+int main(void) 
 {
-	const char	*largestring = "Foo Bar Baz";
-	const char	*smallstring = "o Bar Ba";
+    const char *haystack = "lorem ipsum dolor sit amet";
+    const char *needle = "dolor";
+    size_t len = 15;
 
-	printf("%s\n", ft_strnstr(largestring, smallstring, 10));
-	printf("%s\n", strnstr(largestring, smallstring, 10));
+    char *result = ft_strnstr(haystack, needle, len);
+
+    if (result != NULL) {
+        printf("Encontrado: %s\n", result);
+    } else {
+        printf("No encontrado\n");
+    }
+	
+    return (0);
 }*/

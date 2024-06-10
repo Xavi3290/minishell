@@ -3,37 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igarcia2 <igarcia2@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/09 18:23:41 by igarcia2          #+#    #+#             */
-/*   Updated: 2024/01/12 19:59:46 by igarcia2         ###   ########.fr       */
+/*   Created: 2024/01/09 16:34:45 by cgaratej          #+#    #+#             */
+/*   Updated: 2024/01/29 11:54:23 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_bzero(void *s, size_t n)
+void	ft_bzero(void *str, size_t n)
 {
-	char	*tmp;
+	int				i;
+	unsigned char	*c;
 
-	tmp = s;
+	i = 0;
+	c = (unsigned char *)str;
 	while (n > 0)
 	{
-		*tmp = 0;
-		tmp++;
+		c[i] = '\0';
+		i++;
 		n--;
 	}
 }
 
-/*
-#include <stdio.h>
+/*#include <stdio.h>
 
-int	main(void)
+int main(void)
 {
-	char	str[] = "Hello world";
-	char	str2[] = "Hello world";
-	size_t	n = 5 * sizeof(char);
+    char myString[] = "hola, mundo";
 
-	bzero(str, n);
-	ft_bzero(str2, n);
+    printf("Antes de ft_bzero: %s\n", myString);
+
+    size_t n = 5;
+    ft_bzero(myString, n);
+
+    printf("Después de ft_bzero: %s\n", myString);
+
+    return (0);
 }*/

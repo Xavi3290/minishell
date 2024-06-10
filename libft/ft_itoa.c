@@ -3,105 +3,76 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igarcia2 <igarcia2@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/11 21:05:25 by igarcia2          #+#    #+#             */
-/*   Updated: 2024/01/15 18:55:41 by igarcia2         ###   ########.fr       */
+/*   Created: 2024/01/23 11:13:58 by cgaratej          #+#    #+#             */
+/*   Updated: 2024/01/30 14:57:11 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h" 
+#include "libft.h"
 
-static int	count_char(int n)
+static int	ft_getint_len(int n)
 {
-	int	dig;
+	int	len;
 
-	dig = 0;
-	if (n == -2147483648)
-		return (11);
-	else if (n == 0)
+	len = 0;
+	if (n == 0)
 		return (1);
-	else if (n < 0)
+	if (n <= 0)
+		len++;
+	while (n)
 	{
-		dig++;
-		n *= -1;
+		len++;
+		n = n / 10;
 	}
-	while (n > 0)
-	{
-		n /= 10;
-		dig++;
-	}
-	return (dig);
+	return (len);
 }
 
-static int	pow_ten(int dig)
-{
-	int	res;
-
-	res = 1;
-	while (dig > 1)
-	{
-		res *= 10;
-		dig--;
-	}
-	return (res);
-}
-
-static char	*put_string(int n, char *res, int dig)
+static void	ft_fill_str(char *str, int n, int len)
 {
 	int	i;
-	int	num;
 
-	num = 0;
 	i = 0;
 	if (n < 0)
 	{
-		res[i++] = '-';
-		dig--;
-		num = ((n / pow_ten(dig)) * -1) + '0';
-		res[i++] = num;
-		n += ((n / pow_ten(dig)) * pow_ten(dig)) * -1;
-		dig--;
-		n *= -1;
+		str[0] = '-';
+		n = -n;
+		i = 1;
 	}
-	while (dig > 0)
+	if (n == 0)
+		str[i] = '0';
+	str[len] = '\0';
+	len--;
+	while (n)
 	{
-		res[i++] = (n / pow_ten(dig)) + '0';
-		n -= (n / pow_ten(dig)) * pow_ten(dig);
-		dig--;
+		str[len] = n % 10 + '0';
+		len--;
+		n = n / 10;
 	}
-	res[i] = '\0';
-	return (res);
 }
 
 char	*ft_itoa(int n)
 {
-	char	*res;
-	int		dig;
+	int		len;
+	char	*str;
 
-	if (n == 0)
-	{
-		res = (char *) malloc(2 * sizeof(char));
-		if (!res)
-			return (NULL);
-		res[0] = '0';
-		res[1] = '\0';
-		return (res);
-	}
-	else
-	{
-		dig = count_char(n);
-		res = (char *) malloc((dig + 1) * sizeof(char));
-		if (!res)
-			return (NULL);
-		return (put_string(n, res, dig));
-	}
+	len = ft_getint_len(n);
+	if (n == -2147483648)
+		return (ft_strdup("-2147483648"));
+	str = (char *)malloc(len + 1);
+	if (str == NULL)
+		return (0);
+	ft_fill_str(str, n, len);
+	return (str);
 }
 
-/*
-#include <stdio.h>
+/*#include <stdio.h>
 
-int	main(void)
+int main(void)
 {
-	printf("%s", ft_itoa(0));
+	char *h = ft_itoa(55);
+
+	printf("%s\n", h);
+	return (0);
 }*/

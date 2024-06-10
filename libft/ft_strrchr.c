@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igarcia2 <igarcia2@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/09 18:10:30 by igarcia2          #+#    #+#             */
-/*   Updated: 2024/01/15 19:02:45 by igarcia2         ###   ########.fr       */
+/*   Created: 2024/01/12 15:42:57 by cgaratej          #+#    #+#             */
+/*   Updated: 2024/01/29 11:52:52 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,36 +14,33 @@
 
 char	*ft_strrchr(const char *s, int c)
 {
-	int				len;
-	char			*tmp;
-	unsigned char	ch;
+	size_t	len;
+	char	*ch;
 
-	tmp = (char *) s;
-	ch = (unsigned char) c;
-	len = 0;
-	while (s[len] != '\0')
+	ch = (char *)s;
+	len = ft_strlen(ch) + 1;
+	while (len > 0)
 	{
-		len++;
-	}
-	if (ch == '\0')
-	{
-		return (&tmp[len]);
-	}
-	while (len >= 0)
-	{
-		if (s[len] == ch)
-			return (&tmp[len]);
+		if (ch[len - 1] == (char)c)
+			return (&ch[len - 1]);
 		len--;
 	}
-	tmp = 0;
-	return (tmp);
+	return (0);
 }
 
-/*
-#include <stdio.h>
-int	main(void)
-{
-	char	str[] = "Hello world";
+/*#include <stdio.h>
 
-	printf("%s", ft_strrchr(str, 'x'));
+int main() {
+    const char *str = "";
+    int target_char = '\0';
+
+    char *result = strrchr(str, target_char);
+
+    if (result != NULL) {
+        printf("%d.\n", target_char);
+    } else {
+        printf("Carácter '%c' no encontrado en la cadena.\n", target_char);
+    }
+
+    return (0);
 }*/

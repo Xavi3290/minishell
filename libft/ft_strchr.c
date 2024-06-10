@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igarcia2 <igarcia2@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/09 18:09:58 by igarcia2          #+#    #+#             */
-/*   Updated: 2024/01/15 19:12:21 by igarcia2         ###   ########.fr       */
+/*   Created: 2024/01/11 12:02:24 by cgaratej          #+#    #+#             */
+/*   Updated: 2024/01/26 15:42:17 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,31 @@
 
 char	*ft_strchr(const char *s, int c)
 {
-	char			*tmp;
-	unsigned char	ch;
+	int		i;
+	char	*ch;
 
-	tmp = (char *) s;
-	ch = (unsigned char) c;
-	while (*tmp != '\0')
+	i = 0;
+	ch = (char *)s;
+	while (ch[i] != '\0')
 	{
-		if (*tmp == ch)
-			return (tmp);
-		tmp++;
+		if (ch[i] == (char)c)
+			return (&ch[i]);
+		i++;
 	}
-	if (ch == '\0')
-		return (tmp);
-	return (NULL);
+	if ((char)c == '\0')
+		return (&ch[i]);
+	return (0);
 }
 
-/*
-#include <stdio.h>
+/*#include <stdio.h>
 
 int	main(void)
 {
-	printf("%s\n", ft_strchr("Hello world", '\0'));
-	printf("%s\n", strchr("Hello world", '\0'));
+	char *c = ft_strchr("hola mundo", 'a');
+
+	if (c == 0)
+		printf("No se ha encontrado");
+	else 
+		printf("Lo ha encontrado");
+	return (0);
 }*/

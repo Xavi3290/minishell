@@ -1,31 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   ft_putchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igarcia2 <igarcia2@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/16 17:40:15 by igarcia2          #+#    #+#             */
-/*   Updated: 2024/01/17 16:08:50 by igarcia2         ###   ########.fr       */
+/*   Created: 2024/02/02 12:24:34 by cgaratej          #+#    #+#             */
+/*   Updated: 2024/02/02 15:18:00 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+int	ft_putchar(char c)
 {
-	t_list	*last;
-
-	if (!lst)
-		lst = &new;
-	else
-	{
-		if (!*lst)
-			*lst = new;
-		else
-		{
-			last = ft_lstlast(*lst);
-			last -> next = new;
-		}
-	}
+	if (write(1, &c, 1) == -1)
+		return (-1);
+	return (1);
 }

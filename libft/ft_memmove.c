@@ -3,48 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: igarcia2 <igarcia2@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/10 15:45:03 by igarcia2          #+#    #+#             */
-/*   Updated: 2024/01/15 19:20:35 by igarcia2         ###   ########.fr       */
+/*   Created: 2024/01/10 11:25:18 by cgaratej          #+#    #+#             */
+/*   Updated: 2024/01/29 11:27:28 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h" 
+#include "libft.h"
 
 void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	unsigned char	*tmp_src;
-	unsigned char	*tmp_dest;
+	size_t			i;
+	unsigned char	*dest_ptr;
+	unsigned char	*src_ptr;
 
-	if (!dest && !src)
-		return (0);
-	tmp_src = (unsigned char *) src;
-	tmp_dest = (unsigned char *) dest;
-	if (dest <= src)
+	i = 0;
+	dest_ptr = (unsigned char *)dest;
+	src_ptr = (unsigned char *)src;
+	if (dest > src && dest < (src + n))
 	{
-		while (n--)
-			*tmp_dest++ = *tmp_src++;
+		i = n;
+		while (i > 0)
+		{
+			dest_ptr[i - 1] = src_ptr[i - 1];
+			i--;
+		}
 	}
-	else if (dest > src)
-	{
-		tmp_dest += n - 1;
-		tmp_src += n - 1;
-		while (n--)
-			*tmp_dest-- = *tmp_src--;
-	}
+	else
+		ft_memcpy(dest, src, n);
 	return (dest);
 }
 
-/*
-#include <stdio.h>
-int	main(void)
+/*#include <stdio.h>
+int main()
 {
-	char	src[] = "Hello world";
-	char	dest[] = "How are you";
-	char	src2[] = "Hello world";
-	char	dest2[] = "How are you";
-
-	printf("%s\n", memmove(dest, src, 5));
-	printf("%s\n", ft_memmove(dest2, src2, 5));
+	char str[9] = "ABCDEF--";
+	printf("Con memmove: %s\n", ft_memmove(str + 2, str, 6));
+	printf("Con memcpy: %s\n", ft_memcpy(str + 2, str, 6));
+	return 0;
 }*/
