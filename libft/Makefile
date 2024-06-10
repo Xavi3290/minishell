@@ -12,15 +12,15 @@
 # **************************************************************************** #
 
 PRINTF_MAKE= make --no-print-directory -C ft_printf
-
 GET_NEX_LINE_MAKE= make --no-print-directory -C get_next_line
 
 NAME=libft.a
 CC=cc
 CFLAGS=-Wall -Wextra -Werror
-INCLUDE=Makefile libft.h
+INCLUDE= Makefile
 LIB=ar rcs
 RM=rm -f
+BUILD_DIR = ../build
 
 GREEN=\033[32m
 LGREEN=\033[1;92m
@@ -35,7 +35,15 @@ SRC=ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c ft_strlen.c
 	ft_strjoin.c ft_strtrim.c ft_split.c ft_itoa.c ft_strmapi.c ft_striteri.c \
 	ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c 
 
-OBJ=$(SRC:.c=.o)
+DEPS =ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c ft_strlen.c \
+	ft_memset.c ft_bzero.c ft_memcpy.c ft_memmove.c ft_strlcpy.c ft_strlcat.c \
+	ft_toupper.c ft_tolower.c ft_strchr.c ft_strrchr.c ft_strncmp.c ft_memchr.c \
+	ft_memcmp.c ft_strnstr.c ft_atoi.c ft_calloc.c ft_strdup.c ft_substr.c \
+	ft_strjoin.c ft_strtrim.c ft_split.c ft_itoa.c ft_strmapi.c ft_striteri.c \
+	ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c 
+
+OBJ = $(SRC:%.c=$(BUILD_DIR)/%.o)
+DEPS = $(SRC:%.c=$(BUILD_DIR)/%.d)
 
 all: $(NAME)
 
@@ -43,8 +51,9 @@ $(NAME): printf get_next_line $(OBJ) $(INCLUDE)
 	@$(LIB) $(NAME) $(OBJ)
 	@echo "\n$(LGREEN)Create $(NAME) ✔$(NONE)"
 
-%.o: %.c $(INCLUDE)
-	@$(CC) $(CFLAGS) -o $@ -c $<
+$(BUILD_DIR)/%.o: %.c $(INCLUDE)
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) -o $@ -MMD -c $<
 	@echo "$(GREEN)File $< compiled ✔$(NONE)"
 
 printf:
@@ -57,6 +66,7 @@ get_next_line:
 
 clean:
 	@$(RM) $(OBJ)
+	@rm -rf $(BUILD_DIR)
 	@$(GET_NEX_LINE_MAKE) clean
 	@$(PRINTF_MAKE) clean
 
