@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/06/10 15:19:40 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/06/10 16:55:14 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ int	main(int argc, char **argv, char **env)
 		shell->line = readline("minishell: ");
 		if (shell->line[0])
 		{
-			tokens = tokenize(shell->line, shell);
-			//tokens = tokenize_and_expand(shell->line, shell);
+			//tokens = tokenize(shell->line, shell);
+			tokens = tokenize_and_expand(shell->line, shell);
 			if (!tokens)
 			{
 				free(shell->line);
