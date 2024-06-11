@@ -6,7 +6,7 @@
 #    By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/05 11:06:32 by cgaratej          #+#    #+#              #
-#    Updated: 2024/06/10 23:00:25 by cgaratej         ###   ########.fr        #
+#    Updated: 2024/06/11 11:44:52 by cgaratej         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,12 +27,7 @@ SRC=ft_printf.c ft_putchar.c ft_putstr.c \
 	ft_strlen.c ft_putnbr.c ft_putnbr_nosig.c \
 	ft_puthex.c ft_putmem.c
 
-DEPS=ft_printf.c ft_putchar.c ft_putstr.c \
-	ft_strlen.c ft_putnbr.c ft_putnbr_nosig.c \
-	ft_puthex.c ft_putmem.c
-
-OBJ = $(SRC:%.c=$(BUILD_DIR)/%.o)
-DEPS = $(SRC:%.c=$(BUILD_DIR)/%.d)
+OBJ = $(SRC:%.c=%.o)
 
 all: $(NAME)
 
@@ -40,14 +35,12 @@ $(NAME): $(OBJ)
 	@$(LIB) $(NAME) $(OBJ)
 	@echo "\n$(LGREEN)Create $(NAME) ✔\n$(NONE)"
 
-$(BUILD_DIR)/%.o: %.c $(INCLUDE)
-	@mkdir -p $(dir $@)
-	@$(CC) $(CFLGS) -o $@ -MMD -c $<
+%.o: %.c $(INCLUDE)
+	@$(CC) $(CFLGS) -o $@ -c $<
 	@echo "$(GREEN)File $< compiled ✔$(NONE)"
 
 clean:
 	@$(RM) $(OBJ)
-	@rm -rf $(BUILD_DIR)
 
 fclean: clean
 	@$(RM) $(NAME)
