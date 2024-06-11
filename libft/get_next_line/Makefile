@@ -6,7 +6,7 @@
 #    By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/15 11:59:53 by cgaratej          #+#    #+#              #
-#    Updated: 2024/04/15 12:00:59 by cgaratej         ###   ########.fr        #
+#    Updated: 2024/06/11 11:23:39 by cgaratej         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME=libftget_next_line.a
 CC=cc
 CFLGS=-Wall -Wextra -Werror
 LIB=ar rcs
-INCLUDE=Makefile get_next_line.h
+INCLUDE= Makefile
 RM=rm -f
 
 GREEN=\033[0;32m
@@ -24,7 +24,7 @@ NONE=\033[0m
 
 SRC= get_next_line.c get_next_line_utils.c
 
-OBJ=$(SRC:.c=.o)
+OBJ = $(SRC:%.c=%.o)
 
 all: $(NAME)
 
@@ -38,6 +38,7 @@ $(NAME): $(OBJ)
 
 clean:
 	@$(RM) $(OBJ)
+	@rm -rf $(BUILD_DIR)
 
 fclean: clean
 	@$(RM) $(NAME)

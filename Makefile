@@ -6,12 +6,9 @@
 #    By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/21 19:54:24 by xroca-pe          #+#    #+#              #
-#    Updated: 2024/06/10 16:38:47 by cgaratej         ###   ########.fr        #
+#    Updated: 2024/06/11 11:44:38 by cgaratej         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
-GNL= libft/get_next_line/libftget_next_line.a
-PRINTF= libft/ft_printf/libftprintf.a
 
 NAME = minishell
 CC = cc
@@ -21,40 +18,49 @@ INCLUDE = includes/minishell.h Makefile
 LIBRARY = -Lreadline -lreadline -lhistory -ltermcap
 LIBFT = libft/libft.a
 
-SRC = src/main.c \
-	  src/init.c \
-	  src/tokenaizer.c \
-	  src/tokenaizer2.c \
-	  src/tokenaizer3.c \
-	  src/free_data.c \
-	  src/utils.c \
-	  src/parse.c \
-	  src/expand.c
-	  
-OBJ := $(SRC:.c=.o)
+GREEN=\033[32m
+LGREEN=\033[1;92m
+ORANGE=\033[33m
+RED = \033[1;91m
+NONE=\033[0m
 
-all: $(NAME)
+SRC = src/main.c src/init.c src/tokenaizer.c src/tokenaizer2.c \
+	  src/tokenaizer3.c src/free_data.c src/utils.c \
+	  src/parse.c src/expand.c
 
-$(NAME): $(OBJ) $(LIBFT) $(INCLUDE)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT) $(GNL) $(PRINTF) $(LIBRARY)
+OBJ = $(SRC:%.c=%.o)
+DEPS = $(SRC:%.c=$.d)
+
+all: ${NAME}
+
+$(NAME): $(LIBFT) $(OBJ) $(INCLUDE)
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT) $(LIBRARY)
+	@echo "\n$(LGREEN)Create $(NAME) ✔$(NONE)\n"
 
 %.o: %.c $(INCLUDE)
-	$(CC) $(CFLAGS) -c -o $@ $<
+	@$(CC) $(CFLAGS) -c -MMD -o $@ $<
+	@echo "$(GREEN)File $< compiled ✔$(NONE)"
+
+-include $(DEPS)
 
 $(LIBFT):
-	make -C libft/
+	@echo "$(ORANGE)\nCompilando libft$(NONE)"
+	@make --no-print-directory -C libft/
 
 clean:	libft_clean
-	$(RM) $(OBJ)
+	@$(RM) $(OBJ) $(DEPS)
+	@echo "$(RED)Deleted .o files$(NONE)"
+	@echo "$(RED)Deleted .d files$(NONE)"
 
 libft_clean:
-	make clean -C libft/
+	@make --no-print-directory clean -C libft/
 
 fclean: clean libft_fclean
-	$(RM) $(NAME)
+	@$(RM) $(NAME)
+	@echo "$(RED)$(NAME) Deleted$(NONE)"
 
 libft_fclean:
-	make fclean -C libft/
+	@make --no-print-directory fclean -C libft/
 
 re: fclean all
 

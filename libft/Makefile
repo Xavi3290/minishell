@@ -12,13 +12,14 @@
 # **************************************************************************** #
 
 PRINTF_MAKE= make --no-print-directory -C ft_printf
-
-GET_NEX_LINE_MAKE= make --no-print-directory -C get_next_line
+GNL_MAKE= make --no-print-directory -C get_next_line
+GNL= get_next_line/libftget_next_line.a
+PRINTF= ft_printf/libftprintf.a
 
 NAME=libft.a
 CC=cc
 CFLAGS=-Wall -Wextra -Werror
-INCLUDE=Makefile libft.h
+INCLUDE= Makefile libft.h
 LIB=ar rcs
 RM=rm -f
 
@@ -35,15 +36,16 @@ SRC=ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c ft_strlen.c
 	ft_strjoin.c ft_strtrim.c ft_split.c ft_itoa.c ft_strmapi.c ft_striteri.c \
 	ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c 
 
-OBJ=$(SRC:.c=.o)
+OBJ = $(SRC:%.c=%.o)
 
 all: $(NAME)
 
 $(NAME): printf get_next_line $(OBJ) $(INCLUDE)
-	@$(LIB) $(NAME) $(OBJ)
-	@echo "\n$(LGREEN)Create $(NAME) ✔$(NONE)"
+	@$(LIB) $(NAME) $(OBJ) $(GNL) $(PRINTF)
+	@echo "\n$(LGREEN)Create $(NAME) ✔$(NONE)\n"
 
 %.o: %.c $(INCLUDE)
+	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -o $@ -c $<
 	@echo "$(GREEN)File $< compiled ✔$(NONE)"
 
@@ -53,17 +55,17 @@ printf:
 
 get_next_line:
 	@echo "$(ORANGE)\nCompilando get_next_line$(NONE)"
-	@$(GET_NEX_LINE_MAKE)
+	@$(GNL_MAKE)
 
 clean:
 	@$(RM) $(OBJ)
-	@$(GET_NEX_LINE_MAKE) clean
+	@$(GNL_MAKE) clean
 	@$(PRINTF_MAKE) clean
 
 fclean: clean
 	@$(RM) $(NAME)
 	@$(PRINTF_MAKE) fclean
-	@$(GET_NEX_LINE_MAKE) fclean
+	@$(GNL_MAKE) fclean
 	@echo "$(RED)$(NAME) Deleted$(NONE)"
 
 re:	fclean all

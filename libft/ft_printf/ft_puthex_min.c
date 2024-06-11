@@ -6,13 +6,13 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 16:41:32 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/04/10 11:57:09 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/06/10 22:40:54 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	ft_hex_long(char *base, long n, int len)
+static int	ft_hex_long(char *base, long unsigned n, int len)
 {
 	unsigned long	b;
 
