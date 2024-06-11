@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 16:23:12 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/06/10 17:40:50 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/06/11 12:17:03 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,12 +172,12 @@ char *expand_variable(char *str, t_shell *shell) {
 int match(const char *pattern, const char *str) {
     if (*pattern == '\0' && *str == '\0')
         return 1;
-    if (*pattern == '*' && *(pattern + 1) != '\0' && *str == '\0')
-        return 0;
-    if (*pattern == '?' || *pattern == *str)
+    if (*pattern == '*') {
+        if (match(pattern + 1, str) || (*str && match(pattern, str + 1)))
+            return 1;
+    } else if (*pattern == *str) {
         return match(pattern + 1, str + 1);
-    if (*pattern == '*')
-        return match(pattern + 1, str) || match(pattern, str + 1);
+    }
     return 0;
 }
 
@@ -203,6 +203,7 @@ static char **append_match(char **matches, int *count, const char *match) {
     return new_matches;
 }
 
+
 static char **expand_wildcards(char *pattern) {
     DIR *dir;
     struct dirent *entry;
@@ -218,13 +219,16 @@ static char **expand_wildcards(char *pattern) {
             continue;
         if (match(pattern, entry->d_name)) {
             matches = append_match(matches, &count, entry->d_name);
-            if (!matches)
+            if (!matches) {
+                closedir(dir);
                 return NULL;
+            }
         }
     }
     closedir(dir);
     return matches;
 }
+
 
 void expand_tokens(t_token **tokens, t_shell *shell) {
     t_token *current = *tokens;
