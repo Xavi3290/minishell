@@ -6,11 +6,12 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 16:23:12 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/06/11 12:17:03 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/06/11 18:04:03 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
 /*
 static char *expand_variable(char *str, t_shell *shell) {
     char *var_name;
@@ -129,17 +130,22 @@ static char *get_env_value(char *name, t_shell *shell) {
     while (shell->env[i]) {
         env_name = shell->env[i];
         if (ft_strncmp(env_name, name, name_len) == 0 && env_name[name_len] == '=')
-            return ft_strdup(env_name + name_len + 1);
+            return (ft_strdup(env_name + name_len + 1));
         i++;
     }
-    return ft_strdup(""); // If not found, return an empty string
+    return (ft_strdup(""));
 }
 
 char *expand_variable(char *str, t_shell *shell) {
-    char *expanded = ft_strdup("");
-    char *tmp, *env_value;
-    int i = 0, j;
+    char *expanded;
+    char *tmp;
+    char *env_value;
+    char *joined;
+    int i; 
+    int j;
 
+    i = 0;
+    expanded = ft_strdup("");
     while (str[i]) {
         if (str[i] == '$') {
             i++;
@@ -151,6 +157,7 @@ char *expand_variable(char *str, t_shell *shell) {
             free(tmp);
             tmp = expanded;
             expanded = ft_strjoin(expanded, env_value);
+            
             free(tmp);
             free(env_value);
             i = j;
@@ -159,13 +166,13 @@ char *expand_variable(char *str, t_shell *shell) {
             while (str[i] && str[i] != '$')
                 i++;
             tmp = ft_substr(str, j, i - j);
-            char *joined = ft_strjoin(expanded, tmp);
+            joined = ft_strjoin(expanded, tmp);
             free(expanded);
             expanded = joined;
             free(tmp);
         }
     }
-    return expanded;
+    return (expanded);
 }
 
 
@@ -230,6 +237,8 @@ static char **expand_wildcards(char *pattern) {
 }
 
 
+
+
 void expand_tokens(t_token **tokens, t_shell *shell) {
     t_token *current = *tokens;
     t_token *prev = NULL;
@@ -282,7 +291,7 @@ t_token *tokenize_and_expand(char *line, t_shell *shell) {
     if (!tokens)
         return NULL;
     expand_tokens(&tokens, shell);
-    return tokens;
+    return (tokens);
 }
 
 
