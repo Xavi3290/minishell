@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:37:33 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/06/07 16:28:11 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/06/12 17:05:53 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,16 @@ static char	**copy_env(char **env)
 	return (new_env);
 }
 
+static int num_env(char **env)
+{
+	int		i;
+
+	i = 0;
+	while (env[i])
+		i++;
+	return (i);
+}
+
 t_shell	*init_shell(char **env)
 {
 	t_shell	*shell;
@@ -48,6 +58,7 @@ t_shell	*init_shell(char **env)
 	shell->env = copy_env(env);
 	if (!shell->env)
 		return (NULL);
+	shell->env_num = num_env(env);
 	shell->commands = NULL;
 	shell->line = NULL;
 	shell->last_exit_status = 0;

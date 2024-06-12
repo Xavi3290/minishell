@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 20:02:49 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/06/10 14:33:03 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/06/12 17:15:03 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ typedef struct s_command
 typedef struct s_shell
 {
 	char				**env;
+	int					env_num;
 	t_command			*commands;
 	char				*line;
 	int					last_exit_status;
@@ -112,7 +113,7 @@ void					*ft_realloc(void *ptr, size_t original_size,
 void					handle_error(char *message, t_shell *shell);
 int						ft_strcmp(const char *s1, const char *s2);
 
-
+int ft_env(t_token *cmd, t_shell *shell);
 
 t_token *tokenize_and_expand(char *line, t_shell *shell);
 

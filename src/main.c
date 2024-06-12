@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/06/10 15:19:40 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/06/12 17:16:20 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	main(int argc, char **argv, char **env)
 		shell->line = readline("minishell: ");
 		if (shell->line[0])
 		{
+			//printf("%d", shell->env_num);
 			tokens = tokenize(shell->line, shell);
 			//tokens = tokenize_and_expand(shell->line, shell);
 			if (!tokens)
@@ -81,7 +82,8 @@ int	main(int argc, char **argv, char **env)
 			temp = tokens;
 			while (temp)
 			{
-				printf("Token: Type=%d, Value=%s\n", temp->type, temp->value);
+				if (!ft_env(temp, shell))
+					printf("Token: Type=%d, Value=%s\n", temp->type, temp->value);
 				temp = temp->next;
 			}
 			//parse_tokens(tokens, shell);
