@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 19:19:21 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/06/07 16:28:40 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/06/12 13:40:14 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,6 @@ int	handle_end_quotes(int *i, char *line, t_shell *shell, char c)
 	{
 		handle_error("syntax error: unmatched '", shell);
 		return (0);
-	}
-	count = 0;
-	while (line[*i] == c)
-	{
-		count++;
-		(*i)++;
 	}
 	return (count);
 }
