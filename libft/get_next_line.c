@@ -6,11 +6,11 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 19:01:13 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/04/17 14:54:38 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/06/12 13:18:06 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "libft.h"
 
 static char	*ft_read_line(char *str)
 {

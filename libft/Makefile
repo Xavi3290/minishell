@@ -11,11 +11,6 @@
 #                                                                              #
 # **************************************************************************** #
 
-PRINTF_MAKE= make --no-print-directory -C ft_printf
-GNL_MAKE= make --no-print-directory -C get_next_line
-GNL= get_next_line/libftget_next_line.a
-PRINTF= ft_printf/libftprintf.a
-
 NAME=libft.a
 CC=cc
 CFLAGS=-Wall -Wextra -Werror
@@ -34,40 +29,28 @@ SRC=ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c ft_strlen.c
 	ft_toupper.c ft_tolower.c ft_strchr.c ft_strrchr.c ft_strncmp.c ft_memchr.c \
 	ft_memcmp.c ft_strnstr.c ft_atoi.c ft_calloc.c ft_strdup.c ft_substr.c \
 	ft_strjoin.c ft_strtrim.c ft_split.c ft_itoa.c ft_strmapi.c ft_striteri.c \
-	ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c 
+	ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c \
+	get_next_line.c get_next_line_utils.c
 
 OBJ = $(SRC:%.c=%.o)
 
 all: $(NAME)
 
-$(NAME): printf get_next_line $(OBJ) $(INCLUDE)
+$(NAME): $(OBJ) $(INCLUDE)
 	@$(LIB) $(NAME) $(OBJ) $(GNL) $(PRINTF)
 	@echo "\n$(LGREEN)Create $(NAME) ✔$(NONE)\n"
 
 %.o: %.c $(INCLUDE)
-	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -o $@ -c $<
 	@echo "$(GREEN)File $< compiled ✔$(NONE)"
 
-printf:
-	@echo "$(ORANGE)\nCompilando ft_printf$(NONE)"
-	@$(PRINTF_MAKE)
-
-get_next_line:
-	@echo "$(ORANGE)\nCompilando get_next_line$(NONE)"
-	@$(GNL_MAKE)
-
 clean:
 	@$(RM) $(OBJ)
-	@$(GNL_MAKE) clean
-	@$(PRINTF_MAKE) clean
 
 fclean: clean
 	@$(RM) $(NAME)
-	@$(PRINTF_MAKE) fclean
-	@$(GNL_MAKE) fclean
 	@echo "$(RED)$(NAME) Deleted$(NONE)"
 
 re:	fclean all
 
-.PHONY: all clean fclean re printf get_next_line
+.PHONY: all clean fclean re

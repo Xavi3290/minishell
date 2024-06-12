@@ -6,7 +6,7 @@
 #    By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/21 19:54:24 by xroca-pe          #+#    #+#              #
-#    Updated: 2024/06/11 11:44:38 by cgaratej         ###   ########.fr        #
+#    Updated: 2024/06/12 13:20:30 by cgaratej         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ RM = rm -f
 INCLUDE = includes/minishell.h Makefile
 LIBRARY = -Lreadline -lreadline -lhistory -ltermcap
 LIBFT = libft/libft.a
+LIBFT_MAKE = make --no-print-directory -C libft/
 
 GREEN=\033[32m
 LGREEN=\033[1;92m
@@ -33,7 +34,7 @@ DEPS = $(SRC:%.c=$.d)
 
 all: ${NAME}
 
-$(NAME): $(LIBFT) $(OBJ) $(INCLUDE)
+$(NAME): libft $(OBJ) $(INCLUDE)
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT) $(LIBRARY)
 	@echo "\n$(LGREEN)Create $(NAME) ✔$(NONE)\n"
 
@@ -43,25 +44,23 @@ $(NAME): $(LIBFT) $(OBJ) $(INCLUDE)
 
 -include $(DEPS)
 
-$(LIBFT):
+libft:
 	@echo "$(ORANGE)\nCompilando libft$(NONE)"
-	@make --no-print-directory -C libft/
+	@$(LIBFT_MAKE)
 
-clean:	libft_clean
-	@$(RM) $(OBJ) $(DEPS)
+clean:
+	@$(RM) $(OBJ)
+	@$(RM) src/*.d
+	@$(LIBFT_MAKE) clean
 	@echo "$(RED)Deleted .o files$(NONE)"
 	@echo "$(RED)Deleted .d files$(NONE)"
 
-libft_clean:
-	@make --no-print-directory clean -C libft/
 
-fclean: clean libft_fclean
+fclean: clean
 	@$(RM) $(NAME)
+	@$(LIBFT_MAKE) fclean
 	@echo "$(RED)$(NAME) Deleted$(NONE)"
-
-libft_fclean:
-	@make --no-print-directory fclean -C libft/
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re libft

@@ -6,11 +6,11 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 19:06:31 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/04/24 16:45:49 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/06/12 13:18:11 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "libft.h"
 #include <stdio.h>
 
 int	ft_strlen_gnl(const char *str)
