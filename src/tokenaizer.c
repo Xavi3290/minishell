@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:05:46 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/06/12 13:40:08 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:47:31 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,18 @@ static t_token	*handle_single_quotes(char *line, int *i, t_shell *shell)
 {
 	int		start;
 	char	*value;
-	int		count;
-
-	count = handle_end_quotes(i, line, shell, '\'');
-	if (!count)
-		return (NULL);
+	
 	(*i)++;
 	start = (*i);
-	if (line[*i] == '"')
+	if (line[*i] == '\'')
 		return (new_token(SINGLE_QUOTES, ft_strdup("\0")));
 	while (line[*i] && line[*i] != '\'')
 		(*i)++;
+	if (line[*i] == '\0')
+	{
+		handle_error("syntax error: unmatched '", shell);
+		return (NULL);
+	}
 	value = ft_strndup(&line[start], *i - start);
 	if (!value)
 		handle_error(NULL, NULL);
@@ -37,17 +38,18 @@ static t_token	*handle_double_quotes(char *line, int *i, t_shell *shell)
 {
 	int		start;
 	char	*value;
-	int		count;
-
-	count = handle_end_quotes(i, line, shell, '"');
-	if (!count)
-		return (NULL);
+	
 	(*i)++;
 	start = (*i);
 	if (line[*i] == '"')
 		return (new_token(DOUBLE_QUOTES, ft_strdup("\0")));
 	while (line[*i] && line[*i] != '"')
-		(*i)++;	
+		(*i)++;
+	if (line[*i] == '\0')
+	{
+		handle_error("syntax error: unmatched '", shell);
+		return (NULL);
+	}
 	value = ft_strndup(&line[start], *i - start);
 	if (!value)
 		handle_error(NULL, NULL);

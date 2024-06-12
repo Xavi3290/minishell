@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 19:19:21 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/06/12 13:40:14 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/06/12 19:47:45 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,27 +33,6 @@ t_token	*handle_word(char *line, int *i)
 	token = new_token(WORD, value);
 	(*i)--;
 	return (token);
-}
-
-int	handle_end_quotes(int *i, char *line, t_shell *shell, char c)
-{
-	int	j;
-	int	count;
-
-	j = *i;
-	count = 0;
-	while (line[j])
-	{
-		if (line[j] == c)
-			count++;
-		j++;
-	}
-	if (count % 2 != 0)
-	{
-		handle_error("syntax error: unmatched '", shell);
-		return (0);
-	}
-	return (count);
 }
 
 t_token	*handle_left_parentheses(char *line, int *i, t_shell *shell)
