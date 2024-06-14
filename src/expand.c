@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 16:23:12 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/06/11 18:04:03 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/06/14 18:13:58 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,37 @@ t_token *tokenize_and_expand(char *line, t_shell *shell) {
 */
 
 
+
+
+
+
+static char *handle_dollar_signs(char *str, int i) {
+    int dollar_count = 0;
+    char *dollar_str;
+    char *dup;
+    
+
+    while (str[i] == '$') {
+        dollar_count++;
+        i++;
+    }
+
+    if (dollar_count > 1) {
+        dollar_str = malloc(dollar_count);
+        if (!dollar_str)
+            return (NULL);
+        memset(dollar_str, '$', dollar_count - 1);
+        dollar_str[dollar_count - 1] = '\0';
+        //return (ft_strdup(dollar_str));
+        //add_token(tokens_list, new_token(WORD, ft_strdup(dollar_str)));
+        //free(dollar_str);
+        dup = ft_strdup(dollar_str);
+        return (dup);
+    }
+    return (ft_strdup(""));
+}
+
+
 static char *get_env_value(char *name, t_shell *shell) {
     int i;
     char *env_name;
@@ -136,6 +167,13 @@ static char *get_env_value(char *name, t_shell *shell) {
     return (ft_strdup(""));
 }
 
+static char *expand_special_variable(char *var, t_shell *shell) {
+    if (ft_strcmp(var, "?") == 0) {
+        return ft_itoa(shell->last_exit_status);
+    }
+    return get_env_value(var, shell);
+}
+
 char *expand_variable(char *str, t_shell *shell) {
     char *expanded;
     char *tmp;
@@ -145,11 +183,23 @@ char *expand_variable(char *str, t_shell *shell) {
     int j;
 
     i = 0;
-    expanded = ft_strdup("");
+    expanded = handle_dollar_signs(str, i);
+
+    //expanded = ft_strdup("");
     while (str[i]) {
         if (str[i] == '$') {
             i++;
             j = i;
+            if (str[j] == '?')
+            {
+                env_value = expand_special_variable("?", shell);
+                tmp = expanded;
+                expanded = ft_strjoin(expanded, env_value);
+                free(tmp);
+                free(env_value);
+                i++;
+                continue;
+            }
             while (str[j] && (ft_isalnum(str[j]) || str[j] == '_'))
                 j++;
             tmp = ft_substr(str, i, j - i);
@@ -284,6 +334,18 @@ void expand_tokens(t_token **tokens, t_shell *shell) {
         current = current->next;
     }
 }
+
+
+
+
+
+
+
+
+/*TESTS*/
+
+
+
 
 
 t_token *tokenize_and_expand(char *line, t_shell *shell) {
