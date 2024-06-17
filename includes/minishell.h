@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 20:02:49 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/06/12 17:15:03 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/06/17 19:05:16 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/wait.h>
+# include <sys/param.h>
 # include <unistd.h>
 # include <dirent.h>
 
@@ -114,6 +115,7 @@ void					handle_error(char *message, t_shell *shell);
 int						ft_strcmp(const char *s1, const char *s2);
 
 int ft_env(t_token *cmd, t_shell *shell);
+int	ft_pwd(void);
 
 t_token *tokenize_and_expand(char *line, t_shell *shell);
 

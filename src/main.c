@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/06/17 17:52:12 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/06/17 19:04:56 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int	main(int argc, char **argv, char **env)
 {
 	t_shell	*shell;
 	t_token	*tokens;
-	
 
 	(void)argc;
 	(void)argv;
@@ -82,7 +81,12 @@ int	main(int argc, char **argv, char **env)
 			while (temp)
 			{
 				if (!ft_env(temp, shell))
-					printf("Token: Type=%d, Value=%s\n", temp->type, temp->value);
+				{
+					if (!ft_strcmp(temp->value, "pwd"))
+						ft_pwd();
+					else
+						printf("Token: Type=%d, Value=%s\n", temp->type, temp->value);
+				}
 				temp = temp->next;
 			}
 			//parse_tokens(tokens, shell);

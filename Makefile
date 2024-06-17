@@ -6,7 +6,7 @@
 #    By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/21 19:54:24 by xroca-pe          #+#    #+#              #
-#    Updated: 2024/06/12 16:20:10 by cgaratej         ###   ########.fr        #
+#    Updated: 2024/06/17 19:05:42 by cgaratej         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ NONE=\033[0m
 
 SRC = src/main.c src/init.c src/tokenaizer.c src/tokenaizer2.c \
 	  src/tokenaizer3.c src/free_data.c src/utils.c \
-	  src/parse.c src/expand.c src/built-ins/env.c
+	  src/parse.c src/expand.c src/built-ins/ft_env.c src/built-ins/ft_pwd.c
 
 OBJ = $(SRC:%.c=%.o)
 DEPS = $(SRC:%.c=$.d)
@@ -50,7 +50,7 @@ libft:
 
 clean:
 	@$(RM) $(OBJ)
-	@$(RM) src/*.d
+	@$(RM) src/*/*.d src/*.d
 	@$(LIBFT_MAKE) clean
 	@echo "$(RED)Deleted .o files$(NONE)"
 	@echo "$(RED)Deleted .d files$(NONE)"
