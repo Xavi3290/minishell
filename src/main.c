@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/06/12 17:16:20 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/06/17 17:52:12 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,8 @@ int	main(int argc, char **argv, char **env)
 		shell->line = readline("minishell: ");
 		if (shell->line[0])
 		{
-			//printf("%d", shell->env_num);
-			tokens = tokenize(shell->line, shell);
-			//tokens = tokenize_and_expand(shell->line, shell);
+			//tokens = tokenize(shell->line, shell);
+			tokens = tokenize_and_expand(shell->line, shell);
 			if (!tokens)
 			{
 				free(shell->line);
