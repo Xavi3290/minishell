@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 12:11:45 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/06/18 17:53:54 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/06/19 14:56:37 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*remove_qutes(char *str)
 	tmp = ft_calloc(sizeof(char), ft_strlen(str) + 1);
 	if (!tmp)
 		return(NULL);
-	while (str[i])
+	while (str[++i])
 	{
 		if (str[i] == 34 && simples != -1)
 				doubles = -doubles;

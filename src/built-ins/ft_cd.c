@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 17:14:06 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/06/18 18:03:30 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/06/19 15:08:30 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	pwd_value(char *path_actual, t_shell *shell, int flag)
 	char 	*tmp;
 
 	i = -1;
+	path_actual = actual_path();
 	while (++i < shell->env_num)
 	{
 		if (!flag && shell->env[i] && !ft_strncmp(shell->env[i], "OLDPWD", 6))
@@ -29,7 +30,7 @@ void	pwd_value(char *path_actual, t_shell *shell, int flag)
 		else if (flag && shell->env[i] && !ft_strncmp(shell->env[i], "PWD", 3))
 		{
 			tmp = ft_strjoin("PWD=", path_actual);
-			free(shell->env[i]);	
+			free(shell->env[i]);
 			shell->env[i] = tmp;
 		}
 	}
@@ -40,11 +41,9 @@ int	ft_cd(t_shell **shell)
 {
 	int		i;
 	char	*tmp;
-	char 	*path_actual;
 
 	i = 0;
-	path_actual = actual_path();
-	pwd_value(path_actual, (*shell), 0);
+	pwd_value(NULL, (*shell), 0);
 	if ((*shell)->commands->num_args == 0)
 	{
 		chdir(getenv("HOME"));
@@ -58,7 +57,7 @@ int	ft_cd(t_shell **shell)
 	else
 	{
 		free(tmp);
-		pwd_value(path_actual, (*shell), 1);
+		pwd_value(NULL, (*shell), 1);
 		return (0);
 	}
 	free(tmp);
