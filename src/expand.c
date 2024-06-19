@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 16:23:12 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/06/14 18:13:58 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/06/19 13:06:35 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -287,24 +287,59 @@ static char **expand_wildcards(char *pattern) {
 }
 
 
+void insert_tokens(t_token **tokens, t_token *new_tokens, t_token *prev, t_token *current) {
+    t_token *last_new;
+
+    if (!new_tokens)
+        return;
+
+    last_new = new_tokens;
+    while (last_new->next)
+        last_new = last_new->next;
+
+    if (prev)
+        prev->next = new_tokens;
+    else
+        *tokens = new_tokens;
+
+    last_new->next = current->next;
+    free(current->value);
+    free(current);
+}
 
 
 void expand_tokens(t_token **tokens, t_shell *shell) {
     t_token *current = *tokens;
     t_token *prev = NULL;
     t_token *new_tok;
+    t_token *new_tokens;
     char **expansions;
+    
     int i;
     char *expanded;
 
     while (current) {
-        if ((current->type == WORD || current->type == DOUBLE_QUOTES) && ft_strchr(current->value, '$')) {
+        if (current->type == WORD && ft_strchr(current->value, '$')) {
             expanded = expand_variable(current->value, shell);
             if (expanded) {
+                new_tokens = tokenize(expanded, shell);
+                insert_tokens(tokens, new_tokens, prev, current);
+                if (prev)
+                    current = prev->next;
+                else
+                    current = *tokens;
+                continue;
+            }
+        }else if (current->type == DOUBLE_QUOTES && ft_strchr(current->value, '$'))
+        {
+            expanded = expand_variable(current->value, shell);
+            if (expanded)
+            {
                 free(current->value);
                 current->value = expanded;
             }
-        } else if (current->type == WORD && ft_strchr(current->value, '*')) {
+        }        
+        else if (current->type == WORD && ft_strchr(current->value, '*')) {
             expansions = expand_wildcards(current->value);
             if (expansions) {
                 i = 0;
