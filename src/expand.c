@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 16:23:12 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/06/19 13:06:35 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/06/19 15:42:45 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -287,6 +287,56 @@ static char **expand_wildcards(char *pattern) {
 }
 
 
+
+/*
+// Función auxiliar para comparar un patrón con un nombre de archivo
+int match_pattern(const char *pattern, const char *filename) {
+    while (*pattern && *filename) {
+        if (*pattern == '*') {
+            pattern++;
+            while (*filename && *filename != *pattern) {
+                filename++;
+            }
+        } else if (*pattern == *filename) {
+            pattern++;
+            filename++;
+        } else {
+            return 0;
+        }
+    }
+    return (*pattern == '\0' && *filename == '\0');
+}
+
+// Función para expandir wildcards en el directorio actual
+char **expand_wildcards(const char *pattern) {
+    DIR *dir;
+    struct dirent *entry;
+    char **matches = NULL;
+    int count = 0;
+
+    dir = opendir(".");
+    if (!dir) {
+        perror("opendir");
+        return NULL;
+    }
+
+    while ((entry = readdir(dir)) != NULL) {
+        if (match_pattern(pattern, entry->d_name)) {
+            matches = ft_realloc(matches, sizeof(char *) * (count + 2));
+            matches[count] = ft_strdup(entry->d_name);
+            count++;
+        }
+    }
+    closedir(dir);
+
+    if (matches) {
+        matches[count] = NULL;
+    }
+    return matches;
+}
+
+*/
+
 void insert_tokens(t_token **tokens, t_token *new_tokens, t_token *prev, t_token *current) {
     t_token *last_new;
 
@@ -321,7 +371,7 @@ void expand_tokens(t_token **tokens, t_shell *shell) {
     while (current) {
         if (current->type == WORD && ft_strchr(current->value, '$')) {
             expanded = expand_variable(current->value, shell);
-            if (expanded) {
+            if (expanded && expanded[0] != '\0') {
                 new_tokens = tokenize(expanded, shell);
                 insert_tokens(tokens, new_tokens, prev, current);
                 if (prev)
