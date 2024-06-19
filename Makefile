@@ -6,7 +6,7 @@
 #    By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/21 19:54:24 by xroca-pe          #+#    #+#              #
-#    Updated: 2024/06/17 19:05:42 by cgaratej         ###   ########.fr        #
+#    Updated: 2024/06/18 17:54:39 by cgaratej         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,9 +26,10 @@ RED = \033[1;91m
 NONE=\033[0m
 
 SRC = src/main.c src/init.c src/tokenaizer.c src/tokenaizer2.c \
-	  src/tokenaizer3.c src/free_data.c src/utils.c \
-	  src/parse.c src/expand.c src/built-ins/ft_env.c src/built-ins/ft_pwd.c
-
+	  src/tokenaizer3.c src/free_data.c src/utils.c src/utils2.c \
+	  src/parse.c src/expand.c src/built-ins/ft_env.c src/built-ins/ft_pwd.c \
+	  src/built-ins/ft_cd.c
+	  
 OBJ = $(SRC:%.c=%.o)
 DEPS = $(SRC:%.c=$.d)
 

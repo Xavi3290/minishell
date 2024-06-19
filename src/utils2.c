@@ -1,32 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/12 16:13:38 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/06/18 17:13:34 by cgaratej         ###   ########.fr       */
+/*   Created: 2024/06/18 12:11:45 by cgaratej          #+#    #+#             */
+/*   Updated: 2024/06/19 14:56:37 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../includes/minishell.h"
 
-int ft_env(t_token *cmd, t_shell *shell)
+char	*remove_qutes(char *str)
 {
+	char	*tmp;
+	int	j;
 	int i;
+	int doubles;
+	int simples;
 
-	i = 0;
-	if (!ft_strcmp(cmd->value, "env"))
+	i = -1;
+	j = -1;
+	doubles = 1;
+	simples = 1;
+	tmp = ft_calloc(sizeof(char), ft_strlen(str) + 1);
+	if (!tmp)
+		return(NULL);
+	while (str[++i])
 	{
-		while (i < shell->env_num)
-		{
-			if (shell->env[i] != NULL)
-				printf("%s\n", shell->env[i]);
-			i++;
-		}
-		return(1);
+		if (str[i] == 34 && simples != -1)
+				doubles = -doubles;
+		else if (str[i] == 39 && doubles != -1)
+			simples = -simples;
+		else
+			tmp[++j] = str[i];
 	}
-	else
-		return (0);
+	return (tmp);
 }
