@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/06/19 15:10:10 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/06/19 16:23:31 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	main(int argc, char **argv, char **env)
 	}
 	while (42)
 	{
-		shell->line = readline("minishell: ");
+		shell->line = readline("mini🐚: ");
 		if (shell->line[0])
 		{
 			//tokens = tokenize(shell->line, shell);

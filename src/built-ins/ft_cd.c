@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 17:14:06 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/06/19 15:08:30 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/06/19 16:24:52 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	ft_cd(t_shell **shell)
 		chdir(getenv("HOME"));
 		return (0);
 	}
-	tmp = remove_qutes((*shell)->commands->args[0]);
+	tmp = (*shell)->commands->args[0];
 	if (!ft_strncmp(tmp, "~", 1))
 		chdir(getenv("OLDPWD"));
 	else if (chdir(tmp) == -1)
