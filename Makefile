@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+         #
+#    By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/21 19:54:24 by xroca-pe          #+#    #+#              #
-#    Updated: 2024/06/20 13:22:16 by cgaratej         ###   ########.fr        #
+#    Updated: 2024/06/20 17:09:34 by xroca-pe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ NONE=\033[0m
 SRC = src/main.c src/init.c src/tokenaizer.c src/tokenaizer2.c \
 	  src/tokenaizer3.c src/free_data.c src/utils.c \
 	  src/parse.c src/expand.c src/built-ins/ft_env.c src/built-ins/ft_pwd.c \
-	  src/built-ins/ft_cd.c
+	  src/built-ins/ft_cd.c src/expand2.c src/expand3.c src/expand4.c src/error_manager.c
 	  
 OBJ = $(SRC:%.c=%.o)
 DEPS = $(SRC:%.c=$.d)

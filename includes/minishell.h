@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
+/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 20:02:49 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/06/20 15:32:03 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/06/20 17:06:46 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,13 @@ void	put_error(char *bash, char *file, char *error);
 t_token	*tokenize_and_expand(char *line, t_shell *shell);
 
 //void 					parse_tokens(t_token *tokens, t_shell *shell);
+
+char	*handle_dollar_signs(char *str, int i);
+char	*expand_variable(char *str, t_shell *shell);
+char	**expand_wildcards(const char *pattern, t_shell *shell);
+t_token	*strings_to_tokens(char **strings);
+void	insert_tokens(t_token **tokens, t_token *new_tokens, t_token *prev,
+		t_token *current);
+
 
 #endif
