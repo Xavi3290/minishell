@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/06/19 16:23:31 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/06/20 13:19:08 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,16 +80,16 @@ int	main(int argc, char **argv, char **env)
 			temp = tokens;
 			while (temp)
 			{
-				if (!ft_strcmp(temp->value, "cd"))
+				/*if (!ft_strcmp(temp->value, "cd"))
 				{
 					shell->commands = malloc(sizeof(t_command));
 					shell->commands->args = malloc(sizeof(char *) * 1000);
 					shell->commands->num_args = 1;
-					shell->commands->args[0] = ft_strdup("src");
+					shell->commands->args[0] = ft_strdup("~");
 					if (ft_cd(&shell) == -1)
 						printf("Error\n");
 					free(shell->commands->args);
-				}
+				}*/
 				if (!ft_env(temp, shell))
 				{
 					if (!ft_strcmp(temp->value, "pwd"))
@@ -99,6 +99,7 @@ int	main(int argc, char **argv, char **env)
 				}
 				temp = temp->next;
 			}
+			handle_error("hola", shell);
 			//parse_tokens(tokens, shell);
 			//print_commands(shell->commands);
 			/*t_token	*temp;

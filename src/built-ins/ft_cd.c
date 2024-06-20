@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 17:14:06 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/06/19 16:24:52 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/06/20 16:10:26 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	pwd_value(char *path_actual, t_shell *shell, int flag)
 {
 	int		i;
-	char 	*tmp;
+	char	*tmp;
 
 	i = -1;
 	path_actual = actual_path();
