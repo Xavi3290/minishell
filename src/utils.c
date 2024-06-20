@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 15:05:55 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/06/12 13:40:25 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/06/20 15:30:56 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,22 +45,10 @@ void	*ft_realloc(void *ptr, size_t original_size, size_t new_size)
 		return (NULL);
 	if (ptr)
 	{
-		ft_memcpy(new_ptr, ptr, original_size);
+		ft_memcpy(new_ptr, ptr, original_size);		
 		free(ptr);
 	}
 	return (new_ptr);
-}
-
-void	handle_error(char *message, t_shell *shell)
-{
-	if (message)
-		printf("minishell: %s: %s\n", message, strerror(errno));
-	else
-	{
-		perror("minishell");
-		exit(errno);
-	}
-	shell->last_exit_status = errno;
 }
 
 int	ft_strcmp(const char *s1, const char *s2)

@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 20:02:49 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/06/19 16:24:23 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/06/20 15:32:03 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int		ft_env(t_token *cmd, t_shell *shell);
 int		ft_pwd(void);
 char	*actual_path(void);
 int		ft_cd(t_shell **shell);
+void	put_error(char *bash, char *file, char *error);
 //int 	ft_export(t_command *cmd, t_shell *shell);
 
 t_token	*tokenize_and_expand(char *line, t_shell *shell);
