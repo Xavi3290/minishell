@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 17:14:06 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/06/20 16:10:26 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/06/21 11:59:05 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,8 @@ void	pwd_value(char *path_actual, t_shell *shell, int flag)
 
 int	ft_cd(t_shell **shell)
 {
-	int		i;
 	char	*tmp;
 
-	i = 0;
 	pwd_value(NULL, (*shell), 0);
 	if ((*shell)->commands->num_args == 0)
 	{
