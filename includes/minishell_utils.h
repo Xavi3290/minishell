@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_utils.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
+/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:18:30 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/06/18 15:25:25 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/06/21 17:52:30 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,16 @@ typedef struct s_token
 	char			*value;
 	struct s_token	*next;
 }	t_token;
+
+typedef struct s_syntax_state
+{
+    int last_was_operator;
+    int last_was_pipe;
+    int last_was_redirect;
+    int last_was_logical; // Para manejar && y ||
+    int paren_count;
+    int in_parentheses;
+} t_syntax_state;
 
 /*typedef struct s_command
 {
