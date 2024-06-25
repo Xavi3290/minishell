@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:18:30 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/06/18 15:25:25 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/06/25 12:38:39 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_token
 
 typedef struct s_command
 {
+	char		*cmd;			 // Comando
     char		**args;          // Argumentos del comando
     int			num_args;        // Numeros de argumentos del comando
     char		**input_files;   // Archivos de input para redirección
