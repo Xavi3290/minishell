@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 20:02:49 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/06/26 13:03:08 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/06/26 14:52:27 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,7 @@ t_token	*strings_to_tokens(char **strings);
 void	insert_tokens(t_token **tokens, t_token *new_tokens, t_token *prev,
 		t_token *current);
 
+
+int check_syntax(t_token *tokens, t_shell *shell);
 
 #endif

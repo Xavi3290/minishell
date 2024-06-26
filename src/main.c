@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/06/26 13:53:11 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/06/26 14:52:38 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,17 @@ int	main(int argc, char **argv, char **env)
 			if (!tokens)
 			{
 				free(shell->line);
-				handle_error("Tokenization failed", shell);
+				shell->line = NULL;	
+				//handle_error("Tokenization failed", shell);
 				continue ;
 			}
+			if (!check_syntax(tokens, shell))
+            {
+                free_tokens(tokens);
+                free(shell->line);
+                shell->line = NULL;
+                continue;
+            }
 			add_history(shell->line);
 			t_token	*temp;
 			temp = tokens;

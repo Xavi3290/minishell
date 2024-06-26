@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:18:30 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/06/26 13:58:13 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/06/26 14:52:09 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,18 @@ typedef struct s_token
 	char			*value;
 	struct s_token	*next;
 }	t_token;
+
+typedef struct s_syntax_state
+{
+    int last_was_operator;
+    int last_was_pipe;
+    int last_was_redirect;
+    int last_was_logical;
+    int paren_count;
+    int in_parentheses;
+    int paren_opened;
+    int last_was_word;
+} t_syntax_state;
 
 /*typedef struct s_command
 {
