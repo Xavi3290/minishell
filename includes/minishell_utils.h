@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:18:30 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/06/26 14:55:00 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/06/26 14:55:17 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ typedef struct s_syntax_state
 
 typedef struct s_command
 {
-	char		cmd;
+	char		*cmd;
     char		**args;          // Argumentos del comando
     int			num_args;        // Numeros de argumentos del comando
     char		**input_files;   // Archivos de input para redirección
