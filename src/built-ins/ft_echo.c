@@ -6,21 +6,24 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 12:33:14 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/06/25 14:43:06 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/06/26 13:24:15 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	put_str_special(char *str)
+int is_flag(char *str)
 {
 	int i;
-
+	
 	i = 0;
-	while (str[i] != ';')
-	{
-		printf("%c", str[i]);
-	}	
+	if (str[i++] != '-')
+		return (0);
+	while (str[i] == 'n')
+		i++;
+	if (str[i])
+		return (0);
+	return (1);
 }
 
 int	ft_echo(t_command **command)
@@ -32,15 +35,17 @@ int	ft_echo(t_command **command)
 		return (0);
 	n = 1;
 	i = 0;
-	while ((*command)->args[i] && is_flag((*command)->args[i]))
+	if ((*command)->args[i] && is_flag((*command)->args[i]))
 	{
 		n = 0;
 		i++;
 	}
-	while ((*command)->args[i])
+	while (i < (*command)->num_args)
 	{
-		put_str_special((*command)->args[i]);
+		printf("%s", (*command)->args[i]);
+		//free((*command)->args[i]);
 		i++;
+		//printf("\naqui %s\n", (*command)->args[i]);
 	}
 	if (n)
 		printf("\n");

@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/06/21 14:42:15 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/06/26 13:53:11 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,15 @@ int	main(int argc, char **argv, char **env)
 			temp = tokens;
 			while (temp)
 			{
-				/*if (!ft_strcmp(temp->value, "exit"))
+				/*if (!ft_strcmp(temp->value, "echo"))
 				{
 					shell->commands = malloc(sizeof(t_command));
 					shell->commands->args = malloc(sizeof(char *) * 1000);
-					shell->commands->num_args = 1;
-					shell->commands->args[0] = "55";
-					shell->commands->args[1] = NULL;
-					ft_exit(shell);
+					shell->commands->num_args = 2;
+					shell->commands->args[0] = "-nnnn";
+					shell->commands->args[1] = "hola mundo";
+					shell->commands->args[3] = NULL;
+					ft_echo(&shell->commands);
 				}*/
 				if (!ft_env(temp, shell))
 				{
@@ -109,7 +110,7 @@ int	main(int argc, char **argv, char **env)
 			}*/
 			
 			// Parse the tokens into commands
-			// Execute the commands
+			// Execute the commandss
 			// Free the commands
 			shell->parentheses = 0;
 			free_tokens(tokens);
