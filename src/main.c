@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/06/26 14:52:38 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/06/27 17:44:41 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,23 +88,23 @@ int	main(int argc, char **argv, char **env)
 			temp = tokens;
 			while (temp)
 			{
-				/*if (!ft_strcmp(temp->value, "echo"))
+				if (!ft_strcmp(temp->value, "export"))
 				{
 					shell->commands = malloc(sizeof(t_command));
 					shell->commands->args = malloc(sizeof(char *) * 1000);
-					shell->commands->num_args = 2;
-					shell->commands->args[0] = "-nnnn";
-					shell->commands->args[1] = "hola mundo";
+					shell->commands->num_args = 3;
+					shell->commands->args[0] = "export";
+					shell->commands->args[1] = "hola=tmp";
+					shell->commands->args[2] = "hola=vege"; 
 					shell->commands->args[3] = NULL;
-					ft_echo(&shell->commands);
-				}*/
-				if (!ft_env(temp, shell))
-				{
-					if (!ft_strcmp(temp->value, "pwd"))
-						ft_pwd();
-					else
-						printf("Token: Type=%d, Value=%s\n", temp->type, temp->value);
+					ft_export(shell->commands, shell);
 				}
+				else if (!ft_strcmp(temp->value, "env"))
+					ft_env(shell);
+				else if (!ft_strcmp(temp->value, "pwd"))
+					ft_pwd();
+				else
+						printf("Token: Type=%d, Value=%s\n", temp->type, temp->value);
 				temp = temp->next;
 			}
 			//parse_tokens(tokens, shell);

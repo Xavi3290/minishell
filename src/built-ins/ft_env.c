@@ -6,27 +6,24 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:13:38 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/06/18 17:13:34 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/06/27 15:49:17 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int ft_env(t_token *cmd, t_shell *shell)
+int	ft_env(t_shell *shell)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	if (!ft_strcmp(cmd->value, "env"))
+	
+	printf("%d\n", shell->env_num);
+	while (i < shell->env_num)
 	{
-		while (i < shell->env_num)
-		{
-			if (shell->env[i] != NULL)
-				printf("%s\n", shell->env[i]);
-			i++;
-		}
-		return(1);
+		if (shell->env[i] != NULL)
+			printf("%s\n", shell->env[i]);
+		i++;
 	}
-	else
-		return (0);
+	return (1);
 }

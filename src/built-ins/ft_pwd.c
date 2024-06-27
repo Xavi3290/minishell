@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 18:47:13 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/06/18 17:54:17 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/06/26 16:32:20 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*actual_path(void)
 		return (0);
 	i = -1;
 	while (s[++i])
-		res[i] = s[i]; 
+		res[i] = s[i];
 	free(s);
 	res[i] = '\0';
 	return (res);
@@ -56,7 +56,7 @@ int	ft_pwd(void)
 		return (0);
 	i = -1;
 	while (s[++i])
-		res[i] = s[i]; 
+		res[i] = s[i];
 	free(s);
 	res[i] = '\n';
 	if (write(1, &res[0], i + 1) != i + 1)

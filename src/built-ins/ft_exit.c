@@ -6,13 +6,13 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 16:25:46 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/06/21 12:24:19 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/06/26 16:30:52 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int ft_atoi_error(int *atio)
+int	ft_atoi_error(int *atio)
 {
 	*atio = -1;
 	return (-1);
@@ -44,7 +44,7 @@ long long	special_atoi(const char *str, int *atoi_error)
 		nbr = nbr * 10 + str[i] - '0';
 		i++;
 	}
-	return(nbr * flag);
+	return (nbr * flag);
 }
 
 int	check_is_num(char *str)
@@ -84,7 +84,8 @@ void	ft_exit(t_shell *shell)
 	n = special_atoi(shell->commands->args[0], &atoi_error);
 	if (atoi_error == -1)
 	{
-		put_error("exit\nbash: exit", shell->commands->args[0], "numeric argument required");
+		put_error("exit\nbash: exit", shell->commands->args[0], \
+					"numeric argument required");
 		exit(2);
 	}
 	printf("exit\n");
