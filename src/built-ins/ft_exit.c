@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 16:25:46 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/06/26 16:30:52 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/06/28 16:53:45 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,11 @@ void	ft_exit(t_shell *shell)
 	int			i;
 
 	atoi_error = 0;
-	if (shell->commands->num_args == 0 || !shell->commands->args[0])
+	if (shell->commands->num_args > 1 || !shell->commands->args[1])
+	{
+		printf("exit\n");
 		exit(shell->last_exit_status);
+	}
 	else if (shell->commands->args[1] && check_is_num(shell->commands->args[0]))
 		return (put_error("exit\nminishell", "exit", "too many arguments"));
 	i = -1;

@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/06/27 17:44:41 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/06/28 17:49:49 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ int	main(int argc, char **argv, char **env)
 		shell->line = readline("mini🐚: ");
 		if (shell->line[0])
 		{
+			add_history(shell->line);
 			//tokens = tokenize(shell->line, shell);
 			tokens = tokenize_and_expand(shell->line, shell);
 			if (!tokens)
@@ -83,23 +84,29 @@ int	main(int argc, char **argv, char **env)
                 shell->line = NULL;
                 continue;
             }
-			add_history(shell->line);
+			shell->commands = malloc(sizeof(t_command));
+			shell->commands->args = malloc(sizeof(char *) * 1000);
 			t_token	*temp;
 			temp = tokens;
 			while (temp)
 			{
-				if (!ft_strcmp(temp->value, "export"))
+				/*if (!ft_strcmp(temp->value, "export"))
 				{
-					shell->commands = malloc(sizeof(t_command));
-					shell->commands->args = malloc(sizeof(char *) * 1000);
-					shell->commands->num_args = 3;
+					shell->commands->num_args = 2;
 					shell->commands->args[0] = "export";
-					shell->commands->args[1] = "hola=tmp";
-					shell->commands->args[2] = "hola=vege"; 
-					shell->commands->args[3] = NULL;
+					temp = temp->next;
+					temp = temp->next;
+					//printf("%s\n",temp->value);
+					shell->commands->args[1] = temp->value;
+					//temp = temp->next;
+					//temp = temp->next;
+					//printf("%s\n",temp->value);
+					//shell->commands->args[2] = temp->value;
+					shell->commands->args[2] = NULL;
 					ft_export(shell->commands, shell);
-				}
-				else if (!ft_strcmp(temp->value, "env"))
+					//ft_exit(shell);
+				}*/
+				if (!ft_strcmp(temp->value, "env"))
 					ft_env(shell);
 				else if (!ft_strcmp(temp->value, "pwd"))
 					ft_pwd();
@@ -120,6 +127,8 @@ int	main(int argc, char **argv, char **env)
 			// Parse the tokens into commands
 			// Execute the commandss
 			// Free the commands
+			free(shell->commands->args);
+			free(shell->commands);
 			shell->parentheses = 0;
 			free_tokens(tokens);
 			free(shell->line);

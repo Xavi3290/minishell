@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:13:38 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/06/27 15:49:17 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/06/28 16:06:45 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	ft_env(t_shell *shell)
 	int	i;
 
 	i = 0;
-	
 	printf("%d\n", shell->env_num);
 	while (i < shell->env_num)
 	{
