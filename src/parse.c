@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 13:29:10 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/06/07 16:28:19 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/06/26 17:16:42 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -348,3 +348,189 @@ void parse_tokens(t_token *tokens, t_shell *shell)
     add_command(&shell->commands, current_command);
 }
 */
+
+t_command *create_command()
+{
+    t_command *command = malloc(sizeof(t_command));
+    if (!command)
+        handle_error("malloc failed", NULL);
+    command->args = NULL;
+    command->num_args = 0;
+    command->input_files = NULL;
+    command->output_files = NULL;
+    command->append_outputs = NULL;
+    command->num_inputs = 0;
+    command->num_outputs = 0;
+    command->heredoc = 0;
+    command->and = 0;
+    command->or = 0;
+    command->next = NULL;
+    return command;
+}
+
+void add_argument(t_command *command, char *arg)
+{
+    command->args = realloc(command->args, sizeof(char *) * (command->num_args + 2));
+    if (!command->args)
+        handle_error("realloc failed", NULL);
+    command->args[command->num_args] = ft_strdup(arg);
+    command->args[command->num_args + 1] = NULL;
+    command->num_args++;
+}
+
+void add_input_file(t_command *command, char *file)
+{
+    command->input_files = realloc(command->input_files, sizeof(char *) * (command->num_inputs + 2));
+    if (!command->input_files)
+        handle_error("realloc failed", NULL);
+    command->input_files[command->num_inputs] = ft_strdup(file);
+    command->input_files[command->num_inputs + 1] = NULL;
+    command->num_inputs++;
+}
+
+void add_output_file(t_command *command, char *file, int append)
+{
+    command->output_files = realloc(command->output_files, sizeof(char *) * (command->num_outputs + 2));
+    command->append_outputs = realloc(command->append_outputs, sizeof(int) * (command->num_outputs + 1));
+    if (!command->output_files || !command->append_outputs)
+        handle_error("realloc failed", NULL);
+    command->output_files[command->num_outputs] = ft_strdup(file);
+    command->output_files[command->num_outputs + 1] = NULL;
+    command->append_outputs[command->num_outputs] = append;
+    command->num_outputs++;
+}
+t_command *parse_tokens(t_token *tokens)
+{
+    t_command *command = create_command();
+    t_command *head = command;
+    t_token *current = tokens;
+
+    while (current)
+    {
+        if (current->type == WORD)
+        {
+            add_argument(command, current->value);
+        }
+        else if (current->type == REDIRECT_IN)
+        {
+            current = current->next;
+            if (!current || current->type != WORD)
+                handle_error("syntax error: expected file after '<'", NULL);
+            add_input_file(command, current->value);
+        }
+        else if (current->type == REDIRECT_OUT)
+        {
+            current = current->next;
+            if (!current || current->type != WORD)
+                handle_error("syntax error: expected file after '>'", NULL);
+            add_output_file(command, current->value, 0);
+        }
+        else if (current->type == APPEND)
+        {
+            current = current->next;
+            if (!current || current->type != WORD)
+                handle_error("syntax error: expected file after '>>'", NULL);
+            add_output_file(command, current->value, 1);
+        }
+        else if (current->type == HEREDOC)
+        {
+            current = current->next;
+            if (!current || current->type != WORD)
+                handle_error("syntax error: expected delimiter after '<<'", NULL);
+            command->heredoc = 1;
+            // Aquí deberíamos manejar el heredoc real leyendo hasta el delimitador
+        }
+        else if (current->type == PIPE)
+        {
+            command->next = create_command();
+            command = command->next;
+        }
+        else if (current->type == AND)
+        {
+            command->and = 1;
+            command->next = create_command();
+            command = command->next;
+        }
+        else if (current->type == OR)
+        {
+            command->or = 1;
+            command->next = create_command();
+            command = command->next;
+        }
+        current = current->next;
+    }
+    return head;
+}
+void handle_heredocs(t_command *command)
+{
+    if (command->heredoc)
+    {
+        // Crear archivo temporal para heredoc
+        char template[] = "/tmp/heredocXXXXXX";
+        int fd = mkstemp(template);
+        if (fd == -1)
+            handle_error("mkstemp failed", NULL);
+
+        // Leer hasta el delimitador y escribir en el archivo temporal
+        char *line;
+        while (1)
+        {
+            line = readline("> ");
+            if (ft_strcmp(line, command->args[0]) == 0) // Suponiendo que el delimitador está en args[0]
+                break;
+            write(fd, line, ft_strlen(line));
+            write(fd, "\n", 1);
+            free(line);
+        }
+        close(fd);
+        add_input_file(command, template);
+        command->heredoc = 0; // Resetear el flag heredoc
+    }
+}
+
+t_command *parse_parentheses(t_token **current)
+{
+    t_command *sub_command = create_command();
+    t_command *head = sub_command;
+
+    while (*current && (*current)->type != RPAREN)
+    {
+        if ((*current)->type == LPAREN)
+        {
+            *current = (*current)->next;
+            sub_command->next = parse_parentheses(current);
+        }
+        else
+        {
+            // Manejar tokens como se hace en parse_tokens
+        }
+        *current = (*current)->next;
+    }
+    if (!(*current))
+        handle_error("syntax error: unmatched '('", NULL);
+    return head;
+}
+
+t_command *parse_tokens_with_parentheses(t_token *tokens)
+{
+    t_command *command = create_command();
+    t_command *head = command;
+    t_token *current = tokens;
+
+    while (current)
+    {
+        if (current->type == LPAREN)
+        {
+            current = current->next;
+            command->next = parse_parentheses(&current);
+        }
+        else
+        {
+            // Manejar tokens como en parse_tokens
+        }
+        current = current->next;
+    }
+    return head;
+}
+
+
