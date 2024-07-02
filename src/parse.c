@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 13:29:10 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/06/26 17:16:42 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/07/02 13:45:28 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -349,6 +349,15 @@ void parse_tokens(t_token *tokens, t_shell *shell)
 }
 */
 
+
+
+
+
+
+
+
+
+/*
 t_command *create_command()
 {
     t_command *command = malloc(sizeof(t_command));
@@ -533,4 +542,4 @@ t_command *parse_tokens_with_parentheses(t_token *tokens)
     return head;
 }
 
-
+*/
