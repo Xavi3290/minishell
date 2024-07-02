@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 11:42:34 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/01/23 16:19:01 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/02 17:01:04 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 
 int	main(void)
 {
-	const char	*sub = "";
-	char		*final = ft_substr(sub, 1, 1);
+	const char	*sub = "holas";
+	char		*final = ft_substr(sub, 0, 4);
 	
 	printf("Contenido de la origimal: %s\n", sub);
 	printf("Contenido de la sub: %s\n", final);

@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:54:22 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/07/02 16:24:13 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/02 18:04:38 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,11 @@ char	*is_set_env(const char *arg)
 	char	*name_cpy;
 
 	arg_cpy = ft_strdup(arg);
+	printf("1 %s\n", arg_cpy);
 	equal_sign = ft_strchr(arg_cpy, '=');
 	if (equal_sign == NULL)
 	{
+		name = arg_cpy;
 		name_cpy = ft_strdup(name);
 		free(arg_cpy);
 		return (name_cpy);
@@ -76,18 +78,38 @@ char	*is_set_env(const char *arg)
 	return (name_cpy);
 }
 
-int pritn_declare(t_shell *shell)
+void pritn_declare(t_shell *shell)
 {
-	int	i;
+	int		i;
+	char	*copy_env_line;
+	char	*equal_sign;
+	char	*name;
+	char	*value;
 
 	i = 0;
 	while (i < shell->env_num)
 	{
 		if (shell->env[i] != NULL)
-			printf("%s\n", shell->env[i]);
+		{
+			copy_env_line = ft_strdup(shell->env[i]);
+			equal_sign = ft_strchr(copy_env_line, '=');
+			if (copy_env_line)
+			{
+				*equal_sign = '\0';
+				name = copy_env_line;
+				name = ft_strjoin(copy_env_line, "=\"");
+				value = equal_sign + 1;
+				value = ft_strjoin(value, "\"");
+				printf("declare -x %s%s\n", name, value);
+			}
+			else
+				printf("declare -x %s\n", shell->env[i]);
+			free(copy_env_line);
+			free(name);
+			free(value);
+		}
 		i++;
 	}
-	return (1);
 }
 
 int	ft_export(t_command *cmd, t_shell *shell)
@@ -97,7 +119,7 @@ int	ft_export(t_command *cmd, t_shell *shell)
 
 	i = 0;
 	if (cmd->num_args < 2)
-		return(pritn_declare(shell));
+		pritn_declare(shell);
 	while (++i < cmd->num_args)
 	{
 		name = is_set_env(cmd->args[i]);

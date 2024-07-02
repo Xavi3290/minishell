@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/02 16:15:48 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/02 17:23:25 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,17 +92,17 @@ int	main(int argc, char **argv, char **env)
 			{
 				if (!ft_strcmp(temp->value, "export"))
 				{
-					shell->commands->num_args = 2;
+					shell->commands->num_args = 1;
 					shell->commands->args[0] = "export";
-					temp = temp->next;
-					temp = temp->next;
+					//temp = temp->next;
+					//temp = temp->next;
 					//printf("%s\n",temp->value);
-					shell->commands->args[1] = temp->value;
+					//shell->commands->args[1] = "hola=h";
 					//temp = temp->next;
 					//temp = temp->next;
 					//printf("%s\n",temp->value);
 					//shell->commands->args[2] = temp->value;
-					shell->commands->args[2] = NULL;
+					shell->commands->args[1] = NULL;
 					ft_export(shell->commands, shell);
 					//ft_exit(shell);
 				}
