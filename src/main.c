@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/06/28 17:49:49 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/02 16:15:48 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	main(int argc, char **argv, char **env)
 			temp = tokens;
 			while (temp)
 			{
-				/*if (!ft_strcmp(temp->value, "export"))
+				if (!ft_strcmp(temp->value, "export"))
 				{
 					shell->commands->num_args = 2;
 					shell->commands->args[0] = "export";
@@ -105,7 +105,7 @@ int	main(int argc, char **argv, char **env)
 					shell->commands->args[2] = NULL;
 					ft_export(shell->commands, shell);
 					//ft_exit(shell);
-				}*/
+				}
 				if (!ft_strcmp(temp->value, "env"))
 					ft_env(shell);
 				else if (!ft_strcmp(temp->value, "pwd"))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 13:29:10 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/06/26 17:16:42 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/07/02 15:00:25 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -349,7 +349,7 @@ void parse_tokens(t_token *tokens, t_shell *shell)
 }
 */
 
-t_command *create_command()
+/*t_command *create_command()
 {
     t_command *command = malloc(sizeof(t_command));
     if (!command)
@@ -531,6 +531,6 @@ t_command *parse_tokens_with_parentheses(t_token *tokens)
         current = current->next;
     }
     return head;
-}
+}*/
 
 

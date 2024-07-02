@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 17:14:06 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/06/26 16:33:57 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/02 14:45:44 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	ft_cd(t_shell **shell)
 	if (!ft_strncmp(tmp, "~", 1))
 		chdir(getenv("OLDPWD"));
 	else if (chdir(tmp) == -1)
-		return (1); //exit
+		put_error("minishell: cd", tmp, "No such file or directory");
 	else
 	{
 		free(tmp);
