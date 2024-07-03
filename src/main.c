@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/03 16:21:23 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/03 16:56:26 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int main(int argc, char **argv, char **env)
     }
     while (42)
     {
-        shell->line = readline("mini:shell:: ");
+        shell->line = readline("mini🐚: ");
         if (shell->line[0])
         {
             add_history(shell->line);
