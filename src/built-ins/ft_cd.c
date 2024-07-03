@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 17:14:06 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/07/02 14:45:44 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/03 19:22:56 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ int	ft_cd(t_shell **shell)
 	char	*tmp;
 
 	pwd_value(NULL, (*shell), 0);
-	if ((*shell)->commands->num_args == 0)
+	if ((*shell)->commands->num_args == 1)
 	{
 		chdir(getenv("HOME"));
 		return (0);
 	}
-	tmp = (*shell)->commands->args[0];
+	tmp = (*shell)->commands->args[2];
 	if (!ft_strncmp(tmp, "~", 1))
 		chdir(getenv("OLDPWD"));
 	else if (chdir(tmp) == -1)

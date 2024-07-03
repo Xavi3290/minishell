@@ -6,13 +6,13 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/03 16:56:26 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/03 18:44:25 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void print_commands(t_command *commands)
+/*void print_commands(t_command *commands)
 {
     t_command *current_command;
     int i;
@@ -87,12 +87,27 @@ void free_commands(t_command *commands)
         free_command(current_command);
         current_command = next_command;
     }
+}*/
+
+void process_tokens_and_export(t_shell *shell, t_token *tokens)
+{
+    int i = 0;
+    t_token *temp2 = tokens;
+    while (temp2)
+    {
+        shell->commands->num_args = i + 1;
+        shell->commands->args[i] = temp2->value;
+        i++;
+        temp2 = temp2->next;
+    }
+    shell->commands->args[i] = NULL;
 }
+
 int main(int argc, char **argv, char **env)
 {
     t_shell *shell;
     t_token *tokens;
-    t_command *commands;
+    //t_command *commands;
     (void)argc;
     (void)argv;
     shell = init_shell(env);
@@ -123,40 +138,44 @@ int main(int argc, char **argv, char **env)
                 shell->line = NULL;
                 continue;
             }
-            commands = parse_commands(tokens);
+            /*commands = parse_commands(tokens);
             if (commands)
             {
                 print_commands(commands);
                 free_commands(commands);
-            }
+            }*/
             shell->commands = malloc(sizeof(t_command));
             shell->commands->args = malloc(sizeof(char *) * 1000);
             t_token *temp;
             temp = tokens;
             while (temp)
             {
-                /*if (!ft_strcmp(temp->value, "export"))
-                {
-                    shell->commands->num_args = 2;
-                    shell->commands->args[0] = "export";
-                    temp = temp->next;
-                    temp = temp->next;
-                    //printf("%s\n",temp->value);
-                    shell->commands->args[1] = temp->value;
-                    //temp = temp->next;
-                    //temp = temp->next;
-                    //printf("%s\n",temp->value);
-                    //shell->commands->args[2] = temp->value;
-                    shell->commands->args[2] = NULL;
-                    ft_export(shell->commands, shell);
-                    //ft_exit(shell);
-                }*/
-                if (!ft_strcmp(temp->value, "env"))
+				if (!ft_strcmp(temp->value, "export"))
+				{
+    				process_tokens_and_export(shell, tokens);
+    				ft_export(shell->commands, shell);
+				}
+				else if (!ft_strcmp(temp->value, "unset"))
+				{
+					process_tokens_and_export(shell, tokens);
+					ft_unset(shell);
+				}
+				else if (!ft_strcmp(temp->value, "exit"))
+				{
+					process_tokens_and_export(shell, tokens);
+					ft_exit(shell);
+				}
+				else if (!ft_strcmp(temp->value, "echo"))
+				{
+					process_tokens_and_export(shell, tokens);
+					ft_echo(&shell->commands);
+				}
+                else if (!ft_strcmp(temp->value, "env"))
                     ft_env(shell);
                 else if (!ft_strcmp(temp->value, "pwd"))
                     ft_pwd();
-                //else
-                //      printf("Token: Type=%d, Value=%s\n", temp->type, temp->value);
+                /*else
+					printf("Token: Type=%d, Value=%s\n", temp->type, temp->value);*/
                 temp = temp->next;
             }
             //parse_tokens(tokens, shell);
@@ -173,7 +192,7 @@ int main(int argc, char **argv, char **env)
             // Free the commands
             free(shell->commands->args);
             free(shell->commands);
-            shell->parentheses = 0;
+            //shell->parentheses = 0;
             free_tokens(tokens);
             free(shell->line);
             shell->line = NULL;

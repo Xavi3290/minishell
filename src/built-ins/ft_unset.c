@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:14:28 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/07/03 15:46:47 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/03 17:52:18 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_unset(t_shell *shell)
 
 	i = 0;
 	k = 1;
-	while (i < shell->env)
+	while (i < shell->env_num)
 	{
 		if (ft_strcmp(shell->env[i], shell->commands->args[k]) == 0)
 		{

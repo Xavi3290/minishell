@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 20:02:49 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/02 19:02:53 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/07/03 17:51:38 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	put_error(char *bash, char *file, char *error);
 void	ft_exit(t_shell *shell);
 int		ft_echo(t_command **command);
 int 	ft_export(t_command *cmd, t_shell *shell);
+int		ft_unset(t_shell *shell);
 
 t_token	*tokenize_and_expand(char *line, t_shell *shell);
 

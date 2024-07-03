@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:54:22 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/07/03 16:38:48 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/03 18:52:56 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ static char	*is_set_env(const char *arg)
 	equal_sign = ft_strchr(arg_cpy, '=');
 	if (equal_sign == NULL)
 	{
-		*equal_sign = '\0';
-		name = ft_strdup(arg_cpy);
-		return (free(arg_cpy), name);
+		name = arg_cpy;
+		free(arg_cpy);
+		return (name);
 	}
 	*equal_sign = '\0';
 	name = arg_cpy;
@@ -109,6 +109,10 @@ int	ft_export(t_command *cmd, t_shell *shell)
 		pritn_declare(shell);
 	while (++i < cmd->num_args)
 	{
+		while (ft_strchr(cmd->args[i], ' ') != 0) //quitaren final
+			i++;
+		if (i == cmd->num_args)
+			break;
 		name = is_set_env(cmd->args[i]);
 		if (!name)
 			return (-1);
