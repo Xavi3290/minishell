@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:18:30 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/07/02 17:01:44 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/07/02 17:16:16 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,15 +83,20 @@ typedef struct s_command
 
 typedef struct s_command
 {
-    char **args;             // Argumentos del comando
-    char **input_files;      // Archivos de input para redirección
-    char **output_files;     // Archivos de output para redirección
-    int num_args;            // Número de argumentos
-    int num_inputs;          // Número de archivos de input
-    int num_outputs;         // Número de archivos de output
-    int append_output;       // Flag de append para el último archivo de output
-    struct s_command *next;  // Siguiente comando en la lista
+    char **args;
+    int num_args;
+    char **input_files;
+    int num_inputs;
+    char **output_files;
+    int num_outputs;
+    int append_output;
+    int heredoc;
+    int and;
+    int or;
+    int parentheses;
+    struct s_command *next;
 } t_command;
+
 
 typedef struct s_shell
 {
