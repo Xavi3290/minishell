@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:54:22 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/07/03 15:45:15 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/03 16:38:48 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ static void	pritn_declare(t_shell *shell)
 	}
 }
 
-static int	ft_export(t_command *cmd, t_shell *shell)
+int	ft_export(t_command *cmd, t_shell *shell)
 {
 	int		i;
 	char	*name;
