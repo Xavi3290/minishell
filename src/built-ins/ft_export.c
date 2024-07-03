@@ -6,13 +6,13 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:54:22 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/07/02 18:04:38 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/03 15:45:15 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	check_env_var(t_shell *shell, char *name, char *arg)
+static int	check_env_var(t_shell *shell, char *name, char *arg)
 {
 	int	j;
 	int	existing_var_index;
@@ -35,7 +35,7 @@ int	check_env_var(t_shell *shell, char *name, char *arg)
 	return (0);
 }
 
-int	add_env_var(t_shell *shell, char *arg)
+static int	add_env_var(t_shell *shell, char *arg)
 {
 	shell->env = ft_realloc(shell->env, (shell->env_num + 1) * sizeof(char *), \
 		(shell->env_num + 2) * sizeof(char *));
@@ -47,7 +47,7 @@ int	add_env_var(t_shell *shell, char *arg)
 	return (0);
 }
 
-char	*is_set_env(const char *arg)
+static char	*is_set_env(const char *arg)
 {
 	char	*name;
 	char	*value;
@@ -56,38 +56,31 @@ char	*is_set_env(const char *arg)
 	char	*name_cpy;
 
 	arg_cpy = ft_strdup(arg);
-	printf("1 %s\n", arg_cpy);
 	equal_sign = ft_strchr(arg_cpy, '=');
 	if (equal_sign == NULL)
 	{
-		name = arg_cpy;
-		name_cpy = ft_strdup(name);
-		free(arg_cpy);
-		return (name_cpy);
+		*equal_sign = '\0';
+		name = ft_strdup(arg_cpy);
+		return (free(arg_cpy), name);
 	}
 	*equal_sign = '\0';
 	name = arg_cpy;
 	value = equal_sign + 1;
 	if (setenv(name, value, 1) != 0)
-	{
-		free(arg_cpy);
-		return (NULL);
-	}
+		return (free(arg_cpy), NULL);
 	name_cpy = ft_strdup(name);
-	free(arg_cpy);
-	return (name_cpy);
+	return (free(arg_cpy), name_cpy);
 }
 
-void pritn_declare(t_shell *shell)
+static void	pritn_declare(t_shell *shell)
 {
 	int		i;
 	char	*copy_env_line;
 	char	*equal_sign;
 	char	*name;
-	char	*value;
 
-	i = 0;
-	while (i < shell->env_num)
+	i = -1;
+	while (i++ < shell->env_num)
 	{
 		if (shell->env[i] != NULL)
 		{
@@ -97,22 +90,16 @@ void pritn_declare(t_shell *shell)
 			{
 				*equal_sign = '\0';
 				name = copy_env_line;
-				name = ft_strjoin(copy_env_line, "=\"");
-				value = equal_sign + 1;
-				value = ft_strjoin(value, "\"");
-				printf("declare -x %s%s\n", name, value);
+				printf("declare -x %s=\"%s\"\n", name, equal_sign + 1);
 			}
 			else
 				printf("declare -x %s\n", shell->env[i]);
 			free(copy_env_line);
-			free(name);
-			free(value);
 		}
-		i++;
 	}
 }
 
-int	ft_export(t_command *cmd, t_shell *shell)
+static int	ft_export(t_command *cmd, t_shell *shell)
 {
 	int		i;
 	char	*name;

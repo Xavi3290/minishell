@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:14:28 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/07/02 15:52:43 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/03 15:46:47 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,13 @@ int	ft_unset(t_shell *shell)
 {
 	int	i;
 	int	j;
+	int	k;
 
 	i = 0;
+	k = 1;
 	while (i < shell->env)
 	{
-		if (ft_strcmp(shell->env[i], shell->commands->args[i]) == 0)
+		if (ft_strcmp(shell->env[i], shell->commands->args[k]) == 0)
 		{
 			free(shell->env[i]);
 			j = i;
@@ -33,6 +35,7 @@ int	ft_unset(t_shell *shell)
 			return (0);
 		}
 		i++;
+		k++;
 	}
 	return (-1);
 }
