@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 13:29:10 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/02 13:45:28 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/07/02 19:01:37 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -543,3 +543,344 @@ t_command *parse_tokens_with_parentheses(t_token *tokens)
 }
 
 */
+
+
+
+
+
+
+
+/*
+char *generate_unique_filename(int index)
+{
+    char *filename;
+    char *base;
+    char *num;
+    
+    base = ft_strdup("/tmp/.heredoc_");
+    if (!base)
+        return (NULL);
+    num = ft_itoa(index);
+    if (!num)
+    {
+        free(base);
+        return (NULL);
+    }
+    filename = ft_strjoin(base, num);
+    free(base);
+    free(num);
+
+    return filename;
+}
+
+void add_input_file(t_command *cmd, char *file)
+{
+    char **new_inputs;
+    
+    new_inputs = ft_realloc(cmd->input_files, sizeof(char *) * (cmd->num_inputs + 1), sizeof(char *) * (cmd->num_inputs + 2));
+    if (!new_inputs)
+    {
+        handle_error("Error allocating memory for input files", NULL);
+        return;
+    }
+    cmd->input_files = new_inputs;
+    cmd->input_files[cmd->num_inputs] = ft_strdup(file);
+    cmd->input_files[cmd->num_inputs + 1] = NULL; // Termina el array con NULL
+    cmd->num_inputs++;
+}
+
+void handle_heredoc(t_command *cmd, char *delimiter, int index)
+{
+    char *filename;
+    int fd;
+    char *line;
+
+    filename = generate_unique_filename(index);
+    if (!filename)
+    {
+        handle_error("Error generating heredoc filename", NULL);
+        return;
+    }
+
+    fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0600);
+    if (fd == -1)
+    {
+        handle_error("Error opening heredoc file", NULL);
+        free(filename);
+        return;
+    }
+
+    while ((line = readline("> ")))
+    {
+        if (ft_strcmp(line, delimiter) == 0)
+            break;
+        write(fd, line, ft_strlen(line));
+        write(fd, "\n", 1);
+        free(line);
+    }
+    free(line);
+    close(fd);
+
+    add_input_file(cmd, filename);
+    free(filename);
+}
+
+
+
+void add_output_file(t_command *cmd, char *file, int append)
+{
+    char **new_outputs;
+
+    new_outputs = ft_realloc(cmd->output_files, sizeof(char *) * (cmd->num_outputs + 1), sizeof(char *) * (cmd->num_outputs + 2));
+    if (!new_outputs)
+    {
+        handle_error("Error allocating memory for output files", NULL);
+        return;
+    }
+    cmd->output_files = new_outputs;
+    cmd->output_files[cmd->num_outputs] = ft_strdup(file);
+    cmd->output_files[cmd->num_outputs + 1] = NULL; // Termina el array con NULL
+    cmd->num_outputs++;
+    cmd->append_output = append;
+}
+
+void add_argument(t_command *cmd, char *arg)
+{
+    char **new_args;
+
+    new_args = ft_realloc(cmd->args, sizeof(char *) * (cmd->num_args + 1), sizeof(char *) * (cmd->num_args + 2));
+    if (!new_args)
+    {
+        handle_error("Error allocating memory for arguments", NULL);
+        return;
+    }
+    cmd->args = new_args;
+    cmd->args[cmd->num_args] = ft_strdup(arg);
+    cmd->args[cmd->num_args + 1] = NULL; // Termina el array con NULL
+    cmd->num_args++;
+}
+
+t_command *create_new_command(void)
+{
+    t_command *cmd;
+
+    cmd = malloc(sizeof(t_command));
+    if (!cmd)
+        return NULL;
+    cmd->args = NULL;
+    cmd->num_args = 0;
+    cmd->input_files = NULL;
+    cmd->num_inputs = 0;
+    cmd->output_files = NULL;
+    cmd->num_outputs = 0;
+    cmd->append_output = 0;
+    cmd->heredoc = 0;
+    cmd->and = 0;
+    cmd->or = 0;
+    cmd->parentheses = 0;
+    cmd->next = NULL;
+    return cmd;
+}
+
+t_command *parse_tokens_to_commands(t_token *tokens)
+{
+    t_command *commands;
+    t_command *current_command;
+    t_token *current_token;
+    int heredoc_index;
+
+    commands = create_new_command();
+    if (!commands)
+        return NULL;
+    current_command = commands;
+    current_token = tokens;
+    heredoc_index = 0;
+
+    while (current_token)
+    {
+        if (current_token->type == WORD || current_token->type == DOUBLE_QUOTES || current_token->type == SINGLE_QUOTES)
+        {
+            add_argument(current_command, current_token->value);
+        }
+        else if (current_token->type == REDIRECT_IN)
+        {
+            current_token = current_token->next;
+            if (current_token && (current_token->type == WORD || current_token->type == DOUBLE_QUOTES || current_token->type == SINGLE_QUOTES))
+                add_input_file(current_command, current_token->value);
+        }
+        else if (current_token->type == REDIRECT_OUT)
+        {
+            current_token = current_token->next;
+            if (current_token && (current_token->type == WORD || current_token->type == DOUBLE_QUOTES || current_token->type == SINGLE_QUOTES))
+                add_output_file(current_command, current_token->value, 0);
+        }
+        else if (current_token->type == APPEND)
+        {
+            current_token = current_token->next;
+            if (current_token && (current_token->type == WORD || current_token->type == DOUBLE_QUOTES || current_token->type == SINGLE_QUOTES))
+                add_output_file(current_command, current_token->value, 1);
+        }
+        else if (current_token->type == HEREDOC)
+        {
+            current_token = current_token->next;
+            if (current_token && (current_token->type == WORD || current_token->type == DOUBLE_QUOTES || current_token->type == SINGLE_QUOTES))
+                handle_heredoc(current_command, current_token->value, heredoc_index++);
+        }
+        else if (current_token->type == PIPE)
+        {
+            current_command->next = create_new_command();
+            current_command = current_command->next;
+        }
+        else if (current_token->type == AND)
+        {
+            current_command->and = 1;
+            current_command->next = create_new_command();
+            current_command = current_command->next;
+        }
+        else if (current_token->type == OR)
+        {
+            current_command->or = 1;
+            current_command->next = create_new_command();
+            current_command = current_command->next;
+        }
+        current_token = current_token->next;
+    }
+    return commands;
+}
+*/
+
+
+
+
+char *generate_unique_filename(int index)
+{
+    char *filename;
+    char *base;
+    char *num;
+    
+    base = ft_strdup("/tmp/.heredoc_");    
+    num = ft_itoa(index);
+    filename = ft_strjoin(base, num);
+    free(base);
+    free(num);
+
+    return filename;
+}
+void add_argument(t_command *cmd, char *arg)
+{
+    char **new_args;
+
+    new_args = ft_realloc(cmd->args, sizeof(char *) * cmd->num_args, sizeof(char *) * (cmd->num_args + 1));
+    new_args[cmd->num_args] = ft_strdup(arg);
+    cmd->args = new_args;
+    cmd->num_args++;
+}
+void add_input_file(t_command *cmd, char *filename)
+{
+    char **new_files;
+    int count = 0;
+
+    while (cmd->input_files && cmd->input_files[count])
+        count++;
+    new_files = ft_realloc(cmd->input_files, sizeof(char *) * count, sizeof(char *) * (count + 2));
+    new_files[count] = ft_strdup(filename);
+    new_files[count + 1] = NULL;
+    cmd->input_files = new_files;
+}
+void add_output_file(t_command *cmd, char *filename)
+{
+    char **new_files;
+    int count = 0;
+
+    while (cmd->output_files && cmd->output_files[count])
+        count++;
+    new_files = ft_realloc(cmd->output_files, sizeof(char *) * count, sizeof(char *) * (count + 2));
+    new_files[count] = ft_strdup(filename);
+    new_files[count + 1] = NULL;
+    cmd->output_files = new_files;
+}
+void add_heredoc(t_command *cmd, int index)
+{
+    char *filename = generate_unique_filename(index);
+
+    add_input_file(cmd, filename);
+    free(filename);
+    cmd->heredoc = 1;
+}
+t_command *create_new_command(void)
+{
+    t_command *cmd;
+
+    cmd = malloc(sizeof(t_command));
+    cmd->args = NULL;
+    cmd->num_args = 0;
+    cmd->input_files = NULL;
+    cmd->output_files = NULL;
+    cmd->append_output = 0;
+    cmd->heredoc = 0;
+    cmd->and = 0;
+    cmd->or = 0;
+    cmd->parentheses = 0;
+    cmd->next = NULL;
+    return cmd;
+}
+void handle_redirections(t_token **tokens, t_command *cmd, int *index)
+{
+    t_token *current = *tokens;
+
+    while (current && (current->type == REDIRECT_IN || current->type == REDIRECT_OUT ||
+                       current->type == APPEND || current->type == HEREDOC))
+    {
+        if (current->type == REDIRECT_IN)
+            add_input_file(cmd, current->next->value);
+        else if (current->type == REDIRECT_OUT)
+            add_output_file(cmd, current->next->value);
+        else if (current->type == APPEND)
+        {
+            add_output_file(cmd, current->next->value);
+            cmd->append_output = 1;
+        }
+        else if (current->type == HEREDOC)
+            add_heredoc(cmd, (*index)++);
+        current = current->next->next;
+    }
+    *tokens = current;
+}
+t_command *parse_commands(t_token *tokens)
+{
+    t_command *cmds = NULL;
+    t_command *current_cmd = NULL;
+    t_command *new_cmd;
+    int heredoc_index = 0;
+
+    while (tokens)
+    {
+        new_cmd = create_new_command();
+        if (!cmds)
+            cmds = new_cmd;
+        else
+            current_cmd->next = new_cmd;
+        current_cmd = new_cmd;
+
+        while (tokens && tokens->type != PIPE && tokens->type != AND && tokens->type != OR)
+        {
+            if (tokens->type == WORD)
+                add_argument(new_cmd, tokens->value);
+            else if (tokens->type == LPAREN || tokens->type == RPAREN)
+                new_cmd->parentheses = 1;
+
+            handle_redirections(&tokens, new_cmd, &heredoc_index);
+            tokens = tokens->next;
+        }
+
+        if (tokens && (tokens->type == AND || tokens->type == OR))
+        {
+            if (tokens->type == AND)
+                new_cmd->and = 1;
+            else if (tokens->type == OR)
+                new_cmd->or = 1;
+            tokens = tokens->next;
+        }
+    }
+    return cmds;
+}

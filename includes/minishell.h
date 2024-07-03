@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 20:02:49 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/02 13:44:19 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/07/02 19:02:53 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,9 @@ void	join_adjacent_tokens(t_token **tokens);
 
 
 int check_syntax(t_token *tokens, t_shell *shell);
+
+//t_command *parse_tokens_to_commands(t_token *tokens);
+
+t_command *parse_commands(t_token *tokens);
 
 #endif
