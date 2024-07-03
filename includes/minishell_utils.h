@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_utils.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
+/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:18:30 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/06/28 16:49:42 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/02 17:01:44 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct s_syntax_state
 }						t_command;
 */
 
+/*
 typedef struct s_command
 {
     char		**args;          // Argumentos del comando
@@ -78,6 +79,19 @@ typedef struct s_command
 	int			fd;              // File descriptor para heredoc
 	struct s_command 	*next;
 }	t_command;
+*/
+
+typedef struct s_command
+{
+    char **args;             // Argumentos del comando
+    char **input_files;      // Archivos de input para redirección
+    char **output_files;     // Archivos de output para redirección
+    int num_args;            // Número de argumentos
+    int num_inputs;          // Número de archivos de input
+    int num_outputs;         // Número de archivos de output
+    int append_output;       // Flag de append para el último archivo de output
+    struct s_command *next;  // Siguiente comando en la lista
+} t_command;
 
 typedef struct s_shell
 {

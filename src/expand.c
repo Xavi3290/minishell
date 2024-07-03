@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 16:23:12 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/06/20 16:38:42 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/07/02 13:44:39 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,5 +156,6 @@ t_token	*tokenize_and_expand(char *line, t_shell *shell)
 	if (!tokens)
 		return (NULL);
 	expand_tokens(&tokens, shell);
+	join_adjacent_tokens(&tokens);
 	return (tokens);
 }
