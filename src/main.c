@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
+/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/04 16:42:23 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/04 16:54:20 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int main(int argc, char **argv, char **env)
 {
 	t_shell *shell;
     t_token *tokens;
-    t_command *commands;
+
     (void)argc;
     (void)argv;
     shell = init_shell(env);
@@ -125,11 +125,11 @@ int main(int argc, char **argv, char **env)
                 shell->line = NULL;
                 continue;
             }
-			commands = parse_commands(tokens);
-            if (commands)
+			parse_tokens(&tokens, shell);
+            if (shell->commands)
             {
-                print_commands(commands);
-                free_commands(commands);
+                print_command(shell->commands);
+                free_commands(shell->commands);
             }
             shell->commands = malloc(sizeof(t_command));
             shell->commands->args = malloc(sizeof(char *) * 1000);
