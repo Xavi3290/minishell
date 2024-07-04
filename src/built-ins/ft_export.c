@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:54:22 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/07/03 18:52:56 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/04 16:12:28 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static char	*is_set_env(const char *arg)
 	equal_sign = ft_strchr(arg_cpy, '=');
 	if (equal_sign == NULL)
 	{
-		name = arg_cpy;
+		name = ft_strdup(arg_cpy);
 		free(arg_cpy);
 		return (name);
 	}
@@ -77,23 +77,24 @@ static void	pritn_declare(t_shell *shell)
 	int		i;
 	char	*copy_env_line;
 	char	*equal_sign;
-	char	*name;
 
 	i = -1;
-	while (i++ < shell->env_num)
+	while (++i < shell->env_num)
 	{
 		if (shell->env[i] != NULL)
 		{
 			copy_env_line = ft_strdup(shell->env[i]);
-			equal_sign = ft_strchr(copy_env_line, '=');
-			if (copy_env_line)
+			if (copy_env_line != NULL)
 			{
-				*equal_sign = '\0';
-				name = copy_env_line;
-				printf("declare -x %s=\"%s\"\n", name, equal_sign + 1);
+				equal_sign = ft_strchr(copy_env_line, '=');
+				if (equal_sign != NULL)
+				{
+					*equal_sign = '\0';
+					printf("declare -x %s=\"%s\"\n", copy_env_line, equal_sign + 1);
+				}
+				else if (shell->env[i])
+					printf("declare -x %s\n", shell->env[i]);
 			}
-			else
-				printf("declare -x %s\n", shell->env[i]);
 			free(copy_env_line);
 		}
 	}

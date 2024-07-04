@@ -6,88 +6,75 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/03 18:44:25 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/04 16:42:23 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-/*void print_commands(t_command *commands)
+void print_command(t_command *cmd)
 {
-    t_command *current_command;
-    int i;
-    current_command = commands;
-    while (current_command)
+    while (cmd)
     {
         printf("Command:\n");
-        printf("  Arguments:\n");
-        for (i = 0; i < current_command->num_args; i++)
+        if (cmd->args)
         {
-            printf("    arg[%d]: %s\n", i, current_command->args[i]);
+            printf("  Arguments:\n");
+            for (int i = 0; cmd->args[i]; i++)
+                printf("    %s\n", cmd->args[i]);
         }
-        printf("  Input Files:\n");
-        for (i = 0; i < current_command->num_inputs; i++)
+        if (cmd->input_files)
         {
-            printf("    input[%d]: %s\n", i, current_command->input_files[i]);
+            printf("  Input Files:\n");
+            for (int i = 0; cmd->input_files[i]; i++)
+                printf("    %s\n", cmd->input_files[i]);
         }
-        printf("  Output Files:\n");
-        for (i = 0; i < current_command->num_outputs; i++)
+        if (cmd->output_files)
         {
-            printf("    output[%d]: %s\n", i, current_command->output_files[i]);
+            printf("  Output Files:\n");
+            for (int i = 0; cmd->output_files[i]; i++)
+                printf("    %s\n", cmd->output_files[i]);
         }
-        printf("  Append Output: %d\n", current_command->append_output);
-        printf("  Heredoc: %d\n", current_command->heredoc);
-        printf("  AND: %d\n", current_command->and);
-        printf("  OR: %d\n", current_command->or);
-        printf("  Parentheses: %d\n", current_command->parentheses);
+        printf("  Append Output: %d\n", cmd->append_output);
+        printf("  Heredoc: %d\n", cmd->heredoc);
+        printf("  AND: %d\n", cmd->and);
+        printf("  OR: %d\n", cmd->or);
+        printf("  Parentheses: %d\n", cmd->parentheses);
         printf("\n");
-        current_command = current_command->next;
+        cmd = cmd->next;
     }
 }
-void free_command(t_command *command)
+void free_commands(t_command *cmd)
 {
+    t_command *current;
+    t_command *next;
     int i;
-    if (command)
+    current = cmd;
+    while (current)
     {
-        if (command->args)
+        next = current->next;
+        if (current->args)
         {
-            for (i = 0; i < command->num_args; i++)
-            {
-                free(command->args[i]);
-            }
-            free(command->args);
+            for (i = 0; current->args[i]; i++)
+                free(current->args[i]);
+            free(current->args);
         }
-        if (command->input_files)
+        if (current->input_files)
         {
-            for (i = 0; i < command->num_inputs; i++)
-            {
-                free(command->input_files[i]);
-            }
-            free(command->input_files);
+            for (i = 0; current->input_files[i]; i++)
+                free(current->input_files[i]);
+            free(current->input_files);
         }
-        if (command->output_files)
+        if (current->output_files)
         {
-            for (i = 0; i < command->num_outputs; i++)
-            {
-                free(command->output_files[i]);
-            }
-            free(command->output_files);
+            for (i = 0; current->output_files[i]; i++)
+                free(current->output_files[i]);
+            free(current->output_files);
         }
-        free(command);
+        free(current);
+        current = next;
     }
 }
-void free_commands(t_command *commands)
-{
-    t_command *current_command;
-    t_command *next_command;
-    current_command = commands;
-    while (current_command)
-    {
-        next_command = current_command->next;
-        free_command(current_command);
-        current_command = next_command;
-    }
-}*/
 
 void process_tokens_and_export(t_shell *shell, t_token *tokens)
 {
@@ -105,9 +92,9 @@ void process_tokens_and_export(t_shell *shell, t_token *tokens)
 
 int main(int argc, char **argv, char **env)
 {
-    t_shell *shell;
+	t_shell *shell;
     t_token *tokens;
-    //t_command *commands;
+    t_command *commands;
     (void)argc;
     (void)argv;
     shell = init_shell(env);
@@ -138,12 +125,12 @@ int main(int argc, char **argv, char **env)
                 shell->line = NULL;
                 continue;
             }
-            /*commands = parse_commands(tokens);
+			commands = parse_commands(tokens);
             if (commands)
             {
                 print_commands(commands);
                 free_commands(commands);
-            }*/
+            }
             shell->commands = malloc(sizeof(t_command));
             shell->commands->args = malloc(sizeof(char *) * 1000);
             t_token *temp;
@@ -158,7 +145,7 @@ int main(int argc, char **argv, char **env)
 				else if (!ft_strcmp(temp->value, "unset"))
 				{
 					process_tokens_and_export(shell, tokens);
-					ft_unset(shell);
+					ft_unset(shell, shell->commands);
 				}
 				else if (!ft_strcmp(temp->value, "exit"))
 				{

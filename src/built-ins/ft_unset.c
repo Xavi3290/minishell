@@ -6,36 +6,56 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:14:28 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/07/03 17:52:18 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/04 16:32:04 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_unset(t_shell *shell)
+void remove_env_var(char ***env, int index, int *env_num)
+{
+	free((*env)[index]);
+	while (index < *env_num - 1)
+	{
+		(*env)[index] = (*env)[index + 1];
+		index++;
+	}
+	(*env)[index] = NULL;
+	(*env_num)--;
+}
+
+void	ft_unset(t_shell *shell, t_command *cmd)
 {
 	int	i;
-	int	j;
-	int	k;
+	int arg_index;
+	char	*name_end;
+	size_t	name_len;
 
-	i = 0;
-	k = 1;
-	while (i < shell->env_num)
+	arg_index = 0;
+	while (++arg_index < cmd->num_args)
 	{
-		if (ft_strcmp(shell->env[i], shell->commands->args[k]) == 0)
+		i = -1;
+		while (++i < shell->env_num)
 		{
-			free(shell->env[i]);
-			j = i;
-			while (j < shell->env_num - 1)
+			name_end = ft_strchr(shell->env[i], '=');
+			if (name_end != NULL)
 			{
-				shell->env[j] = shell->env[j + 1];
-				j++;
+				name_len = name_end - shell->env[i];
+				if (ft_strncmp(shell->env[i], cmd->args[arg_index], \
+				name_len) == 0 && cmd->args[arg_index][name_len] == '\0')
+				{
+					remove_env_var(&(shell->env), i, &(shell->env_num));
+					break ;
+				}
 			}
-			shell->env_num--;
-			return (0);
+			else
+            {
+                if (strcmp(shell->env[i], cmd->args[arg_index]) == 0)
+                {
+                    remove_env_var(&(shell->env), i, &(shell->env_num));
+                    break;
+                }
+            }
 		}
-		i++;
-		k++;
 	}
-	return (-1);
 }
