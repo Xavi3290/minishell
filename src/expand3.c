@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:22:50 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/06/20 16:36:41 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/07/04 16:00:30 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ t_token	*strings_to_tokens(char **strings)
 	i = 0;
 	while (strings[i])
 	{
-		new_tok = new_token(WORD, ft_strdup(strings[i]));
+		new_tok = new_token(WILDC, ft_strdup(strings[i]));
 		if (!new_tok)
 			return (NULL);
 		add_token(&tokens, new_tok);
