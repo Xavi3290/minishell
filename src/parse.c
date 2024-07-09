@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 13:29:10 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/09 14:59:40 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/07/09 15:11:30 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -734,4 +734,3 @@ void parse_tokens(t_token **tokens, t_shell *shell)
     shell->commands = current_cmd;
     parse_general_tokens_cmd(tokens, current_cmd, shell, &paren_level);
 }
-

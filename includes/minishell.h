@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 20:02:49 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/09 13:35:00 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/07/09 15:12:22 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,6 @@ int check_syntax(t_token *tokens, t_shell *shell);
 void parse_tokens(t_token **tokens, t_shell *shell);
 //void parse_general_tokens_cmd(t_token **tokens, t_command *cmd, t_shell *shell);
 //void parse_parentheses(t_token **tokens, t_command *current_cmd, t_shell *shell);
-//void handle_parentheses(t_token **tokens, t_command *current_cmd, t_shell *shell, int level);
-void parse_general_tokens_cmd(t_token **tokens, t_command *cmd, t_shell *shell, int *paren_level);
-t_command *create_command(void);
+//t_command *create_command(void);
 
 #endif
