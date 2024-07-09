@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/04 16:54:20 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/07/09 15:13:51 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,12 +125,12 @@ int main(int argc, char **argv, char **env)
                 shell->line = NULL;
                 continue;
             }
-			parse_tokens(&tokens, shell);
+			/*parse_tokens(&tokens, shell);
             if (shell->commands)
             {
                 print_command(shell->commands);
                 free_commands(shell->commands);
-            }
+            }*/
             shell->commands = malloc(sizeof(t_command));
             shell->commands->args = malloc(sizeof(char *) * 1000);
             t_token *temp;
@@ -161,6 +161,11 @@ int main(int argc, char **argv, char **env)
                     ft_env(shell);
                 else if (!ft_strcmp(temp->value, "pwd"))
                     ft_pwd();
+				else if (!ft_strcmp(temp->value, "cd"))
+                {
+					process_tokens_and_export(shell, tokens);
+					ft_cd(shell);
+				}
                 /*else
 					printf("Token: Type=%d, Value=%s\n", temp->type, temp->value);*/
                 temp = temp->next;
