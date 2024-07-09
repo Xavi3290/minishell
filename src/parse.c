@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 13:29:10 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/04 16:33:02 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/07/09 15:05:23 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,7 +217,7 @@ t_command *create_command(void)
     cmd->next = NULL;
     return (cmd);
 }
-
+/*
 void add_argument(t_command *cmd, char *arg)
 {
     cmd->args = ft_realloc(cmd->args, sizeof(char *) * cmd->num_args, sizeof(char *) * (cmd->num_args + 2));
@@ -261,15 +261,24 @@ void add_heredoc_file(t_command *cmd, char *file)
     cmd->heredoc = 1;
 }
 
+void handle_word_token(t_token **current, t_command *cmd)
+{
+    add_argument(cmd, (*current)->value);
+}
+
+
+*/
+/*
 void parse_parentheses(t_token **tokens, t_command *current_cmd, t_shell *shell)
 {
     t_command *sub_cmd;
     t_token *current;
-
+    
     current = *tokens;
     while (current && current->type != RPAREN)
     {
         sub_cmd = create_command();
+        current = current->next;       
         parse_general_tokens_cmd(&current, sub_cmd, shell);
         if (!current_cmd->next)
             current_cmd->next = sub_cmd;
@@ -280,21 +289,70 @@ void parse_parentheses(t_token **tokens, t_command *current_cmd, t_shell *shell)
                 last = last->next;
             last->next = sub_cmd;
         }
-        if (current)
-            current = current->next;
+        current = current->next;
     }
-    *tokens = current;
+    if (current && current->type == RPAREN)
+       *tokens = current->next;
+    else
+       *tokens = current;
 }
 
 void handle_parentheses(t_token **tokens, t_command *current_cmd, t_shell *shell)
 {
     current_cmd->parentheses = 1;
     parse_parentheses(tokens, current_cmd, shell);
+}*/
+
+
+
+/*
+void parse_parentheses(t_token **tokens, t_command *current_cmd, t_shell *shell, int level)
+{
+    t_command *sub_cmd;
+    t_token *current;
+    
+    current = *tokens;
+    while (current && current->type != RPAREN)
+    {
+        sub_cmd = create_command();
+        sub_cmd->parentheses = level;
+        current = current->next;
+        parse_general_tokens_cmd(&current, sub_cmd, shell);
+        if (!current_cmd->next)
+            current_cmd->next = sub_cmd;
+        else
+        {
+            t_command *last = current_cmd->next;
+            while (last->next)
+                last = last->next;
+            last->next = sub_cmd;
+        }
+        if (current && current->type != RPAREN)
+            current = current->next;
+    }
+    if (current && current->type == RPAREN)
+    {
+        t_command *end_paren_cmd = create_command();
+        end_paren_cmd->parentheses = level;
+        if (!current_cmd->next)
+            current_cmd->next = end_paren_cmd;
+        else
+        {
+            t_command *last = current_cmd->next;
+            while (last->next)
+                last = last->next;
+            last->next = end_paren_cmd;
+        }
+        *tokens = current->next;
+    }
+    else
+        *tokens = current;
 }
 
-void handle_word_token(t_token **current, t_command *cmd)
+void handle_parentheses(t_token **tokens, t_command *current_cmd, t_shell *shell, int level)
 {
-    add_argument(cmd, (*current)->value);
+    current_cmd->parentheses = level;
+    parse_parentheses(tokens, current_cmd, shell, level + 1);
 }
 
 void handle_redirect_token(t_token **current, t_command *cmd, t_shell *shell, int type)
@@ -347,7 +405,7 @@ void parse_general_tokens_cmd(t_token **tokens, t_command *cmd, t_shell *shell)
             cmd = cmd->next;
         }
         else if (current->type == LPAREN)
-            handle_parentheses(&current, cmd, shell);
+            handle_parentheses(&current, cmd, shell, 1);
         current = current->next;
     }
 }
@@ -360,4 +418,319 @@ void parse_tokens(t_token **tokens, t_shell *shell)
     shell->commands = current_cmd;
     parse_general_tokens_cmd(tokens, current_cmd, shell);
 }
+*/
 
+
+/*
+
+
+void add_argument(t_command *cmd, char *arg)
+{
+    cmd->args = ft_realloc(cmd->args, sizeof(char *) * cmd->num_args, sizeof(char *) * (cmd->num_args + 2));
+    cmd->args[cmd->num_args] = ft_strdup(arg);
+    cmd->num_args++;
+    cmd->args[cmd->num_args] = NULL;
+}
+
+void add_input_file(t_command *cmd, char *file)
+{
+    int i = 0;
+
+    while (cmd->input_files && cmd->input_files[i])
+        i++;
+    cmd->input_files = ft_realloc(cmd->input_files, sizeof(char *) * i, sizeof(char *) * (i + 2));
+    cmd->input_files[i] = ft_strdup(file);
+    cmd->input_files[i + 1] = NULL;
+}
+
+void add_output_file(t_command *cmd, char *file, int append)
+{
+    int i = 0;
+
+    while (cmd->output_files && cmd->output_files[i])
+        i++;
+    cmd->output_files = ft_realloc(cmd->output_files, sizeof(char *) * i, sizeof(char *) * (i + 2));
+    cmd->output_files[i] = ft_strdup(file);
+    cmd->output_files[i + 1] = NULL;
+    cmd->append_output = append;
+}
+
+void add_heredoc_file(t_command *cmd, char *file)
+{
+    int i = 0;
+
+    while (cmd->input_files && cmd->input_files[i])
+        i++;
+    cmd->input_files = ft_realloc(cmd->input_files, sizeof(char *) * i, sizeof(char *) * (i + 2));
+    cmd->input_files[i] = ft_strdup(file);
+    cmd->input_files[i + 1] = NULL;
+    cmd->heredoc = 1;
+}
+
+void handle_parentheses_level(t_command *cmd, int level)
+{
+    cmd->parentheses = level;
+}
+
+void handle_word_token(t_token **current, t_command *cmd)
+{
+    add_argument(cmd, (*current)->value);
+}
+
+void handle_redirect_token(t_token **current, t_command *cmd, t_shell *shell, int type)
+{
+    *current = (*current)->next;
+    while (*current && (*current)->type == SPACES)
+        *current = (*current)->next;
+
+    if (*current && (*current)->type == WORD)
+    {
+        if (type == REDIRECT_IN)
+            add_input_file(cmd, (*current)->value);
+        else if (type == REDIRECT_OUT)
+            add_output_file(cmd, (*current)->value, 0);
+        else if (type == APPEND)
+            add_output_file(cmd, (*current)->value, 1);
+    }
+    else
+        handle_error("syntax error: expected file after redirection", shell);
+}
+
+void handle_heredoc_token(t_command *cmd)
+{
+    char *filename = generate_filename();
+    add_heredoc_file(cmd, filename);
+    free(filename);
+}
+
+void handle_pipe_token(t_command **cmd)
+{
+    (*cmd)->next = create_command();
+    *cmd = (*cmd)->next;
+}
+
+void handle_logical_token(t_token *current, t_command **cmd)
+{
+    if (current->type == AND)
+        (*cmd)->and = 1;
+    else
+        (*cmd)->or = 1;
+    (*cmd)->next = create_command();
+    *cmd = (*cmd)->next;
+}
+
+void handle_left_parenthesis(t_command **cmd, int *paren_level)
+{
+    (*paren_level)++;
+    (*cmd)->next = create_command();
+    *cmd = (*cmd)->next;
+    handle_parentheses_level(*cmd, *paren_level);
+}
+
+void handle_right_parenthesis(t_command *cmd, int *paren_level)
+{
+    if (*paren_level > 0)
+    {
+        handle_parentheses_level(cmd, *paren_level);
+        (*paren_level)--;
+    }
+}
+
+void parse_general_tokens_cmd(t_token **tokens, t_command *cmd, t_shell *shell, int *paren_level)
+{
+    t_token *current = *tokens;
+
+    while (current)
+    {
+        if (current->type == WORD || current->type == DOUBLE_QUOTES || current->type == SINGLE_QUOTES || current->type == WILDC)
+            handle_word_token(&current, cmd);
+        else if (current->type == REDIRECT_IN || current->type == REDIRECT_OUT || current->type == APPEND)
+            handle_redirect_token(&current, cmd, shell, current->type);
+        else if (current->type == HEREDOC)
+            handle_heredoc_token(cmd);
+        else if (current->type == PIPE)
+            handle_pipe_token(&cmd);
+        else if (current->type == AND || current->type == OR)
+            handle_logical_token(current, &cmd);
+        else if (current->type == LPAREN)
+            handle_left_parenthesis(&cmd, paren_level);
+        else if (current->type == RPAREN)
+            handle_right_parenthesis(cmd, paren_level);
+        current = current->next;
+    }
+    *tokens = current;
+}
+
+void parse_tokens(t_token **tokens, t_shell *shell)
+{
+    t_command *current_cmd;
+    int paren_level = 0;
+
+    current_cmd = create_command();
+    shell->commands = current_cmd;
+    parse_general_tokens_cmd(tokens, current_cmd, shell, &paren_level);
+}
+
+*/
+
+
+
+void add_argument(t_command *cmd, char *arg)
+{
+    cmd->args = ft_realloc(cmd->args, sizeof(char *) * cmd->num_args, sizeof(char *) * (cmd->num_args + 2));
+    cmd->args[cmd->num_args] = ft_strdup(arg);
+    cmd->num_args++;
+    cmd->args[cmd->num_args] = NULL;
+}
+
+void add_input_file(t_command *cmd, char *file)
+{
+    int i;
+    
+    i = 0;
+    while (cmd->input_files && cmd->input_files[i])
+        i++;
+    cmd->input_files = ft_realloc(cmd->input_files, sizeof(char *) * i, sizeof(char *) * (i + 2));
+    cmd->input_files[i] = ft_strdup(file);
+    cmd->input_files[i + 1] = NULL;
+}
+
+void add_output_file(t_command *cmd, char *file, int append)
+{
+    int i;
+    
+    i = 0;
+    while (cmd->output_files && cmd->output_files[i])
+        i++;
+    cmd->output_files = ft_realloc(cmd->output_files, sizeof(char *) * i, sizeof(char *) * (i + 2));
+    cmd->output_files[i] = ft_strdup(file);
+    cmd->output_files[i + 1] = NULL;
+    cmd->append_output = append;
+}
+
+void add_heredoc_file(t_command *cmd, char *file)
+{
+    int i;
+    
+    i = 0;
+    while (cmd->input_files && cmd->input_files[i])
+        i++;
+    cmd->input_files = ft_realloc(cmd->input_files, sizeof(char *) * i, sizeof(char *) * (i + 2));
+    cmd->input_files[i] = ft_strdup(file);
+    cmd->input_files[i + 1] = NULL;
+    cmd->heredoc = 1;
+}
+/*
+void handle_parentheses_level(t_command *cmd, int level)
+{
+    cmd->parentheses = level;
+}
+*/
+/*
+void handle_word_token(t_token **current, t_command *cmd)
+{
+    add_argument(cmd, (*current)->value);
+}
+*/
+void handle_redirect_token(t_token **current, t_command *cmd, t_shell *shell, int type)
+{
+    *current = (*current)->next;
+    while (*current && (*current)->type == SPACES)
+        *current = (*current)->next;
+
+    if (*current && (*current)->type == WORD)
+    {
+        if (type == REDIRECT_IN)
+            add_input_file(cmd, (*current)->value);
+        else if (type == REDIRECT_OUT)
+            add_output_file(cmd, (*current)->value, 0);
+        else if (type == APPEND)
+            add_output_file(cmd, (*current)->value, 1);
+    }
+    else
+        handle_error("syntax error: expected file after redirection", shell);
+}
+
+void handle_heredoc_token(t_command *cmd)
+{
+    char *filename = generate_filename();
+    add_heredoc_file(cmd, filename);
+    free(filename);
+}
+
+void handle_pipe_token(t_command **cmd)
+{
+    (*cmd)->next = create_command();
+    *cmd = (*cmd)->next;
+}
+
+void handle_logical_token(t_token *current, t_command **cmd)
+{
+    if (current->type == AND)
+        (*cmd)->and = 1;
+    else
+        (*cmd)->or = 1;
+    (*cmd)->next = create_command();
+    *cmd = (*cmd)->next;
+}
+
+void handle_left_parenthesis(t_command **cmd, int *paren_level)
+{
+    (*paren_level)++;
+    if ((*cmd)->num_args > 0 || (*cmd)->input_files || (*cmd)->output_files)
+    {
+        (*cmd)->next = create_command();
+        *cmd = (*cmd)->next;
+    }
+    //handle_parentheses_level(*cmd, *paren_level);
+    (*cmd)->parentheses = *paren_level;
+}
+
+void handle_right_parenthesis(t_command **cmd, int *paren_level)
+{
+    if (*paren_level > 0)
+    {
+        (*cmd)->next = create_command();
+        *cmd = (*cmd)->next;
+        //handle_parentheses_level(*cmd, *paren_level);
+        (*cmd)->parentheses = *paren_level;
+        (*paren_level)--;
+    }
+}
+
+void parse_general_tokens_cmd(t_token **tokens, t_command *cmd, t_shell *shell, int *paren_level)
+{
+    t_token *current;
+    
+    current = *tokens;
+    while (current)
+    {
+        if (current->type == WORD || current->type == DOUBLE_QUOTES || current->type == SINGLE_QUOTES || current->type == WILDC)
+            add_argument(cmd, current->value);
+        else if (current->type == REDIRECT_IN || current->type == REDIRECT_OUT || current->type == APPEND)
+            handle_redirect_token(&current, cmd, shell, current->type);
+        else if (current->type == HEREDOC)
+            handle_heredoc_token(cmd);
+        else if (current->type == PIPE)
+            handle_pipe_token(&cmd);
+        else if (current->type == AND || current->type == OR)
+            handle_logical_token(current, &cmd);
+        else if (current->type == LPAREN)
+            handle_left_parenthesis(&cmd, paren_level);
+        else if (current->type == RPAREN)
+            handle_right_parenthesis(&cmd, paren_level);
+        current = current->next;
+    }
+    *tokens = current;
+}
+
+void parse_tokens(t_token **tokens, t_shell *shell)
+{
+    t_command *current_cmd;
+    int paren_level;
+    
+    paren_level = 0;
+    current_cmd = create_command();
+    shell->commands = current_cmd;
+    parse_general_tokens_cmd(tokens, current_cmd, shell, &paren_level);
+}
