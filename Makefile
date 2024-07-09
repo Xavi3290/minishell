@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+         #
+#    By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/21 19:54:24 by xroca-pe          #+#    #+#              #
-#    Updated: 2024/07/03 17:52:02 by cgaratej         ###   ########.fr        #
+#    Updated: 2024/07/09 15:23:44 by xroca-pe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = cc
-CFLAGS = -Wall -Werror -Wextra #-fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -fsanitize=address
 RM = rm -f
 INCLUDE = includes/minishell.h Makefile
 LIBRARY = -Lreadline -lreadline -lhistory -ltermcap
@@ -30,7 +30,7 @@ SRC = src/main.c src/init.c src/tokenaizer.c src/tokenaizer2.c \
 	  src/parse.c src/expand.c src/built-ins/ft_env.c src/built-ins/ft_pwd.c \
 	  src/built-ins/ft_cd.c src/expand2.c src/expand3.c src/expand4.c src/error_manager.c \
 	  src/built-ins/ft_exit.c src/built-ins/ft_echo.c src/syntax_manager.c \
-	  src/built-ins/ft_export.c src/built-ins/ft_unset.c
+	  src/built-ins/ft_export.c src/built-ins/ft_unset.c src/execution.c
 	  
 OBJ = $(SRC:%.c=%.o)
 DEPS = $(SRC:%.c=$.d)
