@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 16:25:46 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/07/03 18:52:27 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/10 15:10:51 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,17 +74,17 @@ void	ft_exit(t_shell *shell)
 	int			i;
 
 	atoi_error = 0;
-	if (shell->commands->num_args > 1 || !shell->commands->args[1])
+	if (shell->commands->num_args == 1 || !shell->commands->args[1])
 	{
 		printf("exit\n");
 		exit(shell->last_exit_status);
 	}
-	else if (shell->commands->args[1] && check_is_num(shell->commands->args[0]))
+	else if (shell->commands->args[2] && check_is_num(shell->commands->args[1]))
 		return (put_error("exit\nminishell", "exit", "too many arguments"));
-	i = -1;
+	i = 0;
 	while (shell->commands->args[++i])
 		check_is_num(shell->commands->args[i]);
-	n = special_atoi(shell->commands->args[0], &atoi_error);
+	n = special_atoi(shell->commands->args[1], &atoi_error);
 	if (atoi_error == -1)
 	{
 		put_error("exit\nbash: exit", shell->commands->args[0], \
@@ -92,5 +92,6 @@ void	ft_exit(t_shell *shell)
 		exit(2);
 	}
 	printf("exit\n");
+	printf("aaaaaaaaaa %lld\n", n);
 	exit ((unsigned char)n);
 }
