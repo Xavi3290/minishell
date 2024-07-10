@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:54:22 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/07/04 16:12:28 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/10 15:15:26 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,10 +110,6 @@ int	ft_export(t_command *cmd, t_shell *shell)
 		pritn_declare(shell);
 	while (++i < cmd->num_args)
 	{
-		while (ft_strchr(cmd->args[i], ' ') != 0) //quitaren final
-			i++;
-		if (i == cmd->num_args)
-			break;
 		name = is_set_env(cmd->args[i]);
 		if (!name)
 			return (-1);
