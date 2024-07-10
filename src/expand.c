@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 16:23:12 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/03 17:30:24 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/07/10 15:40:36 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ void	expand_variable_token(t_token **tokens, t_shell *shell,
 	}
 }
 //4
+
 void	expand_double_quotes_token(t_token *current, t_shell *shell)
 {
 	char	*expanded;
@@ -101,6 +102,7 @@ void	expand_double_quotes_token(t_token *current, t_shell *shell)
 	}
 }
 //3
+
 void	expand_wildcard_token(t_token **tokens, t_shell *shell,
 		t_token **current, t_token **prev)
 {
@@ -118,8 +120,8 @@ void	expand_wildcard_token(t_token **tokens, t_shell *shell,
 			*current = *tokens;
 	}
 }
-
 //2
+
 void	expand_tokens(t_token **tokens, t_shell *shell)
 {
 	t_token	*current;
@@ -133,8 +135,8 @@ void	expand_tokens(t_token **tokens, t_shell *shell)
 		{
 			expand_variable_token(tokens, shell, &current, &prev);
 		}
-		else if (current->type == DOUBLE_QUOTES && ft_strchr(current->value,
-					'$'))
+		else if (current->type == DOUBLE_QUOTES && ft_strchr(current->value, \
+			'$'))
 		{
 			expand_double_quotes_token(current, shell);
 		}

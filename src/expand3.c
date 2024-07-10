@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:22:50 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/04 16:00:30 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/07/10 17:32:19 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,41 +33,6 @@ static int	match_pattern(const char *pattern, const char *filename)
 	return (*pattern == '\0' && *filename == '\0');
 }
 
-/*
-char	**expand_wildcards(const char *pattern)
-{
-	DIR				*dir;
-	struct dirent	*entry;
-	char			**matches;
-	int				count;
-
-	matches = NULL;
-	count = 0;
-	dir = opendir(".");
-	if (!dir)
-	{
-		perror("opendir");
-		return (NULL);
-	}
-	while ((entry = readdir(dir)) != NULL)
-	{
-		if (match_pattern(pattern, entry->d_name))
-		{
-			matches = ft_realloc(matches, sizeof(char *) * (count + 1),
-					sizeof(char *) * (count + 2));
-			matches[count] = ft_strdup(entry->d_name);
-			count++;
-		}
-	}
-	closedir(dir);
-	if (matches)
-	{
-		matches[count] = NULL;
-	}
-	return (matches);
-}
-*/
-
 static char	**read_directory(DIR *dir, const char *pattern)
 {
 	struct dirent	*entry;
@@ -76,15 +41,17 @@ static char	**read_directory(DIR *dir, const char *pattern)
 
 	matches = NULL;
 	count = 0;
-	while ((entry = readdir(dir)) != NULL)
+	entry = readdir(dir);
+	while (entry != NULL)
 	{
 		if (match_pattern(pattern, entry->d_name))
 		{
-			matches = ft_realloc(matches, sizeof(char *) * (count + 1),
-					sizeof(char *) * (count + 2));
+			matches = ft_realloc(matches, sizeof(char *) * (count + 1), \
+				sizeof(char *) * (count + 2));
 			matches[count] = ft_strdup(entry->d_name);
 			count++;
 		}
+		entry = readdir(dir);
 	}
 	closedir(dir);
 	if (matches)
@@ -100,7 +67,6 @@ char	**expand_wildcards(const char *pattern, t_shell *shell)
 	dir = opendir(".");
 	if (!dir)
 	{
-		//perror("opendir");
 		handle_error("opendir", shell);
 		return (NULL);
 	}

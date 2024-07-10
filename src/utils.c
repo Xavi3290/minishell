@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 15:05:55 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/06/20 15:30:56 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/10 15:59:28 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	*ft_realloc(void *ptr, size_t original_size, size_t new_size)
 		return (NULL);
 	if (ptr)
 	{
-		ft_memcpy(new_ptr, ptr, original_size);		
+		ft_memcpy(new_ptr, ptr, original_size);
 		free(ptr);
 	}
 	return (new_ptr);

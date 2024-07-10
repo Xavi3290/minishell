@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:37:33 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/06/12 17:05:53 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/10 15:45:01 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static char	**copy_env(char **env)
 	return (new_env);
 }
 
-static int num_env(char **env)
+static int	num_env(char **env)
 {
 	int		i;
 

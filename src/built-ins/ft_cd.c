@@ -6,13 +6,14 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 17:14:06 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/07/10 14:57:31 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/10 15:27:40 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void update_env_var(char **env, int env_num, const char *var_name, const char *new_value)
+void	update_env_var(char **env, int env_num, const char *var_name, \
+						const char *new_value)
 {
 	int		i;
 	char	*tmp;
@@ -27,17 +28,17 @@ void update_env_var(char **env, int env_num, const char *var_name, const char *n
 			tmp = ft_strjoin(var_name, new_value);
 			free(env[i]);
 			env[i] = tmp;
-			return;
+			return ;
 		}
 		i++;
 	}
 	env[env_num] = ft_strjoin(var_name, new_value);
 }
 
-void pwd_value(char *path_actual, t_shell *shell, int flag)
+void	pwd_value(char *path_actual, t_shell *shell, int flag)
 {
 	if (!path_actual)
-	    path_actual = actual_path();
+		path_actual = actual_path();
 	if (flag)
 		update_env_var(shell->env, shell->env_num, "PWD=", path_actual);
 	else
@@ -45,7 +46,7 @@ void pwd_value(char *path_actual, t_shell *shell, int flag)
 	free(path_actual);
 }
 
-int ft_cd(t_shell *shell)
+int	ft_cd(t_shell *shell)
 {
 	char	*tmp;
 

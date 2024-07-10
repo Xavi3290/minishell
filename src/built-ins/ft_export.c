@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:54:22 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/07/10 15:15:26 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/10 15:37:41 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ static void	pritn_declare(t_shell *shell)
 				if (equal_sign != NULL)
 				{
 					*equal_sign = '\0';
-					printf("declare -x %s=\"%s\"\n", copy_env_line, equal_sign + 1);
+					printf("declare -x %s=\"%s\"\n", copy_env_line, \
+						equal_sign + 1);
 				}
 				else if (shell->env[i])
 					printf("declare -x %s\n", shell->env[i]);

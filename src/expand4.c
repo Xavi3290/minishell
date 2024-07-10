@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand4.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:23:05 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/02 16:29:58 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/07/10 15:44:38 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,30 +37,31 @@ char	*handle_dollar_signs(char *str, int i)
 	return (ft_strdup(""));
 }
 
-void join_adjacent_tokens(t_token **tokens)
+void	join_adjacent_tokens(t_token **tokens)
 {
-    t_token *current;
-    t_token *next;
-    char *joined_value;
+	t_token	*current;
+	t_token	*next;
+	char	*joined_value;
 
-    current = *tokens;
-    while (current && current->next)
-    {
-        next = current->next;
-        if (next->type == WORD || next->type == DOUBLE_QUOTES || next->type == SINGLE_QUOTES)
-        {
-            if (current->type == WORD || current->type == DOUBLE_QUOTES || current->type == SINGLE_QUOTES)
-            {
-                joined_value = ft_strjoin(current->value, next->value);
-                free(current->value);
-                current->value = joined_value;
-                current->next = next->next;
-                free(next->value);
-                free(next);
-                continue;
-            }
-        }
-        current = current->next;
-    }
+	current = *tokens;
+	while (current && current->next)
+	{
+		next = current->next;
+		if (next->type == WORD || next->type == DOUBLE_QUOTES \
+			|| next->type == SINGLE_QUOTES)
+		{
+			if (current->type == WORD || current->type == DOUBLE_QUOTES \
+			|| current->type == SINGLE_QUOTES)
+			{
+				joined_value = ft_strjoin(current->value, next->value);
+				free(current->value);
+				current->value = joined_value;
+				current->next = next->next;
+				free(next->value);
+				free(next);
+				continue ;
+			}
+		}
+		current = current->next;
+	}
 }
-
