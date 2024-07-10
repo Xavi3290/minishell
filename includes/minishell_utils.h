@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_utils.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:18:30 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/07/04 15:13:55 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/07/10 17:48:02 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,15 @@ typedef struct s_token
 
 typedef struct s_syntax_state
 {
-    int last_was_operator;
-    int last_was_pipe;
-    int last_was_redirect;
-    int last_was_logical;
-    int paren_count;
-    int in_parentheses;
-    int paren_opened;
-    int last_was_word;
-} t_syntax_state;
+	int	last_was_operator;
+	int	last_was_pipe;
+	int	last_was_redirect;
+	int	last_was_logical;
+	int	paren_count;
+	int	in_parentheses;
+	int	paren_opened;
+	int	last_was_word;
+}	t_syntax_state;
 
 /*
 typedef struct s_command
@@ -69,18 +69,18 @@ typedef struct s_command
 
 typedef struct s_command
 {
-    char        **args;          // Argumentos del comando
-    int         num_args;        // Número de argumentos
-    char        **input_files;   // Archivos de input
-    char        **output_files;  // Archivos de output
-    int         append_output;   // Flag de append
-    int         heredoc;         // Flag de heredoc
-    int         and;             // Flag de and
-    int         or;              // Flag de or
-    int         parentheses;     // Flag de paréntesis
-    int         fd;              // File descriptor para heredoc
-    struct s_command *next;      // Siguiente comando en la lista
-} t_command;
+	char				**args;          // Argumentos del comando
+	int 				num_args;        // Número de argumentos
+	char				**input_files;   // Archivos de input
+	char				**output_files;  // Archivos de output
+	int 				append_output;   // Flag de append
+	int 				heredoc;         // Flag de heredoc
+	int 				and;             // Flag de and
+	int 				or;              // Flag de or
+	int 				parentheses;     // Flag de paréntesis
+	int 				fd;              // File descriptor para heredoc
+	struct s_command	*next;      // Siguiente comando en la lista
+}	t_command;
 
 typedef struct s_shell
 {

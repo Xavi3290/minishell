@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/09 16:12:27 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/07/10 18:44:53 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,13 +109,11 @@ int main(int argc, char **argv, char **env)
         if (shell->line[0])
         {
             add_history(shell->line);
-            //tokens = tokenize(shell->line, shell);
             tokens = tokenize_and_expand(shell->line, shell);
             if (!tokens)
             {
                 free(shell->line);
                 shell->line = NULL;
-                //handle_error("Tokenization failed", shell);
                 continue ;
             }
             if (!check_syntax(tokens, shell))
@@ -126,16 +124,13 @@ int main(int argc, char **argv, char **env)
                 continue;
             }
 			parse_tokens(&tokens, shell);
-            execute_commands(shell);
-            /*if (shell->commands)
+            //execute_commands(shell);
+            if (shell->commands)
             {
                 print_command(shell->commands);
                 free_commands(shell->commands);
-            }*/
-            /*shell->commands = malloc(sizeof(t_command));
-            shell->commands->args = malloc(sizeof(char *) * 1000);
-            t_token *temp;
-            temp = tokens;
+            }
+            /*
             while (temp)
             {
 				if (!ft_strcmp(temp->value, "export"))
@@ -180,16 +175,10 @@ int main(int argc, char **argv, char **env)
                 printf("Token: Type=%d, Value=%s\n", temp->type, temp->value);
                 temp = temp->next;
             }*/
-            // Parse the tokens into commands
-            // Execute the commandss
-            // Free the commands
-            free(shell->commands->args);
-            free(shell->commands);
-            //shell->parentheses = 0;
+            shell->parentheses = 0;
             free_tokens(tokens);
             free(shell->line);
             shell->line = NULL;
-            //shell = init_shell(env);
         }
     }
     free_shell(shell);
