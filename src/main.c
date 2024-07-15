@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/10 18:44:53 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/15 16:54:43 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void print_command(t_command *cmd)
         cmd = cmd->next;
     }
 }
+
 void free_commands(t_command *cmd)
 {
     t_command *current;
@@ -74,20 +75,6 @@ void free_commands(t_command *cmd)
         free(current);
         current = next;
     }
-}
-
-void process_tokens_and_export(t_shell *shell, t_token *tokens)
-{
-    int i = 0;
-    t_token *temp2 = tokens;
-    while (temp2)
-    {
-        shell->commands->num_args = i + 1;
-        shell->commands->args[i] = temp2->value;
-        i++;
-        temp2 = temp2->next;
-    }
-    shell->commands->args[i] = NULL;
 }
 
 int main(int argc, char **argv, char **env)
@@ -124,48 +111,25 @@ int main(int argc, char **argv, char **env)
                 continue;
             }
 			parse_tokens(&tokens, shell);
-            //execute_commands(shell);
-            if (shell->commands)
+            execute_commands(shell->commands, shell);
+            /*if (shell->commands)
             {
                 print_command(shell->commands);
-                free_commands(shell->commands);
-            }
-            /*
-            while (temp)
-            {
-				if (!ft_strcmp(temp->value, "export"))
-				{
-    				process_tokens_and_export(shell, tokens);
-    				ft_export(shell->commands, shell);
-				}
-				else if (!ft_strcmp(temp->value, "unset"))
-				{
-					process_tokens_and_export(shell, tokens);
-					ft_unset(shell, shell->commands);
-				}
-				else if (!ft_strcmp(temp->value, "exit"))
-				{
-					process_tokens_and_export(shell, tokens);
-					ft_exit(shell);
-				}
-				else if (!ft_strcmp(temp->value, "echo"))
-				{
-					process_tokens_and_export(shell, tokens);
-					ft_echo(&shell->commands);
-				}
-                else if (!ft_strcmp(temp->value, "env"))
-                    ft_env(shell);
-                else if (!ft_strcmp(temp->value, "pwd"))
-                    ft_pwd();
-				else if (!ft_strcmp(temp->value, "cd"))
-                {
-					process_tokens_and_export(shell, tokens);
-					ft_cd(shell);
-				}
-                else
-					printf("Token: Type=%d, Value=%s\n", temp->type, temp->value);
-                temp = temp->next;
             }*/
+			/*if (!ft_strcmp(shell->commands->args[0], "export"))
+    			ft_export(shell->commands, shell);
+			else if (!ft_strcmp(shell->commands->args[0], "unset"))
+				ft_unset(shell, shell->commands);
+			else if (!ft_strcmp(shell->commands->args[0], "exit"))
+				ft_exit(shell);
+			else if (!ft_strcmp(shell->commands->args[0], "echo"))
+				ft_echo(&shell->commands);
+            else if (!ft_strcmp(shell->commands->args[0], "env"))
+                ft_env(shell);
+            else if (!ft_strcmp(shell->commands->args[0], "pwd"))
+                ft_pwd();
+			else if (!ft_strcmp(shell->commands->args[0], "cd"))
+				ft_cd(shell);*/
             //parse_tokens(tokens, shell);
             //print_commands(shell->commands);
             /*t_token   *temp;
@@ -175,6 +139,7 @@ int main(int argc, char **argv, char **env)
                 printf("Token: Type=%d, Value=%s\n", temp->type, temp->value);
                 temp = temp->next;
             }*/
+			free_commands(shell->commands);
             shell->parentheses = 0;
             free_tokens(tokens);
             free(shell->line);

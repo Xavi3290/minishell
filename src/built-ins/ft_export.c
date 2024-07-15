@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:54:22 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/07/10 15:37:41 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/15 17:17:08 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,33 @@ static int	check_env_var(t_shell *shell, char *name, char *arg)
 {
 	int	j;
 	int	existing_var_index;
+	int	existing_var;
 
-	j = 0;
+	j = -1;
 	existing_var_index = -1;
-	while (j < shell->env_num)
+	existing_var = -1;
+	while (++j < shell->env_num)
 	{
-		if (ft_strncmp(shell->env[j], name, ft_strlen(name)) == 0 \
-			&& shell->env[j][ft_strlen(name)] == '=')
-			existing_var_index = j;
-		j++;
+		if (ft_strncmp(shell->env[j], name, ft_strlen(name)) == 0)
+		{
+			if (shell->env[j][ft_strlen(name)] == '=')
+				existing_var_index = j;
+			else if(shell->env[j][ft_strlen(name)] == '\0')
+				existing_var = j;
+		}
 	}
 	if (existing_var_index != -1)
 	{
 		free(shell->env[existing_var_index]);
 		shell->env[existing_var_index] = ft_strdup(arg);
+		return (1);
+	}
+	else if (existing_var != -1)
+	{
+		free(shell->env[existing_var]);
+		if (ft_strchr(shell->env[existing_var], '=') != 0)
+        	arg = ft_strdup(name);
+		shell->env[existing_var] = ft_strdup(arg);
 		return (1);
 	}
 	return (0);
@@ -116,6 +129,7 @@ int	ft_export(t_command *cmd, t_shell *shell)
 			return (-1);
 		if (!check_env_var(shell, name, cmd->args[i]))
 		{
+			printf("%s\n", cmd->args[i]);
 			if (add_env_var(shell, cmd->args[i]) != 0)
 			{
 				free(name);
@@ -124,5 +138,6 @@ int	ft_export(t_command *cmd, t_shell *shell)
 		}
 		free(name);
 	}
+	shell->last_exit_status = 0;
 	return (0);
 }

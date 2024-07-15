@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 20:02:49 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/10 18:30:24 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/15 14:53:08 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void		put_error(char *bash, char *file, char *error);
 void		ft_exit(t_shell *shell);
 int			ft_echo(t_command **command);
 int			ft_export(t_command *cmd, t_shell *shell);
-void		ft_unset(t_shell *shell, t_command *cmd);
+int			ft_unset(t_shell *shell, t_command *cmd);
 
 t_token		*tokenize_and_expand(char *line, t_shell *shell);
 
@@ -94,6 +94,6 @@ t_command *parse_commands(t_token *tokens);
 t_command *parse_tokens_to_commands(t_token *tokens, t_shell *shell);
 void	parse_tokens(t_token *tokens, t_shell *shell);*/
 
-void		execute_commands(t_shell *shell);
+void		execute_commands(t_command *cmd, t_shell *shell);
 
 #endif

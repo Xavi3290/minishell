@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:22:53 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/10 13:36:46 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/07/15 14:54:18 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ void execute_parentheses(t_command *cmd, t_shell *shell)
     if (pid == 0)
     {
         shell->commands = cmd;
-        execute_commands(shell);
+        execute_commands(cmd, shell);
         exit(shell->last_exit_status);
     }
     else if (pid < 0)
@@ -145,13 +145,30 @@ void execute_parentheses(t_command *cmd, t_shell *shell)
     }
 }
 
-void execute_commands(t_shell *shell)
+static int	cmd_type(t_command *cmd, t_shell *shell)
 {
-    t_command *cmd = shell->commands;
+	if (!ft_strcmp(cmd->args[0], "echo"))
+    	return (ft_echo(&cmd));
+	else if (!ft_strcmp(cmd->args[0], "cd"))
+		return (ft_cd(shell));
+	else if (!ft_strcmp(cmd->args[0], "pwd"))
+		return (ft_pwd());
+	else if (!ft_strcmp(cmd->args[0], "export"))
+		return (ft_export(cmd, shell));
+	else if (!ft_strcmp(cmd->args[0], "unset"))
+        return (ft_unset(shell, shell->commands));
+    else if (!ft_strcmp(cmd->args[0], "env"))
+        return (ft_env(shell));
+	else if (!ft_strcmp(cmd->args[0], "exit"))
+		ft_exit(shell);
+	return (1);
+}
 
+void execute_commands(t_command *cmd, t_shell *shell)
+{
     while (cmd)
     {
-        if (cmd->args && cmd->args[0])
+        if (cmd->args && cmd->args[0] && cmd_type(cmd, shell))
         {
             if (cmd->next && cmd->next->args && cmd->next->args[0] && cmd->next->args[0][0] == '|')
                 execute_pipeline(cmd, shell);
@@ -160,7 +177,6 @@ void execute_commands(t_shell *shell)
         }
         else if (cmd->parentheses)
             execute_parentheses(cmd, shell);
-        
         if (cmd->and && shell->last_exit_status == 0)
             cmd = cmd->next;
         else if (cmd->or && shell->last_exit_status != 0)

@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:14:28 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/07/10 17:44:48 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/11 15:06:31 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	compare_env_var(const char *env_var, const char *arg)
 	return (0);
 }
 
-void	process_unset_arg(t_shell *shell, const char *arg)
+int	process_unset_arg(t_shell *shell, const char *arg)
 {
 	int	i;
 
@@ -54,20 +54,25 @@ void	process_unset_arg(t_shell *shell, const char *arg)
 		if (compare_env_var(shell->env[i], arg))
 		{
 			remove_env_var(&(shell->env), i, &(shell->env_num));
-			break ;
+			return (0);
 		}
 		i++;
 	}
+	return (1);
 }
 
-void	ft_unset(t_shell *shell, t_command *cmd)
+int	ft_unset(t_shell *shell, t_command *cmd)
 {
 	int	arg_index;
+	int	result;
 
 	arg_index = 1;
 	while (arg_index < cmd->num_args)
 	{
-		process_unset_arg(shell, cmd->args[arg_index]);
+		result = process_unset_arg(shell, cmd->args[arg_index]);
+		if (result != 0)
+			return (1);
 		arg_index++;
-	}
+    }
+	return (0);
 }

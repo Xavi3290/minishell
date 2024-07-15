@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 16:13:38 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/07/02 16:25:48 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/11 15:11:09 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,17 @@ int	ft_env(t_shell *shell)
 	int	i;
 
 	i = 0;
+	if (shell->commands->args[1])
+	{
+		printf("env: \'%s\': No such file or directory", \
+			shell->commands->args[1]);
+		return (127);
+	}
 	while (i < shell->env_num)
 	{
 		if (shell->env[i] != NULL && ft_strchr(shell->env[i], '=') != 0)
 			printf("%s\n", shell->env[i]);
 		i++;
 	}
-	return (1);
+	return (0);
 }
