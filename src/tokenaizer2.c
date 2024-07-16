@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenaizer2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 15:02:05 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/06/07 16:28:36 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/07/16 15:00:30 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,21 +38,6 @@ void	add_token(t_token **tokens, t_token *new_token)
 	while (last->next)
 		last = last->next;
 	last->next = new_token;
-}
-
-void	free_tokens(t_token *tokens)
-{
-	t_token	*token;
-	t_token	*next;
-
-	token = tokens;
-	while (token)
-	{
-		next = token->next;
-		free(token->value);
-		free(token);
-		token = next;
-	}
 }
 
 t_token	*create_basic_token(char type, char *value, int *i)

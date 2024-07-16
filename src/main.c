@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/15 16:54:43 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/16 16:11:21 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,38 +45,6 @@ void print_command(t_command *cmd)
     }
 }
 
-void free_commands(t_command *cmd)
-{
-    t_command *current;
-    t_command *next;
-    int i;
-    current = cmd;
-    while (current)
-    {
-        next = current->next;
-        if (current->args)
-        {
-            for (i = 0; current->args[i]; i++)
-                free(current->args[i]);
-            free(current->args);
-        }
-        if (current->input_files)
-        {
-            for (i = 0; current->input_files[i]; i++)
-                free(current->input_files[i]);
-            free(current->input_files);
-        }
-        if (current->output_files)
-        {
-            for (i = 0; current->output_files[i]; i++)
-                free(current->output_files[i]);
-            free(current->output_files);
-        }
-        free(current);
-        current = next;
-    }
-}
-
 int main(int argc, char **argv, char **env)
 {
 	t_shell *shell;
@@ -111,6 +79,7 @@ int main(int argc, char **argv, char **env)
                 continue;
             }
 			parse_tokens(&tokens, shell);
+			free_tokens(tokens);
             execute_commands(shell->commands, shell);
             /*if (shell->commands)
             {
@@ -141,7 +110,7 @@ int main(int argc, char **argv, char **env)
             }*/
 			free_commands(shell->commands);
             shell->parentheses = 0;
-            free_tokens(tokens);
+            //free_tokens(tokens);
             free(shell->line);
             shell->line = NULL;
         }

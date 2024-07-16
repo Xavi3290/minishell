@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 16:25:46 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/07/10 15:10:51 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/16 16:12:31 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ long long	special_atoi(const char *str, int *atoi_error)
 	return (nbr * flag);
 }
 
-int	check_is_num(char *str)
+int	check_is_num(char *str, t_shell *shell)
 {
 	int	i;
 
@@ -60,6 +60,8 @@ int	check_is_num(char *str)
 		{
 			put_error("exit\nminishell: exit", \
 					str, "numeric argument required");
+			free(shell->line);
+			free_commands(shell->commands);
 			exit(2);
 		}
 		i++;
@@ -77,21 +79,28 @@ void	ft_exit(t_shell *shell)
 	if (shell->commands->num_args == 1 || !shell->commands->args[1])
 	{
 		printf("exit\n");
+		free_commands(shell->commands);
+		free(shell->line);
 		exit(shell->last_exit_status);
 	}
-	else if (shell->commands->args[2] && check_is_num(shell->commands->args[1]))
+	else if (shell->commands->args[2] && check_is_num(shell->commands->args[1], \
+		shell))
 		return (put_error("exit\nminishell", "exit", "too many arguments"));
 	i = 0;
 	while (shell->commands->args[++i])
-		check_is_num(shell->commands->args[i]);
+		check_is_num(shell->commands->args[i], shell);
 	n = special_atoi(shell->commands->args[1], &atoi_error);
 	if (atoi_error == -1)
 	{
 		put_error("exit\nbash: exit", shell->commands->args[0], \
 					"numeric argument required");
+		free_commands(shell->commands);
+		free(shell->line);
 		exit(2);
 	}
 	printf("exit\n");
 	printf("aaaaaaaaaa %lld\n", n);
+	free_commands(shell->commands);
+	free(shell->line);
 	exit ((unsigned char)n);
 }

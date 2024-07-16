@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:54:22 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/07/15 17:17:08 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/16 16:07:33 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,20 +124,27 @@ int	ft_export(t_command *cmd, t_shell *shell)
 		pritn_declare(shell);
 	while (++i < cmd->num_args)
 	{
-		name = is_set_env(cmd->args[i]);
-		if (!name)
-			return (-1);
-		if (!check_env_var(shell, name, cmd->args[i]))
+		if (!(ft_isalpha(cmd->args[i][0]) || cmd->args[i][0] == '_'))
 		{
-			printf("%s\n", cmd->args[i]);
-			if (add_env_var(shell, cmd->args[i]) != 0)
-			{
-				free(name);
-				return (-1);
-			}
+			put_error("minishell: export", cmd->args[i],
+				"not a valid identifier");
+			shell->last_exit_status = 1;
 		}
-		free(name);
+		else
+		{
+			name = is_set_env(cmd->args[i]);
+			if (!name)
+				return (-1);
+			if (!check_env_var(shell, name, cmd->args[i]))
+			{
+				if (add_env_var(shell, cmd->args[i]) != 0)
+				{
+					free(name);
+					return (-1);
+				}
+			}
+			free(name);
+		}
 	}
-	shell->last_exit_status = 0;
 	return (0);
 }
