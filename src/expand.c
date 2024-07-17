@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
+/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 16:23:12 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/16 15:11:30 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/17 14:45:55 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	expand_tokens(t_token **tokens, t_shell *shell)
 	}
 }
 
-t_token	*tokenize_and_expand(char *line, t_shell *shell)
+/*t_token	*tokenize_and_expand(char *line, t_shell *shell)
 {
 	t_token	*tokens;
 
@@ -98,4 +98,163 @@ t_token	*tokenize_and_expand(char *line, t_shell *shell)
 	expand_tokens(&tokens, shell);
 	join_adjacent_tokens(&tokens);
 	return (tokens);
+}*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*t_token	*tokenize_and_expand(char *line, t_shell *shell)
+{
+	t_token	*tokens;
+
+	tokens = tokenize(line, shell);
+	if (!tokens)
+		return (NULL);
+	expand_tokens(&tokens, shell);
+	join_adjacent_tokens(&tokens);
+	if (!check_syntax(tokens, shell))
+    {
+        free_tokens(tokens);
+        free(shell->line);
+        shell->line = NULL;
+        return (NULL);
+    }
+	parse_tokens(&tokens, shell);
+    //execute_commands(shell);
+	return (tokens);
+}*/
+
+
+t_token	*tokenize_and_expand_segment(char *segment, t_shell *shell)
+{
+	t_token *tokens = tokenize(segment, shell);
+	if (!tokens)
+		return (NULL);
+	expand_tokens(&tokens, shell);
+	join_adjacent_tokens(&tokens);
+	if (!check_syntax(tokens, shell))
+	{
+		free_tokens(tokens);
+		return (NULL);
+	}
+	return (tokens);
+}
+
+void execute_segment(char *segment, t_shell *shell)
+{
+	t_token *tokens = tokenize_and_expand_segment(segment, shell);
+	if (tokens)
+	{
+		parse_tokens(&tokens, shell);
+		execute_commands(shell);
+		free_tokens(tokens);
+	}
+}
+
+/*int is_logical_operator(t_token *token)
+{
+	return (token->type == AND || token->type == OR);
+}*/
+
+
+int count_segments(t_token *tokens)
+{
+	t_token *current = tokens;
+	int count = 1;  // Al menos un segmento
+
+	while (current)
+	{
+		if (current->type == AND || current->type == OR)
+			count++;
+		current = current->next;
+	}
+	return count;
+}
+
+char **extract_segments(t_token *tokens, char *line, int count)
+{
+	char **segments = malloc(sizeof(char *) * (count + 1));
+	if (!segments)
+		handle_error(NULL, NULL);
+
+	t_token *current = tokens;
+	char *segment_start = line;
+	int segment_index = 0;
+
+	while (current)
+	{
+		if (current->type == AND || current->type == OR)
+		{
+			int len = current->value - segment_start;
+			segments[segment_index] = ft_strndup(segment_start, len);
+			segment_start = current->value + ft_strlen(current->value);
+			segment_index++;
+		}
+		current = current->next;
+	}
+
+	segments[segment_index] = ft_strdup(segment_start);
+	segments[segment_index + 1] = NULL;
+	return segments;
+}
+
+char **split_by_logical_operators(char *line, t_shell *shell)
+{
+	t_token *tokens = tokenize(line, shell);
+	if (!tokens)
+		return NULL;
+
+	int count = count_segments(tokens);
+	char **segments = extract_segments(tokens, line, count);
+	
+	free_tokens(tokens);
+	return (segments);
+}
+
+
+void execute_segments(char **segments, t_shell *shell)
+{
+	int i = 0;
+	while (segments[i])
+	{
+		execute_segment(segments[i], shell);
+		if ((shell->last_exit_status == 0 && shell->commands->and) ||
+			(shell->last_exit_status != 0 && shell->commands->or))
+		{
+			i++;
+		}
+		else
+		{
+			break;
+		}
+		i++;
+	}
+}
+
+void tokenize_expand_cmd_execute(char *line, t_shell *shell)
+{
+	char **segments = split_by_logical_operators(line, shell);
+	if (!segments)
+		return;
+
+	execute_segments(segments, shell);
+
+	int i = 0;
+	while (segments[i])
+	{
+		free(segments[i]);
+		i++;
+	}
+	free(segments);
 }
