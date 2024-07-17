@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 16:23:12 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/17 14:45:55 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/07/17 14:53:48 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	expand_tokens(t_token **tokens, t_shell *shell)
 	}
 }
 
-/*t_token	*tokenize_and_expand(char *line, t_shell *shell)
+t_token	*tokenize_and_expand(char *line, t_shell *shell)
 {
 	t_token	*tokens;
 
@@ -98,7 +98,7 @@ void	expand_tokens(t_token **tokens, t_shell *shell)
 	expand_tokens(&tokens, shell);
 	join_adjacent_tokens(&tokens);
 	return (tokens);
-}*/
+}
 
 
 

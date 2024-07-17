@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 15:30:37 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/07/10 15:38:57 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/17 16:40:33 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,10 @@ void	put_error(char *bash, char *file, char *error)
 	}
 	if (error)
 		ft_putendl_fd(error, 2);
+}
+
+void	execution_error(char *cmd,char *message, t_shell *shell)
+{
+	printf("%s: %s\n", cmd, message);
+	shell->last_exit_status = errno;
 }

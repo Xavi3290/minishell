@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:22:53 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/17 14:43:11 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/17 16:37:31 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,8 +171,7 @@ void execute_simple_command(t_command *cmd, t_shell *shell)
 	
     if (pid == 0)
     {
-        if (execvp(cmd->args[0], cmd->args) < 0)
-            handle_error("minishell: execvp", shell);
+        exec_cmd(cmd->args, shell->env, shell, cmd);
     }
     else if (pid < 0)
     {
@@ -206,7 +205,6 @@ void create_pipeline(t_command *cmd, t_shell *shell)
                     handle_error("minishell: dup2", shell);
                 close(prev_fd);
             }
-
             if (cmd->next) // Si no es el último comando
             {
                 close(fd[0]);
@@ -214,10 +212,9 @@ void create_pipeline(t_command *cmd, t_shell *shell)
                     handle_error("minishell: dup2", shell);
                 close(fd[1]);
             }
-
-            exec_cmd(cmd->args, shell->env);
-            handle_error("minishell: exec_cmd", shell);
-            exit(EXIT_FAILURE);
+            exec_cmd(cmd->args, shell->env, shell, cmd);
+			shell->last_exit_status = 127;
+            exit(127);
         }
         else // Proceso padre
         {
@@ -225,10 +222,8 @@ void create_pipeline(t_command *cmd, t_shell *shell)
                 close(prev_fd);
             close(fd[1]);
             prev_fd = fd[0];
-
             if (!cmd->next) // Si es el último comando
                 close(fd[0]);
-
             waitpid(pid, &status, 0);
         }
 
@@ -255,8 +250,11 @@ static int	cmd_type(t_command *cmd, t_shell *shell)
 	return (1);
 }
 
-void execute_commands(t_command *cmd, t_shell *shell)
+void execute_commands(t_shell *shell)
 {
+	t_command *cmd;
+
+	cmd = shell->commands;
 	while (cmd)
     {
         if (cmd->args && cmd->args[0] && cmd_type(cmd, shell))
