@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:50:13 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/07/16 18:12:00 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/17 14:40:34 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,18 +70,16 @@ char	*get_path(char *cmd, char **env)
 
 void	exec_cmd(char **cmd, char **env)
 {
-	char **cmd_l;
+	//char **cmd_l;
     char *path;
 	
-    cmd_l = ft_split(cmd, ' ');
+    /*cmd_l = ft_split(cmd, ' ');
     if (!cmd_l)
-        put_error("minishell: command not found: ", cmd, "");
+        put_error("minishell: command not found: ", cmd, "");*/
     
-    path = get_path(cmd_l[0], env);
-    if (execve(path, cmd_l, env) == -1)
+    path = get_path(cmd[0], env);
+    if (execve(path, cmd, env) == -1)
     {
-        free_paths(cmd_l);
-        put_error("minishell: command not found: ", cmd, "");
+        put_error("minishell: command not found: ", NULL, "");
     }
-    free_paths(cmd_l);
 }
