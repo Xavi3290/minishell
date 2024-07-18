@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:22:53 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/17 16:37:31 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/18 15:55:24 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,17 +170,11 @@ void execute_simple_command(t_command *cmd, t_shell *shell)
 	pid_t pid = fork();
 	
     if (pid == 0)
-    {
         exec_cmd(cmd->args, shell->env, shell, cmd);
-    }
     else if (pid < 0)
-    {
         handle_error("minishell: fork", shell);
-    }
     else
-    {
         waitpid(pid, &(shell->last_exit_status), 0);
-    }
 }
 
 void create_pipeline(t_command *cmd, t_shell *shell)
@@ -192,12 +186,12 @@ void create_pipeline(t_command *cmd, t_shell *shell)
 
     while (cmd)
     {
-        if (pipe(fd) == -1)
+        if (cmd->next && pipe(fd) == -1)
             handle_error("minishell: pipe", shell);
         pid = fork();
         if (pid == -1)
             handle_error("minishell: fork", shell);
-        if (pid == 0) // Proceso hijo
+        if (pid == 0)
         {
             if (prev_fd != -1) // Si no es el primer comando
             {
@@ -216,17 +210,24 @@ void create_pipeline(t_command *cmd, t_shell *shell)
 			shell->last_exit_status = 127;
             exit(127);
         }
-        else // Proceso padre
+        else
         {
             if (prev_fd != -1)
+			{
                 close(prev_fd);
-            close(fd[1]);
-            prev_fd = fd[0];
-            if (!cmd->next) // Si es el último comando
-                close(fd[0]);
+				prev_fd = fd[0];
+			}
+			if (cmd->next)
+			{
+                close(fd[1]);
+            	prev_fd = fd[0];
+			}
+			else
+                prev_fd = -1;
             waitpid(pid, &status, 0);
+			if (WIFEXITED(status))
+                shell->last_exit_status = WEXITSTATUS(status);
         }
-
         cmd = cmd->next;
     }
 }

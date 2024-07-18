@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/17 16:30:22 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/18 14:43:32 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,10 @@ int main(int argc, char **argv, char **env)
 			parse_tokens(&tokens, shell);
 			free_tokens(tokens);
             execute_commands(shell);
-            if (shell->commands)
+            /*if (shell->commands)
             {
                 print_command(shell->commands);
-            }
+            }*/
 			/*if (!ft_strcmp(shell->commands->args[0], "export"))
     			ft_export(shell->commands, shell);
 			else if (!ft_strcmp(shell->commands->args[0], "unset"))
