@@ -6,13 +6,13 @@
 #    By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/21 19:54:24 by xroca-pe          #+#    #+#              #
-#    Updated: 2024/07/16 16:34:30 by cgaratej         ###   ########.fr        #
+#    Updated: 2024/07/22 17:19:00 by cgaratej         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra #-fsanitize=address
 RM = rm -f
 INCLUDE = includes/minishell.h Makefile
 LIBRARY = -Lreadline -lreadline -lhistory -ltermcap

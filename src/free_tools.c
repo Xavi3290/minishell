@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 14:59:35 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/07/16 15:00:35 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/22 17:25:20 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,5 @@ void	free_tokens(t_token *tokens)
 		free(token);
 		token = next;
 	}
+	free(tokens);
 }

@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 20:02:49 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/17 16:30:10 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/22 17:22:10 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,5 +104,6 @@ void		execute_commands(t_shell *shell);
 
 
 void 		print_command(t_command *cmd);
+t_shell		*init_shell_env(char **env);
 
 #endif

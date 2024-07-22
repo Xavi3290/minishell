@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/18 14:43:32 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/22 17:48:27 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,27 +79,7 @@ int main(int argc, char **argv, char **env)
                 continue;
             }
 			parse_tokens(&tokens, shell);
-			free_tokens(tokens);
             execute_commands(shell);
-            /*if (shell->commands)
-            {
-                print_command(shell->commands);
-            }*/
-			/*if (!ft_strcmp(shell->commands->args[0], "export"))
-    			ft_export(shell->commands, shell);
-			else if (!ft_strcmp(shell->commands->args[0], "unset"))
-				ft_unset(shell, shell->commands);
-			else if (!ft_strcmp(shell->commands->args[0], "exit"))
-				ft_exit(shell);
-			else if (!ft_strcmp(shell->commands->args[0], "echo"))
-				ft_echo(&shell->commands);
-            else if (!ft_strcmp(shell->commands->args[0], "env"))
-                ft_env(shell);
-            else if (!ft_strcmp(shell->commands->args[0], "pwd"))
-                ft_pwd();
-			else if (!ft_strcmp(shell->commands->args[0], "cd"))
-				ft_cd(shell);*/
-            //parse_tokens(tokens, shell);
             //print_commands(shell->commands);
             /*t_token   *temp;
             temp = tokens;
@@ -109,10 +89,10 @@ int main(int argc, char **argv, char **env)
                 temp = temp->next;
             }*/
 			free_commands(shell->commands);
-            shell->parentheses = 0;
-            //free_tokens(tokens);
             free(shell->line);
             shell->line = NULL;
+			free_tokens(tokens);
+			//shell = init_shell_env(shell->env);
         }
     }
     free_shell(shell);

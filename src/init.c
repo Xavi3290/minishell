@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:37:33 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/10 15:45:01 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/22 17:21:55 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,25 @@ t_shell	*init_shell(char **env)
 	if (!shell->env)
 		return (NULL);
 	shell->env_num = num_env(env);
+	shell->commands = NULL;
+	shell->line = NULL;
+	shell->last_exit_status = 0;
+	shell->parentheses = 0;
+	return (shell);
+}
+
+t_shell	*init_shell_env(char **env)
+{
+	t_shell	*shell;
+
+	shell = malloc(sizeof(t_shell));
+	if (!shell)
+		return (NULL);
+	shell->env = copy_env(env);
+	if (!shell->env)
+		return (NULL);
+	shell->env_num = num_env(env);
+	free_str_str(env);
 	shell->commands = NULL;
 	shell->line = NULL;
 	shell->last_exit_status = 0;
