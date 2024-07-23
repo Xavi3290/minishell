@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 20:02:49 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/22 17:22:10 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/23 17:56:56 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ char		*ft_strndup(const char *s, size_t n);
 int			ft_is_space(char line);
 void		*ft_realloc(void *ptr, size_t original_size, size_t new_size);
 void		handle_error(char *message, t_shell *shell);
-void	execution_error(char *cmd,char *message, t_shell *shell);
 int			ft_strcmp(const char *s1, const char *s2);
 
 int			ft_env(t_shell *shell);
@@ -87,7 +86,7 @@ void		handle_redirect_token(t_token **current, t_command *cmd, \
 
 void 		free_commands(t_command *cmd);
 
-void		exec_cmd(char **cmd, char **env, t_shell *shell, t_command *cmds);
+void		exec_cmd(char **env, t_command *cmds);
 
 /*void parse_general_tokens_cmd(t_token **tokens, t_command *cmd, \
 			t_shell *shell);
@@ -104,6 +103,6 @@ void		execute_commands(t_shell *shell);
 
 
 void 		print_command(t_command *cmd);
-t_shell		*init_shell_env(char **env);
+void		execution_error(char *str, int per, int ex, char *cmd);
 
 #endif

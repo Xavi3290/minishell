@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 15:30:37 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/07/18 15:05:45 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/23 18:03:54 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,29 +37,24 @@ void	put_error(char *bash, char *file, char *error)
 		ft_putendl_fd(error, 2);
 }
 
-void	execution_error(char *cmd,char *message, t_shell *shell)
+void	execution_error(char *str, int per, int ex, char *cmd)
 {
-	printf("%s: %s\n", cmd, message);
-	shell->last_exit_status = errno;
-}
-
-void	print_error(char *str, int per, int ex, char *cmd)
-{
+	char	*error;
+	
+	error = NULL;
 	if (per)
 	{
-		perror(str);
+		if (cmd)
+			error = ft_strjoin(str, cmd);
+		perror(error);
+		free(error);
 		exit(EXIT_FAILURE);
 	}
 	else
 	{
-		if (ex == 127)
-		{
-			ft_putstr_fd(str, 2);
-			ft_putstr_fd(cmd, 2);
-			ft_putstr_fd("\n", 2);
-			exit(ex);
-		}
 		ft_putstr_fd(str, 2);
+		ft_putstr_fd(cmd, 2);
+		ft_putstr_fd("\n", 2);
 		exit(ex);
 	}
 }

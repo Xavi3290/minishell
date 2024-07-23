@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:50:13 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/07/23 16:04:04 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/07/23 18:11:51 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char	*get_path(char *cmd, char **env)
 	return (cmd);
 }
 
-void	exec_cmd(char **cmd, char **env, t_shell *shell, t_command *cmds)
+void	exec_cmd(char **env, t_command *cmds)
 {
     char	*path;
 	int		fd;
@@ -76,12 +76,8 @@ void	exec_cmd(char **cmd, char **env, t_shell *shell, t_command *cmds)
 	if (cmds->input_files && cmds->input_files[0])
     {
         fd = open(cmds->input_files[0], O_RDONLY, 0644);
-		if (access(cmds->input_files[0], R_OK) == -1)
-		{
-			if (fd == -1)
-            	handle_error("minishell: open input file", shell);
-			handle_error("minishell: permiso", shell);
-		}
+		if (access(cmds->input_files[0], R_OK) == -1 || fd == -1)
+			execution_error("minishell: ", 1, 126, cmds->input_files[0]);
 		if (dup2(fd, STDIN_FILENO) == -1)
             handle_error(NULL, NULL);
         close(fd);
@@ -93,17 +89,15 @@ void	exec_cmd(char **cmd, char **env, t_shell *shell, t_command *cmds)
         else
             fd = open(cmds->output_files[0], O_WRONLY | O_CREAT | O_TRUNC, 0644);
         if (fd == -1)
-            handle_error("minishell: open output file", NULL);
+            execution_error("minishell: ", 1, 126, cmds->output_files[0]);
         if (dup2(fd, STDOUT_FILENO) == -1)
-            handle_error("minishell: dup2 output file", NULL);
+            handle_error(NULL, NULL);
         close(fd);
     }
-    path = get_path(cmd[0], env);
-    if (execve(path, cmd, env) == -1)
+    path = get_path(cmds->args[0], env);
+    if (execve(path, &cmds->args[0], env) == -1)
 	{
 		free(path);
-		//free_str_str(cmd);
-		//free_commands(cmds);
 		handle_error(NULL, NULL);
 	}
 	

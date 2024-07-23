@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/23 16:34:33 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/07/23 17:46:48 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ int main(int argc, char **argv, char **env)
             }
 			parse_tokens(&tokens, shell);
             execute_commands(shell);
-            printf("Last exit status: %d\n", shell->last_exit_status);
             //print_command(shell->commands);
             /*t_token   *temp;
             temp = tokens;
