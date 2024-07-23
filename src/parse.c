@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
+/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 13:29:10 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/10 18:14:35 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/23 16:35:48 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ void	parse_general_tokens_cmd(t_token **tokens, t_command *cmd, \
 			handle_right_parenthesis(&cmd, paren_level);
 		current = current->next;
 	}
-	*tokens = current;
 }
 
 void	parse_tokens(t_token **tokens, t_shell *shell)

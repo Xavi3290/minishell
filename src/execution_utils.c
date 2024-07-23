@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
+/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:50:13 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/07/18 15:05:09 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/23 16:04:04 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,11 @@ void	exec_cmd(char **cmd, char **env, t_shell *shell, t_command *cmds)
     }
     path = get_path(cmd[0], env);
     if (execve(path, cmd, env) == -1)
-    {
-       execution_error(cmd[0], "command not found", shell);
-    }
+	{
+		free(path);
+		//free_str_str(cmd);
+		//free_commands(cmds);
+		handle_error(NULL, NULL);
+	}
+	
 }

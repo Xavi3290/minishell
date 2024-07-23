@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+         #
+#    By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/21 19:54:24 by xroca-pe          #+#    #+#              #
-#    Updated: 2024/07/22 17:19:00 by cgaratej         ###   ########.fr        #
+#    Updated: 2024/07/23 16:04:54 by xroca-pe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = cc
-CFLAGS = -Wall -Werror -Wextra #-fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -fsanitize=address -fsanitize=leak
 RM = rm -f
 INCLUDE = includes/minishell.h Makefile
 LIBRARY = -Lreadline -lreadline -lhistory -ltermcap

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
+/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/22 17:48:27 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/23 16:34:33 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ int main(int argc, char **argv, char **env)
             }
 			parse_tokens(&tokens, shell);
             execute_commands(shell);
-            //print_commands(shell->commands);
+            printf("Last exit status: %d\n", shell->last_exit_status);
+            //print_command(shell->commands);
             /*t_token   *temp;
             temp = tokens;
             while (temp)
@@ -88,10 +89,11 @@ int main(int argc, char **argv, char **env)
                 printf("Token: Type=%d, Value=%s\n", temp->type, temp->value);
                 temp = temp->next;
             }*/
+            shell->parentheses = 0;
+            free_tokens(tokens);
 			free_commands(shell->commands);
             free(shell->line);
             shell->line = NULL;
-			free_tokens(tokens);
 			//shell = init_shell_env(shell->env);
         }
     }

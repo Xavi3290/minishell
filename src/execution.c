@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
+/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:22:53 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/18 15:55:24 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/23 15:44:31 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,8 +207,6 @@ void create_pipeline(t_command *cmd, t_shell *shell)
                 close(fd[1]);
             }
             exec_cmd(cmd->args, shell->env, shell, cmd);
-			shell->last_exit_status = 127;
-            exit(127);
         }
         else
         {
@@ -256,21 +254,16 @@ void execute_commands(t_shell *shell)
 	t_command *cmd;
 
 	cmd = shell->commands;
-	while (cmd)
+
+    if (cmd->args && cmd->args[0] && cmd_type(cmd, shell))
     {
-        if (cmd->args && cmd->args[0] && cmd_type(cmd, shell))
+        if (cmd->next && cmd->next->args && cmd->next->args[0])
         {
-            if (cmd->next && cmd->next->args && cmd->next->args[0])
-            {
-                create_pipeline(cmd, shell);
-                while (cmd->next)
-                    cmd = cmd->next;
-            }
-            else
-            {
-                execute_simple_command(cmd, shell);
-            }
+            create_pipeline(cmd, shell);
         }
-        cmd = cmd->next;
+        else
+        {
+            execute_simple_command(cmd, shell);
+        }
     }
 }
