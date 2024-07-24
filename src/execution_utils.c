@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:50:13 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/07/23 18:11:51 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/24 14:31:08 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,5 +100,4 @@ void	exec_cmd(char **env, t_command *cmds)
 		free(path);
 		handle_error(NULL, NULL);
 	}
-	
 }
