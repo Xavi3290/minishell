@@ -6,12 +6,12 @@
 #    By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/21 19:54:24 by xroca-pe          #+#    #+#              #
-#    Updated: 2024/07/23 17:46:38 by cgaratej         ###   ########.fr        #
+#    Updated: 2024/07/24 16:50:15 by cgaratej         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
-CC = cc
+CC = cc -g
 CFLAGS = -Wall -Werror -Wextra -fsanitize=address -fsanitize=leak
 RM = rm -f
 INCLUDE = includes/minishell.h Makefile

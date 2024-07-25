@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:50:13 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/07/24 14:31:08 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/25 17:22:11 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,15 @@ char	*get_path(char *cmd, char **env)
 	i = 0;
 	path_list = ft_split(get_env(env), ':');
 	if (!path_list)
-		put_error("mishell: command not found: ", cmd, "");
+		execution_error(": command not found", 0, 127, cmd);
 	while (path_list[i] && !ft_strchr(cmd, '/'))
 	{
 		path = ft_strjoin(path_list[i], "/");
 		if (!path)
-			put_error("mishell: command not found: ", cmd, "");
+			execution_error(": command not found", 0, 127, cmd);
 		path_final = ft_strjoin(path, cmd);
 		if (!path_final)
-			put_error("mishell: command not found: ", cmd, "");
+			execution_error(": command not found", 0, 127, cmd);
 		free(path);
 		if (!access(path_final, X_OK | F_OK))
 			return (path_final);
@@ -82,22 +82,23 @@ void	exec_cmd(char **env, t_command *cmds)
             handle_error(NULL, NULL);
         close(fd);
     }
-    if (cmds->output_files && cmds->output_files[0])
+	if (cmds->output_files && cmds->output_files[0])
     {
         if (cmds->append_output)
-            fd = open(cmds->output_files[0], O_WRONLY | O_CREAT | O_APPEND, 0644);
+            fd = open(cmds->output_files[0], O_WRONLY | O_CREAT | O_APPEND, \
+						0644);
         else
-            fd = open(cmds->output_files[0], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+            fd = open(cmds->output_files[0], O_WRONLY | O_CREAT | O_TRUNC, \
+						0644);
         if (fd == -1)
             execution_error("minishell: ", 1, 126, cmds->output_files[0]);
         if (dup2(fd, STDOUT_FILENO) == -1)
             handle_error(NULL, NULL);
         close(fd);
     }
+	if (cmds->heredoc)
+		unlink(cmds->input_files[0]);
     path = get_path(cmds->args[0], env);
-    if (execve(path, &cmds->args[0], env) == -1)
-	{
-		free(path);
-		handle_error(NULL, NULL);
-	}
+    if (execve(path, cmds->args, env) == -1)
+		execution_error(": command not found", 0, 127, cmds->args[0]);
 }

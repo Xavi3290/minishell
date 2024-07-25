@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 15:30:37 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/07/23 18:03:54 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/25 14:45:50 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ void	execution_error(char *str, int per, int ex, char *cmd)
 	}
 	else
 	{
-		ft_putstr_fd(str, 2);
 		ft_putstr_fd(cmd, 2);
+		ft_putstr_fd(str, 2);
 		ft_putstr_fd("\n", 2);
 		exit(ex);
 	}

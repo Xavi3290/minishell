@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/23 17:46:48 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/25 16:57:34 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ int main(int argc, char **argv, char **env)
 			free_commands(shell->commands);
             free(shell->line);
             shell->line = NULL;
-			//shell = init_shell_env(shell->env);
         }
     }
     free_shell(shell);
