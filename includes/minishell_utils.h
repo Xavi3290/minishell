@@ -6,12 +6,14 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:18:30 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/07/10 17:48:02 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/29 15:15:46 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_UTILS_H
 # define MINISHELL_UTILS_H
+
+#define MAX_HEREDOCS 16
 
 typedef enum e_token_type
 {

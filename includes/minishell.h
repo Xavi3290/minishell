@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 20:02:49 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/23 17:56:56 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/29 16:35:15 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 
 t_shell		*init_shell(char **env);
 void		free_str(char *str);
-void		free_str_str(char **str);
+void		free_string_array(char **str);
 void		free_shell(t_shell *shell);
 
 t_token		*tokenize(char *line, t_shell *shell);
@@ -85,6 +85,7 @@ void		handle_redirect_token(t_token **current, t_command *cmd, \
 			t_shell *shell, int type);
 
 void 		free_commands(t_command *cmd);
+void		free_paths(char **path);
 
 void		exec_cmd(char **env, t_command *cmds);
 
@@ -98,11 +99,14 @@ t_command *parse_commands(t_token *tokens);
 t_command *parse_tokens_to_commands(t_token *tokens, t_shell *shell);
 void	parse_tokens(t_token *tokens, t_shell *shell);*/
 
-void		execute_commands(t_shell *shell);
-
-
-
 void 		print_command(t_command *cmd);
+
+
+void		execute_commands(t_shell *shell);
+void		execute_simple_command(t_command *cmd, t_shell *shell);
+void		handel_herdoc(t_command *cmd, int i);
+int			count_comands(t_command *cmd);
 void		execution_error(char *str, int per, int ex, char *cmd);
+void		wait_for_children(pid_t *pids, int num_childrens, t_shell *shell);
 
 #endif

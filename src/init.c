@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:37:33 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/25 14:50:46 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/29 16:35:15 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static char	**copy_env(char **env)
 		new_env[i] = ft_strdup(env[i]);
 		if (!new_env[i])
 		{
-			free_str_str(new_env);
+			free_string_array(new_env);
 			return (NULL);
 		}
 		i++;

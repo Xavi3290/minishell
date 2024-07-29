@@ -6,24 +6,11 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:50:13 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/07/25 17:22:11 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/29 16:38:59 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-void	free_paths(char **path)
-{
-	int	i;
-
-	i = 0;
-	while (path[i])
-	{
-		free(path[i]);
-		i++;
-	}
-	free(path);
-}
 
 static char	*get_env(char **env)
 {
@@ -68,37 +55,44 @@ char	*get_path(char *cmd, char **env)
 	return (cmd);
 }
 
+void	handle_input_redirection(char *input_file)
+{
+	int	fd;
+
+	fd = open(input_file, O_RDONLY, 0644);
+	if (fd == -1 || access(input_file, R_OK) == -1)
+		execution_error("minishell: ", 1, 126, input_file);
+	if (dup2(fd, STDIN_FILENO) == -1)
+		handle_error(NULL, NULL);
+	close(fd);
+}
+
+void	handle_output_redirection(t_command *cmds)
+{
+	int	fd;
+
+	if (cmds->append_output)
+		fd = open(cmds->output_files[0], O_WRONLY | O_CREAT | O_APPEND, 0644);
+	else
+		fd = open(cmds->output_files[0], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (fd == -1)
+		execution_error("minishell: ", 1, 126, cmds->output_files[0]);
+	if (dup2(fd, STDOUT_FILENO) == -1)
+		handle_error(NULL, NULL);
+	close(fd);
+}
+
 void	exec_cmd(char **env, t_command *cmds)
 {
-    char	*path;
-	int		fd;
+	char	*path;
 
 	if (cmds->input_files && cmds->input_files[0])
-    {
-        fd = open(cmds->input_files[0], O_RDONLY, 0644);
-		if (access(cmds->input_files[0], R_OK) == -1 || fd == -1)
-			execution_error("minishell: ", 1, 126, cmds->input_files[0]);
-		if (dup2(fd, STDIN_FILENO) == -1)
-            handle_error(NULL, NULL);
-        close(fd);
-    }
+		handle_input_redirection(cmds->input_files[0]);
 	if (cmds->output_files && cmds->output_files[0])
-    {
-        if (cmds->append_output)
-            fd = open(cmds->output_files[0], O_WRONLY | O_CREAT | O_APPEND, \
-						0644);
-        else
-            fd = open(cmds->output_files[0], O_WRONLY | O_CREAT | O_TRUNC, \
-						0644);
-        if (fd == -1)
-            execution_error("minishell: ", 1, 126, cmds->output_files[0]);
-        if (dup2(fd, STDOUT_FILENO) == -1)
-            handle_error(NULL, NULL);
-        close(fd);
-    }
+		handle_output_redirection(cmds);
 	if (cmds->heredoc)
 		unlink(cmds->input_files[0]);
-    path = get_path(cmds->args[0], env);
-    if (execve(path, cmds->args, env) == -1)
+	path = get_path(cmds->args[0], env);
+	if (execve(path, cmds->args, env) == -1)
 		execution_error(": command not found", 0, 127, cmds->args[0]);
 }

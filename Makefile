@@ -6,7 +6,7 @@
 #    By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/21 19:54:24 by xroca-pe          #+#    #+#              #
-#    Updated: 2024/07/24 16:50:15 by cgaratej         ###   ########.fr        #
+#    Updated: 2024/07/29 16:26:33 by cgaratej         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,14 +31,14 @@ SRC = src/main.c src/init.c src/tokenaizer.c src/tokenaizer2.c \
 	  src/built-ins/ft_cd.c src/expand2.c src/expand3.c src/expand4.c src/error_manager.c \
 	  src/built-ins/ft_exit.c src/built-ins/ft_echo.c src/syntax_manager.c src/syntax_utils.c \
 	  src/built-ins/ft_export.c src/built-ins/ft_unset.c src/execution.c src/parse2.c src/parse3.c\
-	  src/free_tools.c src/execution_utils.c
+	  src/free_tools.c src/execution_utils.c src/execution2.c
 	  
 OBJ = $(SRC:%.c=%.o)
 DEPS = $(SRC:%.c=$.d)
 
-all: ${NAME}
+all: libft ${NAME}
 
-$(NAME): libft $(OBJ) $(INCLUDE)
+$(NAME): $(OBJ) $(INCLUDE)
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT) $(LIBRARY)
 	@echo "\n$(LGREEN)Create $(NAME) ✔$(NONE)\n"
 

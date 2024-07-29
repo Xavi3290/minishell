@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:14:28 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/07/11 15:06:31 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/29 16:22:53 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,6 @@ int	ft_unset(t_shell *shell, t_command *cmd)
 		if (result != 0)
 			return (1);
 		arg_index++;
-    }
+	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:54:22 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/07/16 16:07:33 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/29 17:10:13 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	check_env_var(t_shell *shell, char *name, char *arg)
 		{
 			if (shell->env[j][ft_strlen(name)] == '=')
 				existing_var_index = j;
-			else if(shell->env[j][ft_strlen(name)] == '\0')
+			else if (shell->env[j][ft_strlen(name)] == '\0')
 				existing_var = j;
 		}
 	}
@@ -41,7 +41,7 @@ static int	check_env_var(t_shell *shell, char *name, char *arg)
 	{
 		free(shell->env[existing_var]);
 		if (ft_strchr(shell->env[existing_var], '=') != 0)
-        	arg = ft_strdup(name);
+			arg = ft_strdup(name);
 		shell->env[existing_var] = ft_strdup(arg);
 		return (1);
 	}
@@ -103,6 +103,11 @@ static void	pritn_declare(t_shell *shell)
 				if (equal_sign != NULL)
 				{
 					*equal_sign = '\0';
+					if (copy_env_line[0] == '_')
+					{
+						free(copy_env_line);
+						continue;
+					}
 					printf("declare -x %s=\"%s\"\n", copy_env_line, \
 						equal_sign + 1);
 				}

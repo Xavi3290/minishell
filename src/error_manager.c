@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 15:30:37 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/07/25 14:45:50 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/29 16:40:11 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	put_error(char *bash, char *file, char *error)
 void	execution_error(char *str, int per, int ex, char *cmd)
 {
 	char	*error;
-	
+
 	error = NULL;
 	if (per)
 	{
