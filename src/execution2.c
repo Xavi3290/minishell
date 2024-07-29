@@ -6,11 +6,30 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:22:53 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/29 16:25:57 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/29 18:25:26 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void replace_heredoc_delimiter(t_command *cmd, int delimiter_index, int i)
+{
+    int k = 0;
+
+    while (cmd->args[k])
+    {
+        if (ft_strncmp(cmd->args[k], cmd->args[delimiter_index], ft_strlen(cmd->args[delimiter_index])) == 0)
+        {
+            free(cmd->args[k]);
+            cmd->args[k] = strdup(cmd->input_files[i]);
+            return;
+        }
+        k++;
+    }
+
+    free(cmd->args[delimiter_index]);
+    cmd->args[delimiter_index] = NULL;
+}
 
 void	handel_herdoc(t_command *cmd, int i)
 {
@@ -19,7 +38,7 @@ void	handel_herdoc(t_command *cmd, int i)
 	int		j;
 
 	j = 1;
-	while (cmd->input_files[++i])
+	while (cmd->input_files[i])
 	{
 		fd = open(cmd->input_files[i], O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		while (1)
@@ -35,8 +54,10 @@ void	handel_herdoc(t_command *cmd, int i)
 			free(line);
 		}
 		close(fd);
-		free(cmd->args[j]);
-		cmd->args[j++] = NULL;
+		replace_heredoc_delimiter(cmd, 1, i);
+        free(cmd->args[j]);
+        cmd->args[j] = NULL;
+		i++;
 	}
 }
 
@@ -48,7 +69,7 @@ void	execute_simple_command(t_command *cmd, t_shell *shell)
 	if (pid == 0)
 	{
 		if (cmd->heredoc)
-			handel_herdoc(cmd, -1);
+			handel_herdoc(cmd, 0);
 		exec_cmd(shell->env, cmd);
 	}
 	else if (pid < 0)

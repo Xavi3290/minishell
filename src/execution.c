@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:22:53 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/29 16:40:01 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/29 18:07:49 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 static int	cmd_type(t_command *cmd, t_shell *shell)
 {
-	if (cmd->heredoc)
+	/*if (cmd->heredoc)
 	{
-		handel_herdoc(cmd, -1);
+		handel_herdoc(cmd, 0);
 		unlink(cmd->input_files[0]);
-	}
+	}*/
 	if (!ft_strcmp(cmd->args[0], "echo"))
 		return (ft_echo(&cmd));
 	else if (!ft_strcmp(cmd->args[0], "cd"))
@@ -79,7 +79,7 @@ void	create_pipeline(t_command *cmd, t_shell *shell, int num_commands, int i)
 	while (cmd)
 	{
 		if (cmd->heredoc)
-			handel_herdoc(cmd, -1);
+			handel_herdoc(cmd, 0);
 		if (cmd->next && pipe(fd) == -1)
 			handle_error("minishell: pipe", shell);
 		pids[i++] = create_child_process(cmd, prev_fd, fd, shell);

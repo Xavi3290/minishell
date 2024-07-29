@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:50:13 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/07/29 16:38:59 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/29 18:20:03 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	handle_input_redirection(char *input_file)
 	if (dup2(fd, STDIN_FILENO) == -1)
 		handle_error(NULL, NULL);
 	close(fd);
+	unlink(input_file);
 }
 
 void	handle_output_redirection(t_command *cmds)
@@ -90,8 +91,6 @@ void	exec_cmd(char **env, t_command *cmds)
 		handle_input_redirection(cmds->input_files[0]);
 	if (cmds->output_files && cmds->output_files[0])
 		handle_output_redirection(cmds);
-	if (cmds->heredoc)
-		unlink(cmds->input_files[0]);
 	path = get_path(cmds->args[0], env);
 	if (execve(path, cmds->args, env) == -1)
 		execution_error(": command not found", 0, 127, cmds->args[0]);
