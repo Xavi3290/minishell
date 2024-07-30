@@ -6,29 +6,11 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:22:53 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/30 15:14:10 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/30 15:19:01 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-void replace_heredoc_delimiter(t_command *cmd, int delimiter_index, int i)
-{
-    int k = 0;
-
-    while (cmd->args[k])
-    {
-        if (ft_strncmp(cmd->args[k], cmd->args[delimiter_index], ft_strlen(cmd->args[delimiter_index])) == 0)
-        {
-            free(cmd->args[k]);
-            cmd->args[k] = strdup(cmd->input_files[i]);
-            return;
-        }
-        k++;
-    }
-    free(cmd->args[delimiter_index]);
-    cmd->args[delimiter_index] = NULL;
-}
 
 void	handel_herdoc(t_command *cmd, int i)
 {
@@ -44,7 +26,7 @@ void	handel_herdoc(t_command *cmd, int i)
 		{
 			ft_putstr_fd("> ", 1);
 			line = get_next_line(0);
-			if (ft_strncmp(line, cmd->args[j], ft_strlen(cmd->args[j])) == 0)
+			if (ft_strncmp(line, &cmd->delimiter[i], ft_strlen(&cmd->delimiter[i])) == 0)
 			{
 				free(line);
 				break ;
@@ -53,9 +35,6 @@ void	handel_herdoc(t_command *cmd, int i)
 			free(line);
 		}
 		close(fd);
-		replace_heredoc_delimiter(cmd, 1, i);
-        free(cmd->args[j]);
-        cmd->args[j++] = NULL;
 		i++;
 	}
 	print_command(cmd);
