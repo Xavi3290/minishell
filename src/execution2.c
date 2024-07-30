@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:22:53 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/30 15:19:01 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/30 17:29:16 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	handel_herdoc(t_command *cmd, int i)
 		{
 			ft_putstr_fd("> ", 1);
 			line = get_next_line(0);
-			if (ft_strncmp(line, &cmd->delimiter[i], ft_strlen(&cmd->delimiter[i])) == 0)
+			if (ft_strncmp(line, cmd->delimiter[i], ft_strlen(cmd->delimiter[i])) == 0)
 			{
 				free(line);
 				break ;
