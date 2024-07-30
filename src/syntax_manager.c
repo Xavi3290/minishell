@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_manager.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
+/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:52:09 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/10 18:46:15 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/30 15:04:42 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	check_syntax(t_token *tokens, t_shell *shell)
 	t_syntax_state	state;
 	t_token			*current;
 
-	state = (t_syntax_state){0, 0, 0, 0, 0, 0, 0, 0};
+	state = (t_syntax_state){0, 0, 0, 0, 0, 0, 0, 0, 0};
 	current = tokens;
 	while (current)
 	{
@@ -38,6 +38,11 @@ int	check_syntax(t_token *tokens, t_shell *shell)
 		|| state.paren_count > 0)
 	{
 		handle_error("syntax error: unexpected end of input", shell);
+		return (0);
+	}
+	if (state.num_heredocs > 16)
+	{
+		handle_error(NULL, NULL);
 		return (0);
 	}
 	return (1);

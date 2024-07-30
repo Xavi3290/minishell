@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_utils.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
+/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:18:30 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/07/29 15:15:46 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/30 15:01:30 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_syntax_state
 	int	in_parentheses;
 	int	paren_opened;
 	int	last_was_word;
+	int num_heredocs;
 }	t_syntax_state;
 
 /*
@@ -75,12 +76,14 @@ typedef struct s_command
 	int 				num_args;        // Número de argumentos
 	char				**input_files;   // Archivos de input
 	char				**output_files;  // Archivos de output
+	char				*delimiter;
+	int					type; 
 	int 				append_output;   // Flag de append
 	int 				heredoc;         // Flag de heredoc
 	int 				and;             // Flag de and
 	int 				or;              // Flag de or
 	int 				parentheses;     // Flag de paréntesis
-	int 				fd;              // File descriptor para heredoc
+	//int 				fd;              // File descriptor para heredoc
 	struct s_command	*next;      // Siguiente comando en la lista
 }	t_command;
 

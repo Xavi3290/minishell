@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
+/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 20:02:49 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/29 16:35:15 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/30 14:51:19 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ void		add_argument(t_command *cmd, char *arg);
 void		add_output_file(t_command *cmd, char *file, int append);
 void		add_input_file(t_command *cmd, char *file);
 void		handle_logical_token(t_token *current, t_command **cmd);
-void		handle_heredoc_token(t_command *cmd);
+//void		handle_heredoc_token(t_command *cmd);
+void		handle_heredoc_token(t_command *cmd, t_token **current);
 void		handle_redirect_token(t_token **current, t_command *cmd, \
 			t_shell *shell, int type);
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
+/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 18:11:20 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/07/10 18:15:38 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/30 14:54:08 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,14 @@ t_command	*create_command(void)
 	cmd->num_args = 0;
 	cmd->input_files = NULL;
 	cmd->output_files = NULL;
+	cmd->delimiter = NULL;
+	cmd->type = 0;
 	cmd->append_output = 0;
 	cmd->heredoc = 0;
 	cmd->and = 0;
 	cmd->or = 0;
 	cmd->parentheses = 0;
-	cmd->fd = -1;
+	//cmd->fd = -1;
 	cmd->next = NULL;
 	return (cmd);
 }

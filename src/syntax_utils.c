@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
+/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 18:01:48 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/07/10 18:29:55 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/30 15:03:41 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ static int	handle_word_syntax(t_token *token, t_syntax_state *state, \
 int	handle_general_tokens_syn(t_token *token, t_syntax_state *state, \
 			t_shell *shell)
 {
+	
 	if (token->type == PIPE || token->type == AND || token->type == OR)
 	{
 		if (!handle_operators_syntax(token, state, shell))
@@ -119,6 +120,8 @@ int	handle_general_tokens_syn(t_token *token, t_syntax_state *state, \
 	else if (token->type == REDIRECT_IN || token->type == REDIRECT_OUT || \
 			token->type == APPEND || token->type == HEREDOC)
 	{
+		if (token->type == HEREDOC)
+			state->num_heredocs++;
 		if (!handle_redirects_syntax(token, state, shell))
 			return (0);
 	}
