@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:50:13 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/07/29 18:20:03 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/30 17:55:41 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,16 +68,16 @@ void	handle_input_redirection(char *input_file)
 	unlink(input_file);
 }
 
-void	handle_output_redirection(t_command *cmds)
+void	handle_output_redirection(t_command *cmds, char *output_files)
 {
 	int	fd;
 
 	if (cmds->append_output)
-		fd = open(cmds->output_files[0], O_WRONLY | O_CREAT | O_APPEND, 0644);
+		fd = open(output_files, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	else
-		fd = open(cmds->output_files[0], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		fd = open(output_files, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
-		execution_error("minishell: ", 1, 126, cmds->output_files[0]);
+		execution_error("minishell: ", 1, 126, output_files);
 	if (dup2(fd, STDOUT_FILENO) == -1)
 		handle_error(NULL, NULL);
 	close(fd);
@@ -86,11 +86,26 @@ void	handle_output_redirection(t_command *cmds)
 void	exec_cmd(char **env, t_command *cmds)
 {
 	char	*path;
+	int		i;
 
-	if (cmds->input_files && cmds->input_files[0])
-		handle_input_redirection(cmds->input_files[0]);
-	if (cmds->output_files && cmds->output_files[0])
-		handle_output_redirection(cmds);
+	i = 0;
+	if (cmds->input_files && cmds->input_files[i])
+	{
+		while (cmds->input_files[i])
+		{
+			handle_input_redirection(cmds->input_files[i]);
+			i++;
+		}
+	}
+	if (cmds->output_files && cmds->output_files[i])
+	{
+		i = 0;
+		while (cmds->output_files[i])
+		{
+			handle_output_redirection(cmds, cmds->output_files[i]);
+			i++;
+		}	
+	}
 	path = get_path(cmds->args[0], env);
 	if (execve(path, cmds->args, env) == -1)
 		execution_error(": command not found", 0, 127, cmds->args[0]);

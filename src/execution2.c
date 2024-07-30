@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:22:53 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/30 17:29:16 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/30 17:40:04 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@ void	handel_herdoc(t_command *cmd, int i)
 {
 	int		fd;
 	char	*line;
-	int		j;
 
-	j = 1;
 	while (cmd->input_files[i])
 	{
 		fd = open(cmd->input_files[i], O_CREAT | O_WRONLY | O_TRUNC, 0644);
@@ -37,7 +35,6 @@ void	handel_herdoc(t_command *cmd, int i)
 		close(fd);
 		i++;
 	}
-	print_command(cmd);
 }
 
 void	execute_simple_command(t_command *cmd, t_shell *shell)
@@ -46,11 +43,7 @@ void	execute_simple_command(t_command *cmd, t_shell *shell)
 
 	pid = fork();
 	if (pid == 0)
-	{
-		/*if (cmd->heredoc)
-			handel_herdoc(cmd, 0);*/
 		exec_cmd(shell->env, cmd);
-	}
 	else if (pid < 0)
 		handle_error("minishell: fork", shell);
 	else
@@ -85,12 +78,6 @@ int	count_comands(t_command *cmd)
 	while (current)
 	{
 		num_commands++;
-		//Xavi poner numero de herdocs
-		/*if (herdoc_count > MAX_HEREDOCS)
-        {
-            execution_error("minishell: tmaximum here-document count exceeded\n", 0, 2, NULL);
-            return (0);
-        }*/
 		current = current->next;
 	}
 	return (num_commands);
