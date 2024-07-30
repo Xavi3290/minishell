@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
+/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/29 17:39:07 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/30 17:06:49 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,19 @@ void print_command(t_command *cmd)
             for (int i = 0; cmd->output_files[i]; i++)
                 printf("    %s\n", cmd->output_files[i]);
         }
+        if (cmd->delimiter)
+        {
+            printf("  Delimeter:\n");
+            for (int i = 0; cmd->delimiter[i]; i++)
+                printf("    %s\n", cmd->delimiter[i]);
+        }
+        if (cmd->type)
+        {
+            printf("  Type: \n");
+            for (int i = 0; cmd->type[i]; i++)
+                printf("    %d\n", *(cmd->type[i]));
+        }
+        printf("  Append Output: %d\n", cmd->append_output);
         printf("  Append Output: %d\n", cmd->append_output);
         printf("  Heredoc: %d\n", cmd->heredoc);
         printf("  AND: %d\n", cmd->and);
@@ -79,8 +92,8 @@ int main(int argc, char **argv, char **env)
                 continue;
             }
 			parse_tokens(&tokens, shell);
-            execute_commands(shell);
-            //print_command(shell->commands);
+            //execute_commands(shell);
+            print_command(shell->commands);
             /*t_token   *temp;
             temp = tokens;
             while (temp)
