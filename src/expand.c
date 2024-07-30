@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
+/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 16:23:12 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/18 14:46:20 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/30 18:46:27 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	expand_variable_token(t_token **tokens, t_shell *shell,
 			*current = *tokens;
 		free(expanded);
 	}
+	else
+		free(expanded);
 }
 
 void	expand_double_quotes_token(t_token *current, t_shell *shell)
