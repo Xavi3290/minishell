@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/30 17:50:40 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/07/30 18:05:53 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,8 @@ int main(int argc, char **argv, char **env)
                 continue;
             }
 			parse_tokens(&tokens, shell);
-            //execute_commands(shell);
-            print_command(shell->commands);
+            execute_commands(shell);
+            //print_command(shell->commands);
             /*t_token   *temp;
             temp = tokens;
             while (temp)
