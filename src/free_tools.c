@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_tools.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
+/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 14:59:35 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/07/29 16:36:12 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/30 15:12:38 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	free_commands(t_command *cmd)
 		free_string_array(current->args);
 		free_string_array(current->input_files);
 		free_string_array(current->output_files);
+        if (current->delimiter)
+            free(current->delimiter);
 		free(current);
 		current = next;
 	}
