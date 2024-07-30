@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:22:53 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/29 18:25:26 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/30 15:14:10 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void replace_heredoc_delimiter(t_command *cmd, int delimiter_index, int i)
         }
         k++;
     }
-
     free(cmd->args[delimiter_index]);
     cmd->args[delimiter_index] = NULL;
 }
@@ -56,9 +55,10 @@ void	handel_herdoc(t_command *cmd, int i)
 		close(fd);
 		replace_heredoc_delimiter(cmd, 1, i);
         free(cmd->args[j]);
-        cmd->args[j] = NULL;
+        cmd->args[j++] = NULL;
 		i++;
 	}
+	print_command(cmd);
 }
 
 void	execute_simple_command(t_command *cmd, t_shell *shell)
@@ -68,8 +68,8 @@ void	execute_simple_command(t_command *cmd, t_shell *shell)
 	pid = fork();
 	if (pid == 0)
 	{
-		if (cmd->heredoc)
-			handel_herdoc(cmd, 0);
+		/*if (cmd->heredoc)
+			handel_herdoc(cmd, 0);*/
 		exec_cmd(shell->env, cmd);
 	}
 	else if (pid < 0)
