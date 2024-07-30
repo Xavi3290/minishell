@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:18:30 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/07/30 15:01:30 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/07/30 17:02:59 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ typedef struct s_command
 	int 				num_args;        // Número de argumentos
 	char				**input_files;   // Archivos de input
 	char				**output_files;  // Archivos de output
-	char				*delimiter;
-	int					type; 
+	char				**delimiter;
+	t_token_type		**type; 
 	int 				append_output;   // Flag de append
 	int 				heredoc;         // Flag de heredoc
 	int 				and;             // Flag de and

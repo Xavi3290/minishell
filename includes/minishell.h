@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 20:02:49 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/30 14:51:19 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/07/30 17:16:18 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <sys/param.h>
 # include <unistd.h>
 # include <dirent.h>
+# include <signal.h>
 
 t_shell		*init_shell(char **env);
 void		free_str(char *str);
@@ -75,7 +76,8 @@ int 		is_unmatched_rparen(t_syntax_state *state);
 
 void		parse_tokens(t_token **tokens, t_shell *shell);
 t_command	*create_command(void);
-void		add_heredoc_file(t_command *cmd, char *file);
+//void		add_heredoc_file(t_command *cmd, char *file);
+void		add_heredoc_file(t_command *cmd, char *file, char *delimiter, t_token_type type);
 void		add_argument(t_command *cmd, char *arg);
 void		add_output_file(t_command *cmd, char *file, int append);
 void		add_input_file(t_command *cmd, char *file);

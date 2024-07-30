@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 18:05:45 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/07/30 14:53:22 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/07/30 16:42:47 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 static int	generate_random_number(void)
 {
 	static unsigned int	seed;
-
-	seed = 12345;
+	
+	if (seed == 0)
+		seed = 12345;
 	seed = (seed * 1103515245 + 12345) & 0x7fffffff;
 	return (seed % 10000);
 }
@@ -59,9 +60,7 @@ void	handle_heredoc_token(t_command *cmd, t_token **current)
 	*current = (*current)->next;
 	while (*current && (*current)->type == SPACES)
 		*current = (*current)->next;
-	cmd->type = (*current)->type;
-	cmd->delimiter = ft_strdup((*current)->value);
-	add_heredoc_file(cmd, filename);
+	add_heredoc_file(cmd, filename, (*current)->value, (*current)->type);
 	free(filename);
 }
 
