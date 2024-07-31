@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 20:02:49 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/30 17:16:18 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/07/31 17:07:17 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void 		print_command(t_command *cmd);
 
 void		execute_commands(t_shell *shell);
 void		execute_simple_command(t_command *cmd, t_shell *shell);
-void		handel_herdoc(t_command *cmd, int i);
+void		handle_herdoc(t_command *cmd, int i);
 int			count_comands(t_command *cmd);
 void		execution_error(char *str, int per, int ex, char *cmd);
 void		wait_for_children(pid_t *pids, int num_childrens, t_shell *shell);

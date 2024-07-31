@@ -6,13 +6,13 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:22:53 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/30 18:14:52 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/31 17:15:54 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-void	handel_herdoc(t_command *cmd, int i)
+	
+void	handle_herdoc(t_command *cmd, int i)
 {
 	int		fd;
 	char	*line;
@@ -45,7 +45,11 @@ void	execute_simple_command(t_command *cmd, t_shell *shell)
 
 	pid = fork();
 	if (pid == 0)
+	{
+		if (cmd->heredoc)
+			handle_herdoc(cmd, 0);
 		exec_cmd(shell->env, cmd);
+	}
 	else if (pid < 0)
 		handle_error("minishell: fork", shell);
 	else

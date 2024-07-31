@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:50:13 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/07/30 17:55:41 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/31 17:06:33 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	*get_path(char *cmd, char **env)
 	return (cmd);
 }
 
-void	handle_input_redirection(char *input_file)
+void	handle_input_redirection(t_command *cmd, char *input_file)
 {
 	int	fd;
 
@@ -65,7 +65,8 @@ void	handle_input_redirection(char *input_file)
 	if (dup2(fd, STDIN_FILENO) == -1)
 		handle_error(NULL, NULL);
 	close(fd);
-	unlink(input_file);
+	if (cmd->heredoc)
+		unlink(input_file);
 }
 
 void	handle_output_redirection(t_command *cmds, char *output_files)
@@ -83,6 +84,7 @@ void	handle_output_redirection(t_command *cmds, char *output_files)
 	close(fd);
 }
 
+
 void	exec_cmd(char **env, t_command *cmds)
 {
 	char	*path;
@@ -93,7 +95,7 @@ void	exec_cmd(char **env, t_command *cmds)
 	{
 		while (cmds->input_files[i])
 		{
-			handle_input_redirection(cmds->input_files[i]);
+			handle_input_redirection(cmds, cmds->input_files[i]);
 			i++;
 		}
 	}
@@ -104,7 +106,7 @@ void	exec_cmd(char **env, t_command *cmds)
 		{
 			handle_output_redirection(cmds, cmds->output_files[i]);
 			i++;
-		}	
+		}
 	}
 	path = get_path(cmds->args[0], env);
 	if (execve(path, cmds->args, env) == -1)
