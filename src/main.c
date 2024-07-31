@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
+/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/30 18:05:53 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/31 17:01:16 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,73 @@ void print_command(t_command *cmd)
     }
 }
 
+t_shell	*initialize_shell(int argc, char **env)
+{
+	t_shell *shell;
+
+	if (argc > 1)
+	{
+		printf("minishell: too many arguments\n");
+		exit(1);
+	}
+	shell = init_shell(env);
+	if (!shell)
+	{
+		perror("minishell: Initialization failed\n");
+		exit(errno);
+	}
+	return (shell);
+}
+
+void	process_command_line(t_shell *shell)
+{
+	t_token *tokens;
+
+	while (42)
+	{
+		shell->line = readline("mini🐚: ");
+		if (shell->line && shell->line[0])
+		{
+			add_history(shell->line);
+			tokens = tokenize_and_expand(shell->line, shell);
+			if (tokens && check_syntax(tokens, shell))
+			{
+				parse_tokens(&tokens, shell);
+				execute_commands(shell);
+			}
+			else if (tokens)
+				free_tokens(tokens);
+			shell->parentheses = 0;
+			free_commands(shell->commands);
+			free(shell->line);
+			shell->line = NULL;
+		}
+	}
+}
+
+int	main(int argc, char **argv, char **env)
+{
+	t_shell *shell;
+
+	(void)argv;
+	shell = initialize_shell(argc, env);
+	process_command_line(shell);
+	free_shell(shell);
+	return (0);
+}
+
+/*
 int main(int argc, char **argv, char **env)
 {
 	t_shell *shell;
     t_token *tokens;
 
-    (void)argc;
     (void)argv;
+    if (argc > 1)
+    {
+        printf("minishell: too many arguments\n");
+        return (1);
+    }
     shell = init_shell(env);
     if (!shell)
     {
@@ -91,7 +151,7 @@ int main(int argc, char **argv, char **env)
                 continue;
             }
 			parse_tokens(&tokens, shell);
-            execute_commands(shell);
+            execute_commands(shell);*/
             //print_command(shell->commands);
             /*t_token   *temp;
             temp = tokens;
@@ -100,7 +160,7 @@ int main(int argc, char **argv, char **env)
                 printf("Token: Type=%d, Value=%s\n", temp->type, temp->value);
                 temp = temp->next;
             }*/
-            shell->parentheses = 0;
+/*            shell->parentheses = 0;
             free_tokens(tokens);
 			free_commands(shell->commands);
             free(shell->line);
@@ -109,4 +169,4 @@ int main(int argc, char **argv, char **env)
     }
     free_shell(shell);
     return (0);
-}
+}*/
