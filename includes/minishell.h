@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 20:02:49 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/31 17:07:17 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/02 12:11:21 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ void		handle_redirect_token(t_token **current, t_command *cmd, \
 void 		free_commands(t_command *cmd);
 void		free_paths(char **path);
 
-void		exec_cmd(char **env, t_command *cmds);
 
 /*void parse_general_tokens_cmd(t_token **tokens, t_command *cmd, \
 			t_shell *shell);
@@ -104,7 +103,8 @@ void	parse_tokens(t_token *tokens, t_shell *shell);*/
 
 void 		print_command(t_command *cmd);
 
-
+void		exec_cmd(char **env, t_command *cmds, t_shell *shell);
+int  		cmd_type2(t_command *cmd, t_shell *shell);
 void		execute_commands(t_shell *shell);
 void		execute_simple_command(t_command *cmd, t_shell *shell);
 void		handle_herdoc(t_command *cmd, int i);

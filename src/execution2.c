@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:22:53 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/31 17:15:54 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/02 16:19:28 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,11 @@
 	
 void	handle_herdoc(t_command *cmd, int i)
 {
-	int		fd;
 	char	*line;
 
 	while (cmd->input_files[i])
 	{
-		fd = open(cmd->input_files[i], O_CREAT | O_WRONLY | O_TRUNC, 0644);
+		cmd->fd = open(cmd->input_files[i], O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		while (1)
 		{
 			ft_putstr_fd("> ", 1);
@@ -31,12 +30,13 @@ void	handle_herdoc(t_command *cmd, int i)
 				free(line);
 				break ;
 			}
-			ft_putstr_fd(line, fd);
+			ft_putstr_fd(line, cmd->fd);
 			free(line);
 		}
-		close(fd);
+		close(cmd->fd);
 		i++;
 	}
+
 }
 
 void	execute_simple_command(t_command *cmd, t_shell *shell)
@@ -48,7 +48,7 @@ void	execute_simple_command(t_command *cmd, t_shell *shell)
 	{
 		if (cmd->heredoc)
 			handle_herdoc(cmd, 0);
-		exec_cmd(shell->env, cmd);
+		exec_cmd(shell->env, cmd, shell);
 	}
 	else if (pid < 0)
 		handle_error("minishell: fork", shell);

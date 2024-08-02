@@ -6,14 +6,16 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:22:53 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/31 17:07:01 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/02 16:19:33 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static int  cmd_type(t_command *cmd, t_shell *shell)
+int  cmd_type2(t_command *cmd, t_shell *shell)
 {
+	if (!cmd->args)
+		return (1);
 	if (!ft_strcmp(cmd->args[0], "echo"))
 		return (ft_echo(&cmd));
 	else if (!ft_strcmp(cmd->args[0], "cd"))
@@ -31,35 +33,19 @@ static int  cmd_type(t_command *cmd, t_shell *shell)
 	return (1);
 }
 
-void	setup_redirection(int prev_fd, int *fd, int i, t_command *current)
+int cmd_type1(t_command *cmd, t_shell *shell)
 {
-	int	heredoc_fd;
-	
-    if (prev_fd != -1)
-    {
-        if (dup2(prev_fd, STDIN_FILENO) == -1)
-            handle_error(NULL, NULL);
-        close(prev_fd);
-    }
-    if (fd)
-    {
-        close(fd[0]);
-        if (dup2(fd[1], STDOUT_FILENO) == -1)
-            handle_error(NULL, NULL);
-        close(fd[1]);
-    }
-	if (current->heredoc)
-	{
-		while (current->input_files[++i])
-        {
-			heredoc_fd = open(current->input_files[i], O_RDONLY);
-			if (heredoc_fd == -1)
-				handle_error(NULL, NULL);
-			if (dup2(heredoc_fd, STDIN_FILENO) == -1)
-				handle_error(NULL, NULL);
-			close(heredoc_fd);
-        }
-	}
+	if (!cmd->args)
+		return (1);
+	if (!ft_strcmp(cmd->args[0], "cd"))
+		return (ft_cd(shell));
+	else if (!ft_strcmp(cmd->args[0], "export"))
+		return (ft_export(cmd, shell));
+	else if (!ft_strcmp(cmd->args[0], "unset"))
+		return (ft_unset(shell, shell->commands));
+	else if (!ft_strcmp(cmd->args[0], "exit"))
+		ft_exit(shell);
+	return (1);
 }
 
 int	create_child_process(t_command *current, int prev_fd, int *fd, \
@@ -72,9 +58,21 @@ int	create_child_process(t_command *current, int prev_fd, int *fd, \
 		handle_error("minishell: fork", shell);
 	if (pid == 0)
 	{
-		setup_redirection(prev_fd, fd, -1, current);
-		if (cmd_type(current, shell))
-			exec_cmd(shell->env, current);
+		if (prev_fd != -1)
+    	{
+        	if (dup2(prev_fd, STDIN_FILENO) == -1)
+        	    handle_error(NULL, NULL);
+        	close(prev_fd);
+    	}
+    	if (current->next)
+    	{
+    	    close(fd[0]);
+    	    if (dup2(fd[1], STDOUT_FILENO) == -1)
+    	        handle_error(NULL, NULL);
+    	    close(fd[1]);
+    	}
+		if (cmd_type1(current, shell))
+			exec_cmd(shell->env, current, shell);
 		exit(127);
 	}
 	return (pid);
@@ -115,18 +113,13 @@ void	execute_commands(t_shell *shell)
 
 	cmd = shell->commands;
 	num_commands = count_comands(cmd);
-	if (cmd->next && cmd->next->args && cmd->next->args[0])
+	if (num_commands > 1)
 		create_pipeline(cmd, shell, num_commands, 0);
-	else if (cmd->args && cmd->args[0])
+	else if (num_commands == 1)
 	{
-		if (cmd_type(cmd, shell))
+		if (cmd_type1(cmd, shell))
 				execute_simple_command(cmd, shell);
 		if (cmd->heredoc)
 				unlink(cmd->input_files[0]);
-	}
-	else if (cmd->heredoc)
-	{
-		handle_herdoc(cmd, 0);
-		unlink(cmd->input_files[0]);
 	}
 }

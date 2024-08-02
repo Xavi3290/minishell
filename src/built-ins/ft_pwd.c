@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 18:47:13 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/06/26 16:32:20 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/02 11:44:54 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,6 @@ int	ft_pwd(void)
 	res[i] = '\n';
 	if (write(1, &res[0], i + 1) != i + 1)
 		return (-1);
+	free(res);
 	return (0);
 }
