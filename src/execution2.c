@@ -6,13 +6,13 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:22:53 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/02 16:19:28 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/02 16:49:09 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 	
-void	handle_herdoc(t_command *cmd, int i)
+void	handle_herdoc(t_command *cmd, int i, t_shell *shell)
 {
 	char	*line;
 
@@ -30,6 +30,11 @@ void	handle_herdoc(t_command *cmd, int i)
 				free(line);
 				break ;
 			}
+			/*if (cmd->type[i] == WORD)
+			{
+				//fprintf(stderr ,"hola\n");
+				//line = expand_variable(line, shell);
+			}*/
 			ft_putstr_fd(line, cmd->fd);
 			free(line);
 		}
@@ -47,7 +52,7 @@ void	execute_simple_command(t_command *cmd, t_shell *shell)
 	if (pid == 0)
 	{
 		if (cmd->heredoc)
-			handle_herdoc(cmd, 0);
+			handle_herdoc(cmd, 0, shell);
 		exec_cmd(shell->env, cmd, shell);
 	}
 	else if (pid < 0)
