@@ -6,11 +6,26 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 16:23:12 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/30 18:46:27 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/07/31 16:45:45 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	remove_empty_token(t_token **tokens, t_token **current, t_token **prev)
+{
+	t_token *temp;
+	
+	temp = *current;
+	if (*prev)
+		(*prev)->next = (*current)->next;
+	else
+		*tokens = (*current)->next;
+
+	*current = (*current)->next;
+	free(temp->value);
+	free(temp);
+}
 
 void	expand_variable_token(t_token **tokens, t_shell *shell,
 		t_token **current, t_token **prev)
@@ -30,7 +45,10 @@ void	expand_variable_token(t_token **tokens, t_shell *shell,
 		free(expanded);
 	}
 	else
+	{
+		remove_empty_token(tokens, current, prev);
 		free(expanded);
+	}
 }
 
 void	expand_double_quotes_token(t_token *current, t_shell *shell)
@@ -73,20 +91,17 @@ void	expand_tokens(t_token **tokens, t_shell *shell)
 	while (current)
 	{
 		if (current->type == WORD && ft_strchr(current->value, '$'))
-		{
 			expand_variable_token(tokens, shell, &current, &prev);
-		}
 		else if (current->type == DOUBLE_QUOTES && ft_strchr(current->value, \
 			'$'))
-		{
 			expand_double_quotes_token(current, shell);
-		}
 		else if (current->type == WORD && ft_strchr(current->value, '*'))
-		{
 			expand_wildcard_token(tokens, shell, &current, &prev);
-		}
-		prev = current;
-		current = current->next;
+		else
+		{
+			prev = current;
+			current = current->next;
+		}		
 	}
 }
 

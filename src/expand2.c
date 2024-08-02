@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
+/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:22:32 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/10 18:42:24 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/07/31 16:04:37 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,11 @@ char	*expand_variable(char *str, t_shell *shell)
 		}
 		else
 			expanded = expand_general_variable(expanded, str, &i);
+	}
+	if (ft_strlen(expanded) == 0)
+	{
+		free(expanded);
+		return (NULL);
 	}
 	return (expanded);
 }
