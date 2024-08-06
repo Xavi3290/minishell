@@ -6,13 +6,13 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 17:01:00 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/06 15:20:01 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/06 15:45:12 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	handle_s_normal(int sig)
+void	handle_sig_normal(int sig)
 {
 	if (sig == SIGINT)
 	{
@@ -24,7 +24,7 @@ void	handle_s_normal(int sig)
 	}
 }
 
-void	handle_s_hered(int sig)
+void	handle_sig_hered(int sig)
 {
 	if (sig == SIGINT)
 	{
