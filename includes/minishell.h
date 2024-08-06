@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 20:02:49 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/02 16:43:14 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/06 15:54:21 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,5 +111,9 @@ void		handle_herdoc(t_command *cmd, int i, t_shell *shell);
 int			count_comands(t_command *cmd);
 void		execution_error(char *str, int per, int ex, char *cmd);
 void		wait_for_children(pid_t *pids, int num_childrens, t_shell *shell);
+
+void	handle_sig_normal(int sig);
+void	handle_sig_hered(int sig);
+void	setup_signal_handlers(void);
 
 #endif

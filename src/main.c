@@ -6,11 +6,13 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/06 14:03:33 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/06 15:52:13 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int error_exit;
 
 void print_command(t_command *cmd)
 {
@@ -93,6 +95,8 @@ void	process_command_line(t_shell *shell)
 	while (42)
 	{
 		shell->line = readline("mini🐚: ");
+        //if (!shell->line)
+        //    handle_eof();
 		if (shell->line && shell->line[0])
 		{
 			add_history(shell->line);
@@ -115,7 +119,10 @@ int	main(int argc, char **argv, char **env)
 	t_shell *shell;
 
 	(void)argv;
+    error_exit = 0;
 	shell = initialize_shell(argc, env);
+    signal(SIGINT, handle_sig_normal);
+	signal(SIGQUIT, SIG_DFL);
 	process_command_line(shell);
 	free_shell(shell);
 	return (0);
