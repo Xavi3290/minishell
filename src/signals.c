@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 17:01:00 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/06 17:16:24 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/06 17:19:38 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	handle_sig_hered(int sig)
 	}
 }
 
-void	handle_eof()
+void	handle_eof(void)
 {
 	write(1, "exit\n", 5);
 	exit(0);
