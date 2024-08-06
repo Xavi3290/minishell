@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/06 15:52:13 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/06 17:16:45 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,8 @@ void	process_command_line(t_shell *shell)
 	while (42)
 	{
 		shell->line = readline("mini🐚: ");
-        //if (!shell->line)
-        //    handle_eof();
+        if (!shell->line)
+            handle_eof();
 		if (shell->line && shell->line[0])
 		{
 			add_history(shell->line);
