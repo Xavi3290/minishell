@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/06 17:16:45 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/06 18:11:37 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ int	main(int argc, char **argv, char **env)
     error_exit = 0;
 	shell = initialize_shell(argc, env);
     signal(SIGINT, handle_sig_normal);
-	signal(SIGQUIT, SIG_DFL);
+	signal(SIGQUIT, SIG_IGN);
 	process_command_line(shell);
 	free_shell(shell);
 	return (0);
