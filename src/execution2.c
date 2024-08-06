@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:22:53 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/02 16:49:09 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/06 12:10:12 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	handle_herdoc(t_command *cmd, int i, t_shell *shell)
 {
 	char	*line;
+	(void)shell;
 
 	while (cmd->input_files[i])
 	{
