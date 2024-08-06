@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 16:25:46 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/07/16 16:12:31 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/06 15:33:52 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ void	ft_exit(t_shell *shell)
 		exit(2);
 	}
 	printf("exit\n");
-	printf("aaaaaaaaaa %lld\n", n);
 	free_commands(shell->commands);
 	free(shell->line);
 	exit ((unsigned char)n);

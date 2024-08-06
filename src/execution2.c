@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:22:53 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/06 12:10:12 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/06 15:29:46 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	handle_herdoc(t_command *cmd, int i, t_shell *shell)
 void	execute_simple_command(t_command *cmd, t_shell *shell)
 {
 	pid_t	pid;
+	int		status;
 
 	pid = fork();
 	if (pid == 0)
@@ -59,7 +60,11 @@ void	execute_simple_command(t_command *cmd, t_shell *shell)
 	else if (pid < 0)
 		handle_error("minishell: fork", shell);
 	else
-		waitpid(pid, &(shell->last_exit_status), 0);
+	{
+		waitpid(pid, &status, 0);
+		if (WIFEXITED(status))
+			shell->last_exit_status = WEXITSTATUS(status);
+	}
 }
 
 void	wait_for_children(pid_t *pids, int num_childrens, t_shell *shell)
