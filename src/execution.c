@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:22:53 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/02 16:43:21 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/06 16:35:21 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,20 @@ int cmd_type1(t_command *cmd, t_shell *shell)
 	return (1);
 }
 
+/*static void	handle_signals(int status)
+{
+	if (WIFEXITED(status))
+		error_exit = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+	{
+		if (WTERMSIG(status) == SIGQUIT)
+			ft_putstr_fd("Quit: 3\n", 2);
+		else if (WTERMSIG(status) == SIGINT)
+			ft_putstr_fd("\n", 2);
+		error_exit = WTERMSIG(status) + 128;
+	}
+}*/
+
 int	create_child_process(t_command *current, int prev_fd, int *fd, \
 	t_shell *shell)
 {
@@ -58,6 +72,7 @@ int	create_child_process(t_command *current, int prev_fd, int *fd, \
 		handle_error("minishell: fork", shell);
 	if (pid == 0)
 	{
+		setup_signal_handlers();
 		if (prev_fd != -1)
     	{
         	if (dup2(prev_fd, STDIN_FILENO) == -1)
