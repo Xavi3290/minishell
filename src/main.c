@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
+/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/02 16:28:16 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/06 14:03:33 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,17 @@ t_shell	*initialize_shell(int argc, char **env)
 	return (shell);
 }
 
+void parse_execute_frees(t_token *tokens, t_shell *shell)
+{
+    parse_tokens(&tokens, shell);
+    execute_commands(shell);
+    shell->parentheses = 0;
+    free_tokens(tokens);
+	free_commands(shell->commands);
+    free(shell->line);
+    shell->line = NULL;
+}
+
 void	process_command_line(t_shell *shell)
 {
 	t_token *tokens;
@@ -86,17 +97,15 @@ void	process_command_line(t_shell *shell)
 		{
 			add_history(shell->line);
 			tokens = tokenize_and_expand(shell->line, shell);
-			if (tokens && check_syntax(tokens, shell))
-			{
-				parse_tokens(&tokens, shell);
-				execute_commands(shell);
-			}
-			else if (tokens)
-				free_tokens(tokens);
-			shell->parentheses = 0;
-			free_commands(shell->commands);
-			free(shell->line);
-			shell->line = NULL;
+            if (!tokens || !check_syntax(tokens, shell))
+            {
+                if (tokens)
+                    free_tokens(tokens);
+                free(shell->line);
+                shell->line = NULL;
+                continue ;
+            }
+            parse_execute_frees(tokens, shell);			
 		}
 	}
 }
@@ -112,8 +121,8 @@ int	main(int argc, char **argv, char **env)
 	return (0);
 }
 
-/*
-int main(int argc, char **argv, char **env)
+
+/*/int main(int argc, char **argv, char **env)
 {
 	t_shell *shell;
     t_token *tokens;
@@ -160,7 +169,7 @@ int main(int argc, char **argv, char **env)
                 printf("Token: Type=%d, Value=%s\n", temp->type, temp->value);
                 temp = temp->next;
             }*/
-/*            shell->parentheses = 0;
+    /*       shell->parentheses = 0;
             free_tokens(tokens);
 			free_commands(shell->commands);
             free(shell->line);
