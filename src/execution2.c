@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
+/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:22:53 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/06 16:28:05 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/07 17:34:19 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void	execute_simple_command(t_command *cmd, t_shell *shell)
 			error_exit = 1;
 			shell->last_exit_status = 1;
 		}
+		handle_signals(status, shell);
 	}
 }
 
@@ -96,8 +97,10 @@ void	wait_for_children(pid_t *pids, int num_childrens, t_shell *shell)
 		waitpid(pids[i], &status, 0);
 		if (WIFEXITED(status))
 			shell->last_exit_status = WEXITSTATUS(status);
+		handle_signals(status, shell);
 		i++;
 	}
+	
 	free(pids);
 }
 

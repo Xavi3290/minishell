@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 17:01:00 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/06 17:19:38 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/07 16:55:39 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,23 @@ void	setup_signal_handlers(void)
 	signal(SIGQUIT, SIG_DFL);
 }
 
+void	handle_signals(int status, t_shell *shell)
+{
+	if (WIFEXITED(status))
+	{
+		error_exit = WEXITSTATUS(status);
+		shell->last_exit_status = error_exit;
+	}
+	else if (WIFSIGNALED(status))
+	{
+		if (WTERMSIG(status) == SIGQUIT)
+			ft_putstr_fd("Quit: 3\n", 2);
+		else if (WTERMSIG(status) == SIGINT)
+			ft_putstr_fd("\n", 2);
+		error_exit = WTERMSIG(status) + 128;
+		shell->last_exit_status = error_exit;
+	}
+}
 
 /*void	handle_sigint(int sig)
 {

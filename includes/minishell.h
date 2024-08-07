@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 20:02:49 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/06 17:20:11 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/07 16:55:51 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,5 +116,6 @@ void	handle_sig_normal(int sig);
 void	handle_sig_hered(int sig);
 void	handle_eof(void);
 void	setup_signal_handlers(void);
+void	handle_signals(int status, t_shell *shell);
 
 #endif
