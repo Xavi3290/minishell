@@ -17,6 +17,7 @@ CFLAGS=-Wall -Wextra -Werror
 INCLUDE= Makefile libft.h
 LIB=ar rcs
 RM=rm -f
+BUILD_DIR = ../build/libft
 
 GREEN=\033[32m
 LGREEN=\033[1;92m
@@ -32,7 +33,7 @@ SRC=ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c ft_strlen.c
 	ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c \
 	get_next_line.c get_next_line_utils.c
 
-OBJ = $(SRC:%.c=%.o)
+OBJ = $(SRC:%.c=$(BUILD_DIR)/%.o)
 
 all: $(NAME)
 
@@ -40,12 +41,13 @@ $(NAME): $(OBJ) $(INCLUDE)
 	@$(LIB) $(NAME) $(OBJ) $(GNL) $(PRINTF)
 	@echo "\n$(LGREEN)Create $(NAME) ✔$(NONE)\n"
 
-%.o: %.c $(INCLUDE)
+$(BUILD_DIR)/%.o: %.c $(INCLUDE)
+	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -o $@ -c $<
 	@echo "$(GREEN)File $< compiled ✔$(NONE)"
 
 clean:
-	@$(RM) $(OBJ)
+	@$(RM) -r $(BUILD_DIR)
 
 fclean: clean
 	@$(RM) $(NAME)

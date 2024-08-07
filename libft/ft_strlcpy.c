@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 16:16:06 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/01/29 11:51:05 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/07 16:45:15 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,22 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 		}
 		dest[i] = '\0';
 	}
+	return (leng);
+}
+
+size_t	ft_strcpy(char *dest, const char *src)
+{
+	size_t	i;
+	size_t	leng;
+
+	i = 0;
+	leng = ft_strlen(src);
+	while (src[i] != '\0')
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
 	return (leng);
 }
 

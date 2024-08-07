@@ -6,7 +6,7 @@
 #    By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/21 19:54:24 by xroca-pe          #+#    #+#              #
-#    Updated: 2024/07/30 17:06:22 by cgaratej         ###   ########.fr        #
+#    Updated: 2024/08/07 17:30:20 by cgaratej         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,16 +25,20 @@ ORANGE=\033[33m
 RED = \033[1;91m
 NONE=\033[0m
 
+BUILD_DIR = build
+
 SRC = src/main.c src/init.c src/tokenaizer.c src/tokenaizer2.c \
 	  src/tokenaizer3.c src/free_data.c src/utils.c \
 	  src/parse.c src/expand.c src/built-ins/ft_env.c src/built-ins/ft_pwd.c \
-	  src/built-ins/ft_cd.c src/expand2.c src/expand3.c src/expand4.c src/error_manager.c \
-	  src/built-ins/ft_exit.c src/built-ins/ft_echo.c src/syntax_manager.c src/syntax_utils.c \
-	  src/built-ins/ft_export.c src/built-ins/ft_unset.c src/execution.c src/parse2.c src/parse3.c\
-	  src/free_tools.c src/execution_utils.c src/execution2.c src/signals.c
+	  src/built-ins/ft_cd.c src/expand2.c src/expand3.c \
+	  src/expand4.c src/error_manager.c src/built-ins/ft_exit.c \
+	  src/built-ins/ft_echo.c src/syntax_manager.c src/syntax_utils.c \
+	  src/built-ins/ft_export.c src/built-ins/ft_unset.c src/execution.c \
+	  src/parse2.c src/parse3.c src/free_tools.c \
+	  src/execution_utils.c src/execution2.c src/signals.c
 	  
-OBJ = $(SRC:%.c=%.o)
-DEPS = $(SRC:%.c=$.d)
+OBJ = $(SRC:%.c=$(BUILD_DIR)/%.o)
+DEPS = $(SRC:%.c=$(BUILD_DIR)/$.d)
 
 all: libft ${NAME}
 
@@ -42,7 +46,8 @@ $(NAME): $(OBJ) $(INCLUDE)
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT) $(LIBRARY)
 	@echo "\n$(LGREEN)Create $(NAME) ✔$(NONE)\n"
 
-%.o: %.c $(INCLUDE)
+$(BUILD_DIR)/%.o: %.c $(INCLUDE)
+	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c -MMD -o $@ $<
 	@echo "$(GREEN)File $< compiled ✔$(NONE)"
 
@@ -53,11 +58,9 @@ libft:
 	@$(LIBFT_MAKE)
 
 clean:
-	@$(RM) $(OBJ)
-	@$(RM) src/*/*.d src/*.d
+	@$(RM) -r $(BUILD_DIR)
 	@$(LIBFT_MAKE) clean
-	@echo "$(RED)Deleted .o files$(NONE)"
-	@echo "$(RED)Deleted .d files$(NONE)"
+	@echo "$(RED)Deleted .o files and .d files$(NONE)"
 
 
 fclean: clean

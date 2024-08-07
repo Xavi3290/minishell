@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 17:14:06 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/07/10 15:27:40 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/07 17:05:06 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	update_env_var(char **env, int env_num, const char *var_name, \
 void	pwd_value(char *path_actual, t_shell *shell, int flag)
 {
 	if (!path_actual)
-		path_actual = actual_path();
+		path_actual = actual_path(shell);
 	if (flag)
 		update_env_var(shell->env, shell->env_num, "PWD=", path_actual);
 	else
@@ -46,9 +46,30 @@ void	pwd_value(char *path_actual, t_shell *shell, int flag)
 	free(path_actual);
 }
 
+char	*expand_home_directory(const char *path) 
+{
+	char		*expanded_path;
+	const char	*home_dir;
+
+	if (path[0] == '~')
+	{
+		home_dir = getenv("HOME");
+		if (!home_dir)
+			return (NULL);
+		expanded_path = malloc(ft_strlen(home_dir) + ft_strlen(path));
+		if (!expanded_path)
+			return (NULL);
+		ft_strcpy(expanded_path, home_dir);
+		ft_strcat(expanded_path, path + 1);
+		return (expanded_path);
+	}
+	return (ft_strdup(path));
+}
+
 int	ft_cd(t_shell *shell)
 {
 	char	*tmp;
+	char	*expanded_path;
 
 	pwd_value(NULL, shell, 0);
 	if (shell->commands->num_args == 1)
@@ -58,13 +79,15 @@ int	ft_cd(t_shell *shell)
 		return (0);
 	}
 	tmp = shell->commands->args[1];
-	if (!ft_strncmp(tmp, "~", 1))
-		chdir(getenv("HOME"));
-	else if (chdir(tmp) == -1)
+	expanded_path = expand_home_directory(tmp);
+    if (!expanded_path)
+        return (1);
+    if (chdir(expanded_path) == -1) 
 	{
-		put_error("minishell: cd", tmp, "No such file or directory");
-		return (1);
-	}
+        free(expanded_path);
+        return (1);
+    }
+    free(expanded_path);
 	pwd_value(NULL, shell, 1);
 	return (0);
 }
