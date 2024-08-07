@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:22:53 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/07 17:33:31 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/07 17:43:28 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int  cmd_type2(t_command *cmd, t_shell *shell)
 	else if (!ft_strcmp(cmd->args[0], "cd"))
 		return (ft_cd(shell));
 	else if (!ft_strcmp(cmd->args[0], "pwd"))
-		return (ft_pwd());
+		return (ft_pwd(shell));
 	else if (!ft_strcmp(cmd->args[0], "export"))
 		return (ft_export(cmd, shell));
 	else if (!ft_strcmp(cmd->args[0], "unset"))
