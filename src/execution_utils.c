@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:50:13 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/08 13:05:25 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/08 15:54:59 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,8 +124,14 @@ void	exec_cmd(char **env, t_command *cmds, t_shell *shell)
 		{
 			if (path[0] == '/')
 			{
+				if (!access(path, X_OK | F_OK))
+				{
+					ft_putstr_fd("minishell: ", 2);
+					execution_error(": Is a directory", 0, 126, cmds->args[0]);
+				}
 				ft_putstr_fd("minishell: ", 2);
-				execution_error(": Is a directory", 0, 126, cmds->args[0]);
+				execution_error(": No such file or directory", 0, 127, \
+								cmds->args[0]);
 			}
 			execution_error(": command not found", 0, 127, cmds->args[0]);
 		}

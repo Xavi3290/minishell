@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:14:28 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/08 12:23:20 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/08 14:10:25 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	ft_unset(t_shell *shell, t_command *cmd)
 	{
 		result = process_unset_arg(shell, cmd->args[arg_index]);
 		if (result != 0)
-			return (1);
+			return (0);
 		arg_index++;
 	}
 	return (0);
