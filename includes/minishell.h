@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 20:02:49 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/07 17:43:01 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/08 17:35:36 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,13 @@ void		ft_exit(t_shell *shell);
 int			ft_echo(t_command **command);
 int			ft_export(t_command *cmd, t_shell *shell);
 int			ft_unset(t_shell *shell, t_command *cmd);
+
+/*expor utils*/
+void		find_existing_var_indices(t_shell *shell, char *name, \
+					int *existing_var_index, int *existing_var);
+int			check_env_var(t_shell *shell, char *name, char *arg);
+int			add_env_var(t_shell *shell, char *arg);
+char		*is_set_env(const char *arg);
 
 t_token		*tokenize_and_expand(char *line, t_shell *shell);
 

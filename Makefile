@@ -6,7 +6,7 @@
 #    By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/21 19:54:24 by xroca-pe          #+#    #+#              #
-#    Updated: 2024/08/07 17:30:20 by cgaratej         ###   ########.fr        #
+#    Updated: 2024/08/08 17:35:28 by cgaratej         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ BUILD_DIR = build
 SRC = src/main.c src/init.c src/tokenaizer.c src/tokenaizer2.c \
 	  src/tokenaizer3.c src/free_data.c src/utils.c \
 	  src/parse.c src/expand.c src/built-ins/ft_env.c src/built-ins/ft_pwd.c \
-	  src/built-ins/ft_cd.c src/expand2.c src/expand3.c \
+	  src/built-ins/ft_cd.c src/expand2.c src/expand3.c src/built-ins/ft_export_utils.c\
 	  src/expand4.c src/error_manager.c src/built-ins/ft_exit.c \
 	  src/built-ins/ft_echo.c src/syntax_manager.c src/syntax_utils.c \
 	  src/built-ins/ft_export.c src/built-ins/ft_unset.c src/execution.c \

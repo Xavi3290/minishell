@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 18:47:13 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/07 15:35:06 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/08 16:43:19 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*read_env(t_shell *shell, char *key)
 	char	*equal_sign;
 	char	*name;
 	char	*value;
-	
+
 	i = 0;
 	while (shell->env[i])
 	{
@@ -41,7 +41,6 @@ char	*read_env(t_shell *shell, char *key)
 
 char	*actual_path(t_shell *shell)
 {
-	(void)shell;
 	char	*path;
 
 	path = getcwd(NULL, 0);
@@ -55,7 +54,6 @@ char	*actual_path(t_shell *shell)
 	}
 	return (path);
 }
-
 
 int	ft_pwd(t_shell *shell)
 {
