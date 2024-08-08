@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 17:14:06 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/07 17:05:06 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/08 16:44:23 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	pwd_value(char *path_actual, t_shell *shell, int flag)
 	free(path_actual);
 }
 
-char	*expand_home_directory(const char *path) 
+char	*expand_home_directory(const char *path)
 {
 	char		*expanded_path;
 	const char	*home_dir;
@@ -80,14 +80,14 @@ int	ft_cd(t_shell *shell)
 	}
 	tmp = shell->commands->args[1];
 	expanded_path = expand_home_directory(tmp);
-    if (!expanded_path)
-        return (1);
-    if (chdir(expanded_path) == -1) 
+	if (!expanded_path)
+		return (1);
+	if (chdir(expanded_path) == -1)
 	{
-        free(expanded_path);
-        return (1);
-    }
-    free(expanded_path);
+		free(expanded_path);
+		return (1);
+	}
+	free(expanded_path);
 	pwd_value(NULL, shell, 1);
 	return (0);
 }
