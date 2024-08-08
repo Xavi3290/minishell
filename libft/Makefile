@@ -12,7 +12,7 @@
 # **************************************************************************** #
 
 NAME=libft.a
-CC=cc
+CC=cc -g
 CFLAGS=-Wall -Wextra -Werror
 INCLUDE= Makefile libft.h
 LIB=ar rcs

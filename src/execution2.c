@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:22:53 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/07 17:34:19 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/08 13:03:10 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	handle_herdoc(t_command *cmd, int i, t_shell *shell)
 				ft_putstr_fd(line, cmd->fd);
 				free(line);
 			}
+			free(line);
 		}
 		close(cmd->fd);
 		i++;
@@ -108,11 +109,9 @@ int	count_comands(t_command *cmd)
 {
 	int			num_commands;
 	t_command	*current;
-	int			herdoc_count;
 
 	num_commands = 0;
 	current = cmd;
-	herdoc_count = 0;
 	while (current)
 	{
 		num_commands++;

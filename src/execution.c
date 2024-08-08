@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:22:53 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/07 17:43:28 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/08 13:04:49 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,10 @@ int  cmd_type2(t_command *cmd, t_shell *shell)
 		return (1);
 	if (!ft_strcmp(cmd->args[0], "echo"))
 		return (ft_echo(&cmd));
-	else if (!ft_strcmp(cmd->args[0], "cd"))
-		return (ft_cd(shell));
 	else if (!ft_strcmp(cmd->args[0], "pwd"))
 		return (ft_pwd(shell));
-	else if (!ft_strcmp(cmd->args[0], "export"))
-		return (ft_export(cmd, shell));
-	else if (!ft_strcmp(cmd->args[0], "unset"))
-		return (ft_unset(shell, shell->commands));
 	else if (!ft_strcmp(cmd->args[0], "env"))
 		return (ft_env(shell));
-	else if (!ft_strcmp(cmd->args[0], "exit"))
-		ft_exit(shell);
 	return (1);
 }
 

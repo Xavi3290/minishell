@@ -10,6 +10,7 @@
 # Executables
 *.out
 *.exe
+*.html
 minishell
 
 # Temp files

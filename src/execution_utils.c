@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:50:13 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/02 16:19:36 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/08 13:05:25 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,14 @@ void	exec_cmd(char **env, t_command *cmds, t_shell *shell)
 			exit(1);
 		path = get_path(cmds->args[0], env);
 		if (execve(path, cmds->args, env) == -1)
+		{
+			if (path[0] == '/')
+			{
+				ft_putstr_fd("minishell: ", 2);
+				execution_error(": Is a directory", 0, 126, cmds->args[0]);
+			}
 			execution_error(": command not found", 0, 127, cmds->args[0]);
+		}
 	}
-	exit(1);
+	exit(0);
 }
