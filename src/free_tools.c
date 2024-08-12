@@ -3,28 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   free_tools.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 14:59:35 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/07/30 17:06:06 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/12 15:27:01 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static void free_type(t_token_type **type)
+static void	free_type(t_token_type **type)
 {
-    int i = 0;
+	int	i;
 
-    if (type)
-    {
-        while (type[i])
-        {
-            free(type[i]);
-            i++;
-        }
-        free(type);
-    }
+	i = 0;
+	if (type)
+	{
+		while (type[i])
+		{
+			free(type[i]);
+			i++;
+		}
+		free(type);
+	}
 }
 
 void	free_commands(t_command *cmd)
@@ -39,8 +40,8 @@ void	free_commands(t_command *cmd)
 		free_string_array(current->args);
 		free_string_array(current->input_files);
 		free_string_array(current->output_files);
-        free_string_array(current->delimiter);
-        free_type(current->type);
+		free_string_array(current->delimiter);
+		free_type(current->type);
 		free(current);
 		current = next;
 	}

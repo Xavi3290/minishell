@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:14:28 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/08 14:10:25 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/12 16:25:12 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,25 +31,21 @@ int	compare_env_var(const char *env_var, const char *arg)
 	char	*env_cpy;
 
 	env_cpy = ft_strdup(env_var);
+	if (!env_cpy)
+        return (0);
 	equal_sign = ft_strchr(env_cpy, '=');
 	if (equal_sign != NULL)
 	{
 		*equal_sign = '\0';
 		value = equal_sign + 1;
-		if (ft_strncmp(arg, value, ft_strlen(arg)) == 0)
-		{
-			free(env_cpy);
-			return (1);
-		}
+		if (ft_strlen(arg) == ft_strlen(value) && \
+			!ft_strncmp(arg, value, ft_strlen(arg)))
+			return (free(env_cpy), 1);
 	}
-	else
-	{
-		free(env_cpy);
-		if (strcmp(env_var, arg) == 0)
-			return (1);
-	}
-	free(env_cpy);
-	return (0);
+	if (ft_strlen(env_var) == ft_strlen(arg) && \
+			!ft_strncmp(arg, env_var, ft_strlen(arg)))
+		return (free(env_cpy), 1);
+	return (free(env_cpy), 0);
 }
 
 int	process_unset_arg(t_shell *shell, const char *arg)
