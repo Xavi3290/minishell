@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
+/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 20:02:49 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/12 13:13:23 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/12 15:10:50 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ void		handle_sig_normal(int sig);
 void		handle_sig_hered(int sig);
 void		handle_eof(void);
 void		setup_signal_handlers(void);
-void		handle_signals(int status, t_shell *shell);
+//void		handle_signals(int status, t_shell *shell);
+void        handle_signals(int status, t_shell *shell, int *first);
 
 #endif
