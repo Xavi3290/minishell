@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 17:01:00 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/08 17:52:28 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/12 13:37:46 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ void	handle_sig_hered(int sig)
 	if (sig == SIGINT)
 	{
 		rl_replace_line("", 1);
-		rl_on_new_line();
-		rl_redisplay();
+		// rl_on_new_line();
+		// rl_redisplay();
 		ft_putendl_fd("", 1);
 		error_exit = 1;
-		exit(1);
+		exit(130);
 	}
 }
 
@@ -49,14 +49,14 @@ void	setup_signal_handlers(void)
 	signal(SIGQUIT, SIG_DFL);
 }
 
-void	handle_signals(int status, t_shell *shell)
+void	handle_signals(int status, t_shell *shell, int *first)
 {
 	if (WIFEXITED(status))
 	{
 		error_exit = WEXITSTATUS(status);
 		shell->last_exit_status = error_exit;
 	}
-	else if (WIFSIGNALED(status))
+	else if (WIFSIGNALED(status) && (!first || *first))
 	{
 		if (WTERMSIG(status) == SIGQUIT)
 			ft_putstr_fd("Quit: 3\n", 2);
@@ -64,6 +64,8 @@ void	handle_signals(int status, t_shell *shell)
 			ft_putstr_fd("\n", 2);
 		error_exit = WTERMSIG(status) + 128;
 		shell->last_exit_status = error_exit;
+		if (first)
+			*first = 0;
 	}
 }
 
