@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:50:13 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/12 11:30:31 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/12 13:16:11 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,9 +108,11 @@ void	ft_redirectios(t_command *cmd)
 void	exec_cmd(char **env, t_command *cmd, t_shell *shell)
 {
 	char	*path;
+	int		num;
 
 	ft_redirectios(cmd);
-	if (cmd_type2(cmd, shell) == 2)
+	num = cmd_type2(cmd, shell);
+	if (num == 2)
 	{
 		if (!cmd->args)
 			exit(1);
@@ -131,5 +133,7 @@ void	exec_cmd(char **env, t_command *cmd, t_shell *shell)
 			execution_error(": command not found", 0, 127, cmd->args[0]);
 		}
 	}
+	else if (num != 0)
+		exit(num);
 	exit(0);
 }

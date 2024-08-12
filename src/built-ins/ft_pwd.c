@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 18:47:13 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/08 16:43:19 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/12 13:09:52 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,15 @@ char	*actual_path(t_shell *shell)
 	return (path);
 }
 
-int	ft_pwd(t_shell *shell)
+int	ft_pwd(t_shell *shell, t_command *cmd)
 {
 	char	*path;
 
+	if (cmd->num_args > 1)
+	{
+		printf("pwd: too many arguments\n");
+		return (1);
+	}
 	path = getcwd(NULL, 0);
 	if (path)
 	{

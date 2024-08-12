@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 20:02:49 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/12 11:44:44 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/12 13:13:23 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,12 @@ void		handle_errors(char *message, t_shell *shell, int error);
 int			ft_strcmp(const char *s1, const char *s2);
 int			ft_strlen_d(char **str);
 
-int			ft_env(t_shell *shell);
-int			ft_pwd(t_shell *shell);
+int			ft_env(t_shell *shell, t_command *cmd);
+int			ft_pwd(t_shell *shell, t_command *cmd);
 char		*actual_path(t_shell *shell);
-int			ft_cd(t_shell *shell);
+int			ft_cd(t_shell *shell, t_command *cmd);
 void		put_error(char *bash, char *file, char *error);
-void		ft_exit(t_shell *shell);
+int			ft_exit(t_shell *shell, t_command *cmd);
 int			ft_echo(t_command **command);
 int			ft_export(t_command *cmd, t_shell *shell);
 int			ft_unset(t_shell *shell, t_command *cmd);

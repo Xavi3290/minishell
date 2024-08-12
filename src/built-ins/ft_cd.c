@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 17:14:06 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/08 16:44:23 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/12 12:51:05 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,28 +66,30 @@ char	*expand_home_directory(const char *path)
 	return (ft_strdup(path));
 }
 
-int	ft_cd(t_shell *shell)
+int	ft_cd(t_shell *shell, t_command *cmd)
 {
 	char	*tmp;
 	char	*expanded_path;
 
 	pwd_value(NULL, shell, 0);
-	if (shell->commands->num_args == 1)
+	if (cmd->num_args == 1)
 	{
 		chdir(getenv("HOME"));
 		pwd_value(NULL, shell, 1);
 		return (0);
 	}
-	tmp = shell->commands->args[1];
+	tmp = cmd->args[1];
 	expanded_path = expand_home_directory(tmp);
 	if (!expanded_path)
-		return (1);
-	if (chdir(expanded_path) == -1)
 	{
-		free(expanded_path);
+		printf("minishell: cd: %s: No such file or directory\n", cmd->args[1]);
 		return (1);
 	}
-	free(expanded_path);
+	if (chdir(expanded_path) == -1)
+	{
+		printf("minishell: cd: %s: No such file or directory\n", cmd->args[1]);
+		return (free(expanded_path), 1);
+	}
 	pwd_value(NULL, shell, 1);
-	return (0);
+	return (free(expanded_path), 0);
 }

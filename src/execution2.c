@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:22:53 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/12 11:13:02 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/12 15:04:58 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,17 @@ void	execute_simple_command(t_command *cmd, t_shell *shell)
 	pid = fork();
 	if (pid == 0)
 	{
-		setup_signal_handlers();
 		if (cmd->heredoc)
 			handle_herdoc(cmd, 0, shell);
+		setup_signal_handlers();
 		exec_cmd(shell->env, cmd, shell);
 	}
 	else if (pid < 0)
 		handle_error("minishell: fork", shell);
 	else
 	{
+		signal(SIGINT, SIG_IGN);
+        signal(SIGQUIT, SIG_IGN);
 		waitpid(pid, &status, 0);
 		if (WIFEXITED(status))
 		{
@@ -82,7 +84,7 @@ void	execute_simple_command(t_command *cmd, t_shell *shell)
 			error_exit = 1;
 			shell->last_exit_status = 1;
 		}
-		handle_signals(status, shell);
+		handle_signals(status, shell, NULL);
 	}
 }
 
@@ -90,14 +92,16 @@ void	wait_for_children(pid_t *pids, int num_childrens, t_shell *shell)
 {
 	int	status;
 	int	i;
+	int first;
 
 	i = 0;
+	first = 1;
 	while (i < num_childrens)
 	{
 		waitpid(pids[i], &status, 0);
 		if (WIFEXITED(status))
 			shell->last_exit_status = WEXITSTATUS(status);
-		handle_signals(status, shell);
+		handle_sig nals(status, shell, &first);
 		i++;
 	}
 	free(pids);

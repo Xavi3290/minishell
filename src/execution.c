@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:22:53 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/12 11:29:29 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/12 15:03:58 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int	cmd_type2(t_command *cmd, t_shell *shell)
 	if (!ft_strcmp(cmd->args[0], "echo"))
 		return (ft_echo(&cmd));
 	else if (!ft_strcmp(cmd->args[0], "pwd"))
-		return (ft_pwd(shell));
+		return (ft_pwd(shell, cmd));
 	else if (!ft_strcmp(cmd->args[0], "env"))
-		return (ft_env(shell));
+		return (ft_env(shell, cmd));
 	return (2);
 }
 
@@ -30,13 +30,13 @@ int	cmd_type1(t_command *cmd, t_shell *shell)
 	if (!cmd->args)
 		return (2);
 	if (!ft_strcmp(cmd->args[0], "cd"))
-		return (ft_cd(shell));
+		return (ft_cd(shell, cmd));
 	else if (!ft_strcmp(cmd->args[0], "export"))
 		return (ft_export(cmd, shell));
 	else if (!ft_strcmp(cmd->args[0], "unset"))
-		return (ft_unset(shell, shell->commands));
+		return (ft_unset(shell, cmd));
 	else if (!ft_strcmp(cmd->args[0], "exit"))
-		ft_exit(shell);
+		return (ft_exit(shell, cmd));
 	return (2);
 }
 
@@ -44,6 +44,7 @@ int	create_child_process(t_command *current, int prev_fd, int *fd, \
 	t_shell *shell)
 {
 	pid_t	pid;
+	int 	num;
 
 	pid = fork();
 	if (pid == -1)
@@ -64,8 +65,11 @@ int	create_child_process(t_command *current, int prev_fd, int *fd, \
 				handle_error(NULL, NULL);
 			close(fd[1]);
 		}
-		if (cmd_type1(current, shell))
+		num = cmd_type1(current, shell);
+		if (num == 2)
 			exec_cmd(shell->env, current, shell);
+		else if (num != 0)
+			exit(num);
 		exit(127);
 	}
 	return (pid);
@@ -81,6 +85,8 @@ void	create_pipeline(t_command *cmd, t_shell *shell, int num_commands, int i)
 	if (!pids)
 		handle_error("minishell: malloc", shell);
 	prev_fd = -1;
+	signal(SIGINT, SIG_IGN);
+    signal(SIGQUIT, SIG_IGN);
 	while (cmd)
 	{
 		if (pipe(fd) == -1)
@@ -103,6 +109,7 @@ void	execute_commands(t_shell *shell)
 {
 	t_command	*cmd;
 	int			num_commands;
+	int			num;
 
 	cmd = shell->commands;
 	num_commands = count_comands(cmd);
@@ -110,8 +117,11 @@ void	execute_commands(t_shell *shell)
 		create_pipeline(cmd, shell, num_commands, 0);
 	else if (num_commands == 1)
 	{
-		if (cmd_type1(cmd, shell) == 2)
+		num = cmd_type1(cmd, shell);
+		if (num == 2)
 			execute_simple_command(cmd, shell);
+		else if (num != 0)
+			shell->last_exit_status = num;
 		if (cmd->heredoc)
 			unlink(cmd->input_files[0]);
 	}
