@@ -6,26 +6,11 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 16:23:12 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/12 15:20:16 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/12 15:46:19 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-void	remove_empty_token(t_token **tokens, t_token **current, t_token **prev)
-{
-	t_token *temp;
-	
-	temp = *current;
-	if (*prev)
-		(*prev)->next = (*current)->next;
-	else
-		*tokens = (*current)->next;
-
-	*current = (*current)->next;
-	free(temp->value);
-	free(temp);
-}
 
 void	expand_variable_token(t_token **tokens, t_shell *shell,
 		t_token **current, t_token **prev)
@@ -101,7 +86,7 @@ void	expand_tokens(t_token **tokens, t_shell *shell)
 		{
 			prev = current;
 			current = current->next;
-		}		
+		}
 	}
 }
 
@@ -116,20 +101,6 @@ t_token	*tokenize_and_expand(char *line, t_shell *shell)
 	join_adjacent_tokens(&tokens);
 	return (tokens);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /*t_token	*tokenize_and_expand(char *line, t_shell *shell)
 {

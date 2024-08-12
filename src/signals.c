@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 17:01:00 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/12 13:37:46 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/12 15:44:21 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	handle_sigquit(int sig)
 	// No hacer nada en respuesta a ctrl-\ ;
 }
 
-void	handle_eof()
+void	handle_eof(void)
 {
 	write(1, "exit\n", 5);
 	exit(0);

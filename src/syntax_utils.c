@@ -6,20 +6,20 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 18:01:48 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/08 16:44:22 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/12 15:43:40 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static int	handle_operators_syntax(t_token *token, t_syntax_state *state, \
-			t_shell *shell)
+static int	handle_operators_syntax(t_token *token, t_syntax_state *state,
+		t_shell *shell)
 {
 	if (token->type == PIPE || token->type == AND || token->type == OR)
 	{
-		if (state->last_was_operator || state->last_was_pipe \
-		|| state->last_was_redirect || state->last_was_logical \
-		|| !state->last_was_word)
+		if (state->last_was_operator || state->last_was_pipe
+			|| state->last_was_redirect || state->last_was_logical
+			|| !state->last_was_word)
 		{
 			handle_errors("syntax error: unexpected operator", shell, 2);
 			return (0);
@@ -37,11 +37,11 @@ static int	handle_operators_syntax(t_token *token, t_syntax_state *state, \
 	return (1);
 }
 
-static int	handle_redirects_syntax(t_token *token, t_syntax_state *state, \
-			t_shell *shell)
+static int	handle_redirects_syntax(t_token *token, t_syntax_state *state,
+		t_shell *shell)
 {
-	if (token->type == REDIRECT_IN || token->type == REDIRECT_OUT || \
-		token->type == APPEND || token->type == HEREDOC)
+	if (token->type == REDIRECT_IN || token->type == REDIRECT_OUT
+		|| token->type == APPEND || token->type == HEREDOC)
 	{
 		if (state->last_was_redirect)
 		{
@@ -56,8 +56,8 @@ static int	handle_redirects_syntax(t_token *token, t_syntax_state *state, \
 	return (1);
 }
 
-static int	handle_parentheses_syntax(t_token *token, t_syntax_state *state, \
-			t_shell *shell)
+static int	handle_parentheses_syntax(t_token *token, t_syntax_state *state,
+		t_shell *shell)
 {
 	if (token->type == LPAREN)
 	{
@@ -86,11 +86,11 @@ static int	handle_parentheses_syntax(t_token *token, t_syntax_state *state, \
 	return (1);
 }
 
-static int	handle_word_syntax(t_token *token, t_syntax_state *state, \
-			t_shell *shell)
+static int	handle_word_syntax(t_token *token, t_syntax_state *state,
+		t_shell *shell)
 {
-	if ((state->last_was_operator || state->last_was_pipe \
-		|| state->last_was_redirect) && token->value[0] == '&')
+	if ((state->last_was_operator || state->last_was_pipe
+			|| state->last_was_redirect) && token->value[0] == '&')
 	{
 		handle_errors("syntax error: unexpected '&'", shell, 2);
 		return (0);
@@ -108,17 +108,16 @@ static int	handle_word_syntax(t_token *token, t_syntax_state *state, \
 	return (1);
 }
 
-int	handle_general_tokens_syn(t_token *token, t_syntax_state *state, \
-			t_shell *shell)
+int	handle_general_tokens_syn(t_token *token, t_syntax_state *state,
+		t_shell *shell)
 {
-	
 	if (token->type == PIPE || token->type == AND || token->type == OR)
 	{
 		if (!handle_operators_syntax(token, state, shell))
 			return (0);
 	}
-	else if (token->type == REDIRECT_IN || token->type == REDIRECT_OUT || \
-			token->type == APPEND || token->type == HEREDOC)
+	else if (token->type == REDIRECT_IN || token->type == REDIRECT_OUT
+		|| token->type == APPEND || token->type == HEREDOC)
 	{
 		if (token->type == HEREDOC)
 			state->num_heredocs++;
@@ -130,7 +129,8 @@ int	handle_general_tokens_syn(t_token *token, t_syntax_state *state, \
 		if (!handle_parentheses_syntax(token, state, shell))
 			return (0);
 	}
-	else if (token->type == WORD || token->type == DOUBLE_QUOTES || token->type == SINGLE_QUOTES || token->type == WILDC)
+	else if (token->type == WORD || token->type == DOUBLE_QUOTES
+		|| token->type == SINGLE_QUOTES || token->type == WILDC)
 	{
 		if (!handle_word_syntax(token, state, shell))
 			return (0);

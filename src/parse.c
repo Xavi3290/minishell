@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 13:29:10 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/30 15:52:49 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/12 15:45:22 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	handle_right_parenthesis(t_command **cmd, int *paren_level)
 	}
 }
 
-void	parse_general_tokens_cmd(t_token **tokens, t_command *cmd, \
+void	parse_general_tokens_cmd(t_token **tokens, t_command *cmd,
 		t_shell *shell, int *paren_level)
 {
 	t_token	*current;
@@ -48,14 +48,13 @@ void	parse_general_tokens_cmd(t_token **tokens, t_command *cmd, \
 	current = *tokens;
 	while (current)
 	{
-		if (current->type == WORD || current->type == DOUBLE_QUOTES || \
-			current->type == SINGLE_QUOTES || current->type == WILDC)
+		if (current->type == WORD || current->type == DOUBLE_QUOTES
+			|| current->type == SINGLE_QUOTES || current->type == WILDC)
 			add_argument(cmd, current->value);
-		else if (current->type == REDIRECT_IN || current->type == REDIRECT_OUT \
-				|| current->type == APPEND)
+		else if (current->type == REDIRECT_IN || current->type == REDIRECT_OUT
+			|| current->type == APPEND)
 			handle_redirect_token(&current, cmd, shell, current->type);
 		else if (current->type == HEREDOC)
-			//handle_heredoc_token(cmd);
 			handle_heredoc_token(cmd, &current);
 		else if (current->type == PIPE)
 			handle_pipe_token(&cmd);
