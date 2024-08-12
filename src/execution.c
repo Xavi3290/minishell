@@ -6,29 +6,29 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:22:53 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/08 13:04:49 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/12 11:29:29 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int  cmd_type2(t_command *cmd, t_shell *shell)
+int	cmd_type2(t_command *cmd, t_shell *shell)
 {
 	if (!cmd->args)
-		return (1);
+		return (2);
 	if (!ft_strcmp(cmd->args[0], "echo"))
 		return (ft_echo(&cmd));
 	else if (!ft_strcmp(cmd->args[0], "pwd"))
 		return (ft_pwd(shell));
 	else if (!ft_strcmp(cmd->args[0], "env"))
 		return (ft_env(shell));
-	return (1);
+	return (2);
 }
 
-int cmd_type1(t_command *cmd, t_shell *shell)
+int	cmd_type1(t_command *cmd, t_shell *shell)
 {
 	if (!cmd->args)
-		return (1);
+		return (2);
 	if (!ft_strcmp(cmd->args[0], "cd"))
 		return (ft_cd(shell));
 	else if (!ft_strcmp(cmd->args[0], "export"))
@@ -37,22 +37,8 @@ int cmd_type1(t_command *cmd, t_shell *shell)
 		return (ft_unset(shell, shell->commands));
 	else if (!ft_strcmp(cmd->args[0], "exit"))
 		ft_exit(shell);
-	return (1);
+	return (2);
 }
-
-/*static void	handle_signals(int status)
-{
-	if (WIFEXITED(status))
-		error_exit = WEXITSTATUS(status);
-	else if (WIFSIGNALED(status))
-	{
-		if (WTERMSIG(status) == SIGQUIT)
-			ft_putstr_fd("Quit: 3\n", 2);
-		else if (WTERMSIG(status) == SIGINT)
-			ft_putstr_fd("\n", 2);
-		error_exit = WTERMSIG(status) + 128;
-	}
-}*/
 
 int	create_child_process(t_command *current, int prev_fd, int *fd, \
 	t_shell *shell)
@@ -66,18 +52,18 @@ int	create_child_process(t_command *current, int prev_fd, int *fd, \
 	{
 		setup_signal_handlers();
 		if (prev_fd != -1)
-    	{
-        	if (dup2(prev_fd, STDIN_FILENO) == -1)
-        	    handle_error(NULL, NULL);
-        	close(prev_fd);
-    	}
-    	if (current->next)
-    	{
-    	    close(fd[0]);
-    	    if (dup2(fd[1], STDOUT_FILENO) == -1)
-    	        handle_error(NULL, NULL);
-    	    close(fd[1]);
-    	}
+		{
+			if (dup2(prev_fd, STDIN_FILENO) == -1)
+				handle_error(NULL, NULL);
+			close(prev_fd);
+		}
+		if (current->next)
+		{
+			close(fd[0]);
+			if (dup2(fd[1], STDOUT_FILENO) == -1)
+				handle_error(NULL, NULL);
+			close(fd[1]);
+		}
 		if (cmd_type1(current, shell))
 			exec_cmd(shell->env, current, shell);
 		exit(127);
@@ -124,9 +110,9 @@ void	execute_commands(t_shell *shell)
 		create_pipeline(cmd, shell, num_commands, 0);
 	else if (num_commands == 1)
 	{
-		if (cmd_type1(cmd, shell))
-				execute_simple_command(cmd, shell);
+		if (cmd_type1(cmd, shell) == 2)
+			execute_simple_command(cmd, shell);
 		if (cmd->heredoc)
-				unlink(cmd->input_files[0]);
+			unlink(cmd->input_files[0]);
 	}
 }

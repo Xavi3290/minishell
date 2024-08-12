@@ -6,15 +6,15 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/08 15:51:12 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/12 10:56:20 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int error_exit;
+int	error_exit;
 
-void print_command(t_command *cmd)
+/*void print_command(t_command *cmd) 
 {
     while (cmd)
     {
@@ -57,11 +57,11 @@ void print_command(t_command *cmd)
         printf("\n");
         cmd = cmd->next;
     }
-}
+}*/
 
 t_shell	*initialize_shell(int argc, char **env)
 {
-	t_shell *shell;
+	t_shell	*shell;
 
 	if (argc > 1)
 	{
@@ -82,57 +82,56 @@ t_shell	*initialize_shell(int argc, char **env)
 	return (shell);
 }
 
-void parse_execute_frees(t_token *tokens, t_shell *shell)
+void	parse_execute_frees(t_token *tokens, t_shell *shell)
 {
-    parse_tokens(&tokens, shell);
-    execute_commands(shell);
-    shell->parentheses = 0;
-    free_tokens(tokens);
+	parse_tokens(&tokens, shell);
+	execute_commands(shell);
+	shell->parentheses = 0;
+	free_tokens(tokens);
 	free_commands(shell->commands);
-    free(shell->line);
-    shell->line = NULL;
+	free(shell->line);
+	shell->line = NULL;
 }
 
 void	process_command_line(t_shell *shell)
 {
-	t_token *tokens;
+	t_token	*tokens;
 
 	while (42)
 	{
 		shell->line = readline("mini🐚: ");
-        if (!shell->line)
-            handle_eof();
+		if (!shell->line)
+			handle_eof();
 		if (shell->line && shell->line[0])
 		{
 			add_history(shell->line);
 			tokens = tokenize_and_expand(shell->line, shell);
-            if (!tokens || !check_syntax(tokens, shell))
-            {
-                if (tokens)
-                    free_tokens(tokens);
-                free(shell->line);
-                shell->line = NULL;
-                continue ;
-            }
-            parse_execute_frees(tokens, shell);			
+			if (!tokens || !check_syntax(tokens, shell))
+			{
+				if (tokens)
+					free_tokens(tokens);
+				free(shell->line);
+				shell->line = NULL;
+				continue ;
+			}
+			parse_execute_frees(tokens, shell);
 		}
 	}
 }
 
 int	main(int argc, char **argv, char **env)
 {
-	t_shell *shell;
+	t_shell	*shell;
 
 	(void)argv;
-    error_exit = 0;
+	error_exit = 0;
 	shell = initialize_shell(argc, env);
-    signal(SIGINT, handle_sig_normal);
+	signal(SIGINT, handle_sig_normal);
 	signal(SIGQUIT, SIG_IGN);
 	process_command_line(shell);
 	free_shell(shell);
 	return (0);
 }
-
 
 /*/int main(int argc, char **argv, char **env)
 {
@@ -172,16 +171,16 @@ int	main(int argc, char **argv, char **env)
                 continue;
             }
 			parse_tokens(&tokens, shell);
-            execute_commands(shell);*/
-            //print_command(shell->commands);
-            /*t_token   *temp;
+            execute_commands(shell);
+            print_command(shell->commands);
+            t_token   *temp;
             temp = tokens;
             while (temp)
             {
                 printf("Token: Type=%d, Value=%s\n", temp->type, temp->value);
                 temp = temp->next;
-            }*/
-    /*       shell->parentheses = 0;
+            }
+           shell->parentheses = 0;
             free_tokens(tokens);
 			free_commands(shell->commands);
             free(shell->line);

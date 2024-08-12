@@ -6,17 +6,16 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:22:53 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/08 13:03:10 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/12 11:13:02 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-	
+
 void	handle_herdoc(t_command *cmd, int i, t_shell *shell)
 {
 	char	*line;
 	char	*expanded;
-	(void)shell;
 
 	signal(SIGINT, handle_sig_hered);
 	signal(SIGQUIT, SIG_IGN);
@@ -101,7 +100,6 @@ void	wait_for_children(pid_t *pids, int num_childrens, t_shell *shell)
 		handle_signals(status, shell);
 		i++;
 	}
-	
 	free(pids);
 }
 

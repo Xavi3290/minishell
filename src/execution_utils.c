@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:50:13 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/08 15:54:59 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/12 11:30:31 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*get_path(char *cmd, char **env)
 void	handle_input_redirection(t_command *cmd, int num)
 {
 	int	fd;
-	
+
 	fd = open(cmd->input_files[num], O_RDONLY, 0644);
 	if (fd == -1 || access(cmd->input_files[num], R_OK) == -1)
 		execution_error("minishell: ", 1, 126, cmd->input_files[num]);
@@ -84,56 +84,51 @@ void	handle_output_redirection(t_command *cmd, int num)
 	close(fd);
 }
 
-int ft_strlen_d(char **str)
+void	ft_redirectios(t_command *cmd)
 {
-	int i = 0;
-	
-	if (!str)
-		return (0);
-	while (str[i])
-		i++;
-	return (i);
-}
-
-void	exec_cmd(char **env, t_command *cmds, t_shell *shell)
-{
-	char	*path;
 	int		num_input;
 	int		num_ouput;
 	int		i;
 
 	i = 0;
-	num_input = ft_strlen_d(cmds->input_files) - 1;
-	num_ouput = ft_strlen_d(cmds->output_files) - 1;
+	num_input = ft_strlen_d(cmd->input_files) - 1;
+	num_ouput = ft_strlen_d(cmd->output_files) - 1;
 	while (num_input >= 0 || num_ouput >= 0)
 	{
-		if (cmds->input_files && num_input >= 0)
-			handle_input_redirection(cmds, i);
-		if (cmds->output_files && num_ouput >= 0)
-			handle_output_redirection(cmds, i);
+		if (cmd->input_files && num_input >= 0)
+			handle_input_redirection(cmd, i);
+		if (cmd->output_files && num_ouput >= 0)
+			handle_output_redirection(cmd, i);
 		num_input--;
 		num_ouput--;
 		i++;
 	}
-	if (cmd_type2(cmds, shell))
+}
+
+void	exec_cmd(char **env, t_command *cmd, t_shell *shell)
+{
+	char	*path;
+
+	ft_redirectios(cmd);
+	if (cmd_type2(cmd, shell) == 2)
 	{
-		if (!cmds->args)
+		if (!cmd->args)
 			exit(1);
-		path = get_path(cmds->args[0], env);
-		if (execve(path, cmds->args, env) == -1)
+		path = get_path(cmd->args[0], env);
+		if (execve(path, cmd->args, env) == -1)
 		{
 			if (path[0] == '/')
 			{
 				if (!access(path, X_OK | F_OK))
 				{
 					ft_putstr_fd("minishell: ", 2);
-					execution_error(": Is a directory", 0, 126, cmds->args[0]);
+					execution_error(": Is a directory", 0, 126, cmd->args[0]);
 				}
 				ft_putstr_fd("minishell: ", 2);
 				execution_error(": No such file or directory", 0, 127, \
-								cmds->args[0]);
+								cmd->args[0]);
 			}
-			execution_error(": command not found", 0, 127, cmds->args[0]);
+			execution_error(": command not found", 0, 127, cmd->args[0]);
 		}
 	}
 	exit(0);
