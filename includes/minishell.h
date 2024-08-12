@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 20:02:49 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/12 11:06:46 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/12 11:41:54 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ char		*ft_strndup(const char *s, size_t n);
 int			ft_is_space(char line);
 void		*ft_realloc(void *ptr, size_t original_size, size_t new_size);
 void		handle_error(char *message, t_shell *shell);
+void		handle_errors(char *message, t_shell *shell, int error);
 int			ft_strcmp(const char *s1, const char *s2);
 int			ft_strlen_d(char **str);
 
