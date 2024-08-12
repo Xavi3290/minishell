@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 18:01:48 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/07/30 17:48:13 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/08 16:44:22 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	handle_operators_syntax(t_token *token, t_syntax_state *state, \
 		|| state->last_was_redirect || state->last_was_logical \
 		|| !state->last_was_word)
 		{
-			handle_error("syntax error: unexpected operator", shell);
+			handle_errors("syntax error: unexpected operator", shell, 2);
 			return (0);
 		}
 		state->last_was_operator = 1;
@@ -45,7 +45,7 @@ static int	handle_redirects_syntax(t_token *token, t_syntax_state *state, \
 	{
 		if (state->last_was_redirect)
 		{
-			handle_error("syntax error: unexpected redirect", shell);
+			handle_errors("syntax error: unexpected redirect", shell, 2);
 			return (0);
 		}
 		state->last_was_redirect = 1;
@@ -63,7 +63,7 @@ static int	handle_parentheses_syntax(t_token *token, t_syntax_state *state, \
 	{
 		if (state->last_was_word || state->last_was_redirect)
 		{
-			handle_error("syntax error: unexpected '('", shell);
+			handle_errors("syntax error: unexpected '('", shell, 2);
 			return (0);
 		}
 		state->paren_count++;
@@ -75,7 +75,7 @@ static int	handle_parentheses_syntax(t_token *token, t_syntax_state *state, \
 	{
 		if (is_unmatched_rparen(state))
 		{
-			handle_error("syntax error: unmatched ')'", shell);
+			handle_errors("syntax error: unmatched ')'", shell, 2);
 			return (0);
 		}
 		state->paren_count--;
@@ -92,7 +92,7 @@ static int	handle_word_syntax(t_token *token, t_syntax_state *state, \
 	if ((state->last_was_operator || state->last_was_pipe \
 		|| state->last_was_redirect) && token->value[0] == '&')
 	{
-		handle_error("syntax error: unexpected '&'", shell);
+		handle_errors("syntax error: unexpected '&'", shell, 2);
 		return (0);
 	}
 	if (state->paren_opened && state->last_was_logical)

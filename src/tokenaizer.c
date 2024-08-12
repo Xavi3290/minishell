@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenaizer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
+/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:05:46 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/18 14:47:34 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/08 17:01:35 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static t_token	*handle_single_quotes(char *line, int *i, t_shell *shell)
 		(*i)++;
 	if (line[*i] == '\0')
 	{
-		handle_error("syntax error: unmatched '", shell);
+		handle_errors("syntax error: unmatched '", shell, 2);
 		return (NULL);
 	}
 	value = ft_strndup(&line[start], *i - start);
@@ -47,7 +47,7 @@ static t_token	*handle_double_quotes(char *line, int *i, t_shell *shell)
 		(*i)++;
 	if (line[*i] == '\0')
 	{
-		handle_error("syntax error: unmatched '", shell);
+		handle_errors("syntax error: unmatched '", shell, 2);
 		return (NULL);
 	}
 	value = ft_strndup(&line[start], *i - start);

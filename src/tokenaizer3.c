@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 19:19:21 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/23 15:41:00 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/08 17:00:08 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_token	*handle_left_parentheses(char *line, int *i, t_shell *shell)
 				count--;
 			if (count < 0)
 			{
-				handle_error("syntax error: unmatched )", shell);
+				handle_errors("syntax error: unmatched )", shell, 2);
 				return (NULL);
 			}
 			j++;
@@ -68,7 +68,7 @@ t_token	*handle_right_parentheses(t_shell *shell, int *i)
 {
 	if (!shell->parentheses)
 	{
-		handle_error("syntax error: unmatched )", shell);
+		handle_errors("syntax error: unmatched )", shell, 2);
 		return (NULL);
 	}
 	else
