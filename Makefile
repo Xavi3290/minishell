@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+         #
+#    By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/21 19:54:24 by xroca-pe          #+#    #+#              #
-#    Updated: 2024/08/08 17:35:28 by cgaratej         ###   ########.fr        #
+#    Updated: 2024/08/12 15:39:09 by xroca-pe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,8 +34,8 @@ SRC = src/main.c src/init.c src/tokenaizer.c src/tokenaizer2.c \
 	  src/expand4.c src/error_manager.c src/built-ins/ft_exit.c \
 	  src/built-ins/ft_echo.c src/syntax_manager.c src/syntax_utils.c \
 	  src/built-ins/ft_export.c src/built-ins/ft_unset.c src/execution.c \
-	  src/parse2.c src/parse3.c src/free_tools.c \
-	  src/execution_utils.c src/execution2.c src/signals.c
+	  src/parse2.c src/parse3.c src/parse4.c src/free_tools.c \
+	  src/execution_utils.c src/execution2.c src/signals.c 
 	  
 OBJ = $(SRC:%.c=$(BUILD_DIR)/%.o)
 DEPS = $(SRC:%.c=$(BUILD_DIR)/$.d)

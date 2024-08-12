@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 18:05:45 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/07/30 16:42:47 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/12 15:35:13 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	generate_random_number(void)
 {
 	static unsigned int	seed;
-	
+
 	if (seed == 0)
 		seed = 12345;
 	seed = (seed * 1103515245 + 12345) & 0x7fffffff;
@@ -33,8 +33,8 @@ static char	*generate_filename(void)
 	return (str);
 }
 
-void	handle_redirect_token(t_token **current, t_command *cmd, \
-		t_shell *shell, int type)
+void	handle_redirect_token(t_token **current, t_command *cmd, t_shell *shell,
+		int type)
 {
 	*current = (*current)->next;
 	while (*current && (*current)->type == SPACES)

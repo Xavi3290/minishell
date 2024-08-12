@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand4.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
+/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:23:05 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/10 15:44:38 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/12 15:29:12 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,18 @@ void	join_adjacent_tokens(t_token **tokens)
 		}
 		current = current->next;
 	}
+}
+
+void	remove_empty_token(t_token **tokens, t_token **current, t_token **prev)
+{
+	t_token	*temp;
+
+	temp = *current;
+	if (*prev)
+		(*prev)->next = (*current)->next;
+	else
+		*tokens = (*current)->next;
+	*current = (*current)->next;
+	free(temp->value);
+	free(temp);
 }
