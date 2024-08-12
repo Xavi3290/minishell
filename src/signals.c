@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 17:01:00 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/12 15:44:21 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/12 17:42:15 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	handle_sig_hered(int sig)
 		ft_putendl_fd("", 1);
 		error_exit = 1;
 		exit(130);
+		//return (130);
 	}
 }
 
@@ -59,11 +60,20 @@ void	handle_signals(int status, t_shell *shell, int *first)
 	else if (WIFSIGNALED(status) && (!first || *first))
 	{
 		if (WTERMSIG(status) == SIGQUIT)
+		{
 			ft_putstr_fd("Quit: 3\n", 2);
+			//error_exit = 131;
+			shell->last_exit_status = 131;
+		}
 		else if (WTERMSIG(status) == SIGINT)
+		{
 			ft_putstr_fd("\n", 2);
-		error_exit = WTERMSIG(status) + 128;
-		shell->last_exit_status = error_exit;
+			//error_exit = 130;
+			shell->last_exit_status = 130;
+		}
+		//printf("%d\n", WTERMSIG(status));
+		//error_exit = WTERMSIG(status) + 128;
+		//shell->last_exit_status = error_exit;
 		if (first)
 			*first = 0;
 	}
