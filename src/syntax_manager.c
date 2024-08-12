@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:52:09 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/30 15:15:39 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/12 15:19:14 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ int	check_syntax(t_token *tokens, t_shell *shell)
 		|| state.last_was_redirect || state.last_was_logical \
 		|| state.paren_count > 0)
 	{
-		handle_error("syntax error: unexpected end of input", shell);
+		handle_errors("syntax error: unexpected end of input", shell, 2);
 		return (0);
 	}
 	if (state.num_heredocs > 16)
-		handle_error(NULL, NULL);
+		handle_errors("maximum here-document count exceeded", shell, 2);
 	return (1);
 }
