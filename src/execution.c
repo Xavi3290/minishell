@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:22:53 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/12 13:16:57 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/12 15:03:58 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ void	create_pipeline(t_command *cmd, t_shell *shell, int num_commands, int i)
 	if (!pids)
 		handle_error("minishell: malloc", shell);
 	prev_fd = -1;
+	signal(SIGINT, SIG_IGN);
+    signal(SIGQUIT, SIG_IGN);
 	while (cmd)
 	{
 		if (pipe(fd) == -1)
