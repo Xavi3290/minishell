@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 16:23:12 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/31 16:45:45 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/12 15:20:16 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,7 @@ t_token	*tokenize_and_expand(char *line, t_shell *shell)
 	return (tokens);
 }*/
 
-
+/*
 t_token	*tokenize_and_expand_segment(char *segment, t_shell *shell)
 {
 	t_token *tokens = tokenize(segment, shell);
@@ -177,14 +177,14 @@ void execute_segment(char *segment, t_shell *shell)
 		execute_commands(shell);
 		free_tokens(tokens);
 	}
-}
+}*/
 
 /*int is_logical_operator(t_token *token)
 {
 	return (token->type == AND || token->type == OR);
 }*/
 
-
+/*
 int count_segments(t_token *tokens)
 {
 	t_token *current = tokens;
@@ -275,3 +275,4 @@ void tokenize_expand_cmd_execute(char *line, t_shell *shell)
 	}
 	free(segments);
 }
+*/
