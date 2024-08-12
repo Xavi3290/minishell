@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:22:53 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/12 15:04:58 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/12 15:13:39 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	wait_for_children(pid_t *pids, int num_childrens, t_shell *shell)
 		waitpid(pids[i], &status, 0);
 		if (WIFEXITED(status))
 			shell->last_exit_status = WEXITSTATUS(status);
-		handle_sig nals(status, shell, &first);
+		handle_signals(status, shell, &first);
 		i++;
 	}
 	free(pids);

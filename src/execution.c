@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:22:53 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/12 15:03:58 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/12 15:15:21 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ int	create_child_process(t_command *current, int prev_fd, int *fd, \
 		handle_error("minishell: fork", shell);
 	if (pid == 0)
 	{
+		if (current->heredoc)
+			handle_herdoc(current, 0, shell);
 		setup_signal_handlers();
 		if (prev_fd != -1)
 		{
@@ -91,8 +93,6 @@ void	create_pipeline(t_command *cmd, t_shell *shell, int num_commands, int i)
 	{
 		if (pipe(fd) == -1)
 			handle_error("minishell: pipe", shell);
-		if (cmd->heredoc)
-			handle_herdoc(cmd, 0, shell);
 		pids[i++] = create_child_process(cmd, prev_fd, fd, shell);
 		if (prev_fd != -1)
 			close(prev_fd);
