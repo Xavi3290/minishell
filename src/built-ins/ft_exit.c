@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 16:25:46 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/08 16:41:06 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/12 12:46:06 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,32 +16,33 @@ static int			check_is_num(char *str, t_shell *shell);
 static long long	special_atoi(const char *str, int *atoi_error);
 static void			free_exit(t_shell *shell, int n);
 
-void	ft_exit(t_shell *shell)
+int	ft_exit(t_shell *shell, t_command *cmd)
 {
 	long long	n;
 	int			atoi_error;
 	int			i;
 
 	atoi_error = 0;
-	n = 0;
-	if (shell->commands->num_args == 1 || !shell->commands->args[1])
-		free_exit(shell, n);
-	else if (shell->commands->args[2] && \
-				check_is_num(shell->commands->args[1], shell))
-		return (put_error("exit\nminishell", "exit", "too many arguments"));
+	if (cmd->num_args == 1 || !cmd->args[1])
+		free_exit(shell, 0);
+	else if (cmd->args[2] && check_is_num(cmd->args[1], shell) \
+			&& !shell->commands->next)
+		return (put_error("exit\nminishell", "exit", "too many arguments"), 1);
+	else if (cmd->args[2] && check_is_num(cmd->args[1], shell))
+		return (put_error("minishell", "exit", "too many arguments"), 1);
 	i = 0;
-	while (shell->commands->args[++i])
-		check_is_num(shell->commands->args[i], shell);
-	n = special_atoi(shell->commands->args[1], &atoi_error);
+	while (cmd->args[++i])
+		check_is_num(cmd->args[i], shell);
+	n = special_atoi(cmd->args[1], &atoi_error);
 	if (atoi_error == -1)
 	{
-		put_error("exit\nbash: exit", shell->commands->args[0], \
+		put_error("exit\nbash: exit", cmd->args[0], \
 					"numeric argument required");
 		free_commands(shell->commands);
 		free(shell->line);
 		exit(2);
 	}
-	free_exit(shell, n);
+	return (free_exit(shell, n), 0);
 }
 
 static int	check_is_num(char *str, t_shell *shell)
@@ -103,7 +104,8 @@ static long long	special_atoi(const char *str, int *atoi_error)
 
 static void	free_exit(t_shell *shell, int n)
 {
-	printf("exit\n");
+	if (!shell->commands->next)
+		printf("exit\n");
 	free_commands(shell->commands);
 	free(shell->line);
 	if (!n)

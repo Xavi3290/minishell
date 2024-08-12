@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_manager.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 15:30:37 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/08 16:34:42 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/12 13:28:11 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	handle_errors(char *message, t_shell *shell, int error)
 	{
 		perror("minishell");
 		exit(errno);
-	}	
+	}
 }
 
 void	put_error(char *bash, char *file, char *error)
