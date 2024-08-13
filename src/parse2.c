@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 18:05:45 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/12 15:35:13 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/13 14:57:03 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static char	*generate_filename(void)
 	char	*num;
 
 	num = ft_itoa(generate_random_number());
-	str = ft_strjoin("hdoc_tmp_file", num);
+	str = ft_strjoin("/tmp/.hdoc_tmp_file", num);
 	free(num);
 	return (str);
 }
