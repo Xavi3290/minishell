@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:50:13 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/13 12:17:10 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/13 12:47:47 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*get_path(char *cmd, char **env)
 			execution_error(": command not found", 0, 127, cmd);
 		free(path);
 		if (!access(path_final, X_OK | F_OK))
-			return (path_final);
+			return (free_paths(path_list), path_final);
 		free(path_final);
 		i++;
 	}
@@ -91,49 +91,20 @@ void	ft_redirectios(t_command *cmd)
 	int		i;
 
 	i = 0;
-	num_input = ft_strlen_d(cmd->input_files) - 1;
-	num_ouput = ft_strlen_d(cmd->output_files) - 1;
-	while (num_input >= 0 || num_ouput >= 0)
+	num_input = ft_strlen_d(cmd->input_files);
+	num_ouput = ft_strlen_d(cmd->output_files);
+	while (num_input > 0 || num_ouput > 0)
 	{
-		if (cmd->input_files && num_input >= 0)
+		if (cmd->input_files && num_input > 0)
+		{
 			handle_input_redirection(cmd, i);
-		if (cmd->output_files && num_ouput >= 0)
+			num_input--;
+		}
+		if (cmd->output_files && num_ouput > 0)
+		{
 			handle_output_redirection(cmd, i);
-		num_input--;
-		num_ouput--;
+			num_ouput--;
+		}
 		i++;
 	}
-}
-
-void	exec_cmd(char **env, t_command *cmd, t_shell *shell)
-{
-	char	*path;
-	int		num;
-
-	ft_redirectios(cmd);
-	num = cmd_type2(cmd, shell);
-	if (num == 2)
-	{
-		if (!cmd->args)
-			exit(1);
-		path = get_path(cmd->args[0], env);
-		if (execve(path, cmd->args, env) == -1)
-		{
-			if (path[0] == '/')
-			{
-				if (!access(path, X_OK | F_OK))
-				{
-					ft_putstr_fd("minishell: ", 2);
-					execution_error(": Is a directory", 0, 126, cmd->args[0]);
-				}
-				ft_putstr_fd("minishell: ", 2);
-				execution_error(": No such file or directory", 0, 127, \
-								cmd->args[0]);
-			}
-			execution_error(": command not found", 0, 127, cmd->args[0]);
-		}
-	}
-	else if (num != 0)
-		exit(num);
-	exit(0);
 }
