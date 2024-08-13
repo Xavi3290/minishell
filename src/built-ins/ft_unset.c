@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:14:28 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/12 16:25:12 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/13 13:06:09 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	compare_env_var(const char *env_var, const char *arg)
 
 	env_cpy = ft_strdup(env_var);
 	if (!env_cpy)
-        return (0);
+		return (0);
 	equal_sign = ft_strchr(env_cpy, '=');
 	if (equal_sign != NULL)
 	{

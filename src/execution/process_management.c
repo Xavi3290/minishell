@@ -6,17 +6,17 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:22:53 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/13 12:13:34 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/13 13:05:51 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	child_process_logic(t_command *current, int prev_fd, int *fd,\
-			 t_shell *shell)
+static void	child_process_logic(t_command *current, int prev_fd, int *fd, \
+			t_shell *shell)
 {
-	int num;
-	
+	int	num;
+
 	if (current->heredoc)
 		handle_herdoc(current, 0, shell);
 	setup_signal_handlers();
@@ -41,8 +41,8 @@ static void	child_process_logic(t_command *current, int prev_fd, int *fd,\
 	exit(127);
 }
 
-int	create_child_process(t_command *current, int prev_fd, int *fd,\
-	 t_shell *shell)
+int	create_child_process(t_command *current, int prev_fd, int *fd, \
+	t_shell *shell)
 {
 	pid_t	pid;
 	int		status;
@@ -77,7 +77,7 @@ void	create_pipeline(t_command *cmd, t_shell *shell, int num_commands, int i)
 		handle_error("minishell: malloc", shell);
 	prev_fd = -1;
 	signal(SIGINT, SIG_IGN);
-    signal(SIGQUIT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 	while (cmd)
 	{
 		if (pipe(fd) == -1)
@@ -116,7 +116,7 @@ void	wait_for_children(pid_t *pids, int num_childrens, t_shell *shell)
 {
 	int	status;
 	int	i;
-	int first;
+	int	first;
 
 	i = 0;
 	first = 1;
@@ -130,4 +130,3 @@ void	wait_for_children(pid_t *pids, int num_childrens, t_shell *shell)
 	}
 	free(pids);
 }
-

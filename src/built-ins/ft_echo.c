@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 12:33:14 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/08 13:05:37 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/13 13:03:04 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ int	ft_echo(t_command **command)
 		return (0);
 	n = 1;
 	i = 1;
-	if ((*command)->args[i] && is_flag((*command)->args[i]))
+	while ((*command)->args[i] && is_flag((*command)->args[i]))
 	{
 		n = 0;
-		i += 1;
+		i++;
 	}
 	while (i < (*command)->num_args)
 	{
