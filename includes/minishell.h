@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 20:02:49 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/12 17:41:39 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/13 12:02:00 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ void	parse_tokens(t_token *tokens, t_shell *shell);*/
 void		print_command(t_command *cmd);
 
 void		exec_cmd(char **env, t_command *cmds, t_shell *shell);
+int			cmd_type1(t_command *cmd, t_shell *shell);
 int			cmd_type2(t_command *cmd, t_shell *shell);
 void		execute_commands(t_shell *shell);
 void		execute_simple_command(t_command *cmd, t_shell *shell);
@@ -122,6 +123,8 @@ void		handle_herdoc(t_command *cmd, int i, t_shell *shell);
 int			count_comands(t_command *cmd);
 void		execution_error(char *str, int per, int ex, char *cmd);
 void		wait_for_children(pid_t *pids, int num_childrens, t_shell *shell);
+void		wifstuff(t_shell *shell, int status);
+void		create_pipeline(t_command *cmd, t_shell *shell, int num_commands, int i);
 
 void		handle_sig_normal(int sig);
 void		handle_sig_hered(int sig);

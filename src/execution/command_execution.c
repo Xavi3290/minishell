@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execution.c                                        :+:      :+:    :+:   */
+/*   command_execution.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:22:53 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/12 17:45:15 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/13 11:59:13 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 int	cmd_type2(t_command *cmd, t_shell *shell)
 {
@@ -40,92 +40,43 @@ int	cmd_type1(t_command *cmd, t_shell *shell)
 	return (2);
 }
 
-int	create_child_process(t_command *current, int prev_fd, int *fd, \
-	t_shell *shell)
+void	execute_simple_command(t_command *cmd, t_shell *shell)
 {
 	pid_t	pid;
-	int 	num;
-	int 	status;
+	int		status;
 
 	pid = fork();
-	if (pid == -1)
-		handle_error("minishell: fork", shell);
 	if (pid == 0)
 	{
-		if (current->heredoc)
-			handle_herdoc(current, 0, shell);
+		if (cmd->heredoc)
+			handle_herdoc(cmd, 0, shell);
 		setup_signal_handlers();
-		if (prev_fd != -1)
-		{
-			if (dup2(prev_fd, STDIN_FILENO) == -1)
-				handle_error(NULL, NULL);
-			close(prev_fd);
-		}
-		if (current->next)
-		{
-			close(fd[0]);
-			if (dup2(fd[1], STDOUT_FILENO) == -1)
-				handle_error(NULL, NULL);
-			close(fd[1]);
-		}
-		num = cmd_type1(current, shell);
-		if (num == 2)
-			exec_cmd(shell->env, current, shell);
-		else if (num != 0)
-			exit(num);
-		exit(127);
+		exec_cmd(shell->env, cmd, shell);
 	}
-	if (current->heredoc)
+	else if (pid < 0)
+		handle_error(NULL, NULL);
+	else
 	{
+		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
 		waitpid(pid, &status, 0);
-		if (WIFEXITED(status))
-		{
-			if (status == 256)
-			{
-				error_exit = 1;
-				shell->last_exit_status = 1;
-			}
-		}
-		else if (WIFSIGNALED(status) && (WTERMSIG(status) == SIGINT))
-		{
-			error_exit = 1;
-			shell->last_exit_status = 1;
-		}
-		handle_signals(status, shell, NULL);
-		if (current->heredoc)
-			unlink(current->input_files[0]);
+		wifstuff(shell, status);
 	}
-	return (pid);
 }
 
-void	create_pipeline(t_command *cmd, t_shell *shell, int num_commands, int i)
+int	count_comands(t_command *cmd)
 {
-	int		fd[2];
-	int		prev_fd;
-	pid_t	*pids;
+	int			num_commands;
+	t_command	*current;
 
-	pids = malloc(num_commands * sizeof(pid_t));
-	if (!pids)
-		handle_error("minishell: malloc", shell);
-	prev_fd = -1;
-	signal(SIGINT, SIG_IGN);
-    signal(SIGQUIT, SIG_IGN);
-	while (cmd)
+	num_commands = 0;
+	current = cmd;
+	while (current)
 	{
-		if (pipe(fd) == -1)
-			handle_error("minishell: pipe", shell);
-		//if (cmd->heredoc)
-		//	handle_herdoc(cmd, 0, shell);
-		pids[i++] = create_child_process(cmd, prev_fd, fd, shell);
-		if (prev_fd != -1)
-			close(prev_fd);
-		close(fd[1]);
-		prev_fd = fd[0];
-		if (!cmd->next)
-			close(fd[0]);
-		cmd = cmd->next;
+		num_commands++;
+		current = current->next;
 	}
-	wait_for_children(pids, i, shell);
+	return (num_commands);
 }
 
 void	execute_commands(t_shell *shell)
