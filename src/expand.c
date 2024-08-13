@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 16:23:12 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/12 15:46:19 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/13 11:43:32 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	expand_wildcard_token(t_token **tokens, t_shell *shell,
 		else
 			*current = *tokens;
 	}
+	free_string_array(expansions);
 }
 
 void	expand_tokens(t_token **tokens, t_shell *shell)
