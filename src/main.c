@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
+/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/12 10:56:20 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/13 18:31:02 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	error_exit;
+//int	error_exit;
 
 /*void print_command(t_command *cmd) 
 {
@@ -124,7 +124,7 @@ int	main(int argc, char **argv, char **env)
 	t_shell	*shell;
 
 	(void)argv;
-	error_exit = 0;
+	//error_exit = 0;
 	shell = initialize_shell(argc, env);
 	signal(SIGINT, handle_sig_normal);
 	signal(SIGQUIT, SIG_IGN);

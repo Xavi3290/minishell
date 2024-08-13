@@ -6,75 +6,11 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:22:50 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/13 12:10:43 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/13 18:24:00 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-static int	match_pattern(const char *pattern, const char *filename)
-{
-	while (*pattern && *filename)
-	{
-		if (*pattern == '*')
-		{
-			pattern++;
-			while (*filename && *filename != *pattern)
-				filename++;
-		}
-		else if (*pattern == *filename)
-		{
-			pattern++;
-			filename++;
-		}
-		else
-			return (0);
-	}
-	return (*pattern == '\0' && *filename == '\0');
-}
-
-static char	**read_directory(DIR *dir, const char *pattern)
-{
-	struct dirent	*entry;
-	char			**matches;
-	int				count;
-
-	matches = NULL;
-	count = 0;
-	entry = readdir(dir);
-	while (entry != NULL)
-	{
-		if (match_pattern(pattern, entry->d_name))
-		{
-			matches = ft_realloc(matches, sizeof(char *) * (count + 1), \
-				sizeof(char *) * (count + 2));
-			if (!matches)
-				handle_error(NULL, NULL);
-			matches[count] = ft_strdup(entry->d_name);
-			count++;
-		}
-		entry = readdir(dir);
-	}
-	closedir(dir);
-	if (matches)
-		matches[count] = NULL;
-	return (matches);
-}
-
-char	**expand_wildcards(const char *pattern, t_shell *shell)
-{
-	DIR		*dir;
-	char	**matches;
-
-	dir = opendir(".");
-	if (!dir)
-	{
-		handle_error("opendir", shell);
-		return (NULL);
-	}
-	matches = read_directory(dir, pattern);
-	return (matches);
-}
 
 t_token	*strings_to_tokens(char **strings)
 {
@@ -112,4 +48,74 @@ void	insert_tokens(t_token **tokens, t_token *new_tokens, t_token *prev,
 	last_new->next = current->next;
 	free(current->value);
 	free(current);
+}
+
+char	*handle_dollar_signs(char *str, int i)
+{
+	int		dollar_count;
+	char	*dollar_str;
+	char	*dup;
+
+	dollar_count = 0;
+	if (!str)
+		return (ft_strdup(""));
+	while (str[i] == '$')
+	{
+		dollar_count++;
+		i++;
+	}
+	if (dollar_count > 1)
+	{
+		dollar_str = malloc(dollar_count);
+		if (!dollar_str)
+			return (NULL);
+		memset(dollar_str, '$', dollar_count - 1);
+		dollar_str[dollar_count - 1] = '\0';
+		dup = ft_strdup(dollar_str);
+		return (dup);
+	}
+	return (ft_strdup(""));
+}
+
+void	join_adjacent_tokens(t_token **tokens)
+{
+	t_token	*current;
+	t_token	*next;
+	char	*joined_value;
+
+	current = *tokens;
+	while (current && current->next)
+	{
+		next = current->next;
+		if (next->type == WORD || next->type == DOUBLE_QUOTES \
+			|| next->type == SINGLE_QUOTES)
+		{
+			if (current->type == WORD || current->type == DOUBLE_QUOTES \
+			|| current->type == SINGLE_QUOTES)
+			{
+				joined_value = ft_strjoin(current->value, next->value);
+				free(current->value);
+				current->value = joined_value;
+				current->next = next->next;
+				free(next->value);
+				free(next);
+				continue ;
+			}
+		}
+		current = current->next;
+	}
+}
+
+void	remove_empty_token(t_token **tokens, t_token **current, t_token **prev)
+{
+	t_token	*temp;
+
+	temp = *current;
+	if (*prev)
+		(*prev)->next = (*current)->next;
+	else
+		*tokens = (*current)->next;
+	*current = (*current)->next;
+	free(temp->value);
+	free(temp);
 }

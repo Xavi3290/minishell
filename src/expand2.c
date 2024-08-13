@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:22:32 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/13 15:26:35 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/13 18:28:14 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ char	*expand_variable(char *str, t_shell *shell)
 
 	i = 0;
 	if (!str)
-        return ft_strdup("");
+		return (ft_strdup(""));
 	expanded = handle_dollar_signs(str, i);
 	while (str[i])
 	{
