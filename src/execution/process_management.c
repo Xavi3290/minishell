@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_management.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
+/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:22:53 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/13 12:13:34 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/13 15:33:56 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,13 +100,13 @@ void	wifstuff(t_shell *shell, int status)
 	{
 		if (status == 256)
 		{
-			error_exit = 1;
+			//error_exit = 1;
 			shell->last_exit_status = 1;
 		}
 	}
 	else if (WIFSIGNALED(status) && (WTERMSIG(status) == SIGINT))
 	{
-		error_exit = 1;
+		//error_exit = 1;
 		shell->last_exit_status = 1;
 	}
 	handle_signals(status, shell, NULL);
