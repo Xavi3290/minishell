@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_utils.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
+/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:18:30 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/12 11:04:07 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/13 15:15:45 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_UTILS_H
 # define MINISHELL_UTILS_H
 
-extern int	error_exit;
+//extern int	error_exit;
 
 typedef enum e_token_type
 {

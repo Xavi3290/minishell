@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:23:05 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/12 15:29:12 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/13 15:25:08 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ char	*handle_dollar_signs(char *str, int i)
 	char	*dup;
 
 	dollar_count = 0;
+	if (!str)
+		return (ft_strdup(""));
 	while (str[i] == '$')
 	{
 		dollar_count++;
