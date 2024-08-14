@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 18:05:45 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/14 10:57:27 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/14 15:14:50 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,26 @@ void	handle_redirect_token(t_token **current, t_command *cmd, t_shell *shell,
 	if (*current && (*current)->type == WORD)
 	{
 		if (type == REDIRECT_IN)
+		{
 			add_input_file(cmd, (*current)->value);
+			create_input_file((*current)->value, shell);
+		}
 		else if (type == REDIRECT_OUT)
+		{
 			add_output_file(cmd, (*current)->value, 0);
+			create_output_file((*current)->value, 0, shell);
+		}
 		else if (type == APPEND)
+		{
 			add_output_file(cmd, (*current)->value, 1);
+			create_output_file((*current)->value, 1, shell);
+		}
 	}
 	else
 		handle_error("syntax error: expected file after redirection", shell, 0);
 }
 
-void	handle_heredoc_token(t_command *cmd, t_token **current)
+void	handle_heredoc_token(t_command *cmd, t_token **current, t_shell *shell)
 {
 	char	*filename;
 
@@ -61,6 +70,7 @@ void	handle_heredoc_token(t_command *cmd, t_token **current)
 	while (*current && (*current)->type == SPACES)
 		*current = (*current)->next;
 	add_heredoc_file(cmd, filename, (*current)->value, (*current)->type);
+	handle_herdoc(cmd, 0, shell);
 	free(filename);
 }
 

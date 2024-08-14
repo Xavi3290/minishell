@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/13 18:31:02 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/14 15:17:17 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ void	parse_execute_frees(t_token *tokens, t_shell *shell)
 	execute_commands(shell);
 	shell->parentheses = 0;
 	free_tokens(tokens);
+	if (shell->commands->heredoc)
+		unlink(shell->commands->input_files[0]);
 	free_commands(shell->commands);
 	free(shell->line);
 	shell->line = NULL;

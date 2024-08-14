@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:37:33 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/07/29 16:35:15 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/14 14:54:37 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,6 @@ t_shell	*init_shell(char **env)
 	shell->line = NULL;
 	shell->last_exit_status = 0;
 	shell->parentheses = 0;
+	shell->flag_redirects = 1;
 	return (shell);
 }

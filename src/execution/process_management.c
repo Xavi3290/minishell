@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:22:53 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/14 11:00:33 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/14 15:05:12 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ static void	child_process_logic(t_command *current, int prev_fd, int *fd, \
 {
 	int	num;
 
-	if (current->heredoc)
-		handle_herdoc(current, 0, shell);
+	/*if (current->heredoc)
+		handle_herdoc(current, 0, shell);*/
 	setup_signal_handlers();
 	if (prev_fd != -1)
 	{
@@ -45,7 +45,7 @@ int	create_child_process(t_command *current, int prev_fd, int *fd, \
 	t_shell *shell)
 {
 	pid_t	pid;
-	int		status;
+	//int		status;
 
 	pid = fork();
 	if (pid == -1)
@@ -54,7 +54,7 @@ int	create_child_process(t_command *current, int prev_fd, int *fd, \
 	{
 		child_process_logic(current, prev_fd, fd, shell);
 	}
-	if (current->heredoc)
+	/*if (current->heredoc)
 	{
 		signal(SIGINT, SIG_IGN);
 		signal(SIGQUIT, SIG_IGN);
@@ -62,7 +62,7 @@ int	create_child_process(t_command *current, int prev_fd, int *fd, \
 		wifstuff(shell, status);
 		if (current->heredoc)
 			unlink(current->input_files[0]);
-	}
+	}*/
 	return (pid);
 }
 

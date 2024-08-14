@@ -6,7 +6,7 @@
 #    By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/21 19:54:24 by xroca-pe          #+#    #+#              #
-#    Updated: 2024/08/13 12:39:23 by cgaratej         ###   ########.fr        #
+#    Updated: 2024/08/14 11:06:18 by cgaratej         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,8 @@ SRC = src/main.c src/init.c src/tokenaizer.c src/tokenaizer2.c \
 	  src/built-ins/ft_export.c src/built-ins/ft_unset.c \
 	  src/parse2.c src/parse3.c src/parse4.c src/free_tools.c \
 	  src/execution/execution_utils.c src/execution/process_management.c \
-	  src/execution/command_execution.c src/signals.c src/ft_herdoc.c src/execution/exec_cmd_utils.c
+	  src/execution/command_execution.c src/signals.c src/ft_herdoc.c \
+	  src/execution/exec_cmd_utils.c src/redirects_manager.c
 	  
 OBJ = $(SRC:%.c=$(BUILD_DIR)/%.o)
 DEPS = $(SRC:%.c=$(BUILD_DIR)/$.d)

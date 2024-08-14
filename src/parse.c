@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 13:29:10 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/12 15:45:22 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/14 15:09:50 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	parse_general_tokens_cmd(t_token **tokens, t_command *cmd,
 			|| current->type == APPEND)
 			handle_redirect_token(&current, cmd, shell, current->type);
 		else if (current->type == HEREDOC)
-			handle_heredoc_token(cmd, &current);
+			handle_heredoc_token(cmd, &current, shell);
 		else if (current->type == PIPE)
 			handle_pipe_token(&cmd);
 		else if (current->type == AND || current->type == OR)

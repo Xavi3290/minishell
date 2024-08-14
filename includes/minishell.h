@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 20:02:49 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/14 10:56:45 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/14 15:15:58 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,9 @@ void		add_output_file(t_command *cmd, char *file, int append);
 void		add_input_file(t_command *cmd, char *file);
 void		handle_logical_token(t_token *current, t_command **cmd);
 //void		handle_heredoc_token(t_command *cmd);
-void		handle_heredoc_token(t_command *cmd, t_token **current);
+void		handle_heredoc_token(t_command *cmd, t_token **current, t_shell *shell);
 void		handle_redirect_token(t_token **current, t_command *cmd,
 				t_shell *shell, int type);
-
 void		free_commands(t_command *cmd);
 void		free_paths(char **path);
 
@@ -128,6 +127,10 @@ void		create_pipeline(t_command *cmd, t_shell *shell, int num_commands,
 				int i);
 char		*get_path(char *cmd, char **env);
 void		ft_redirectios(t_command *cmd);
+
+void		create_input_file(char *file_name, t_shell *shell);
+void		create_output_file(char *file_name, int append, t_shell *shell);
+void		process_heredocs(t_shell *shell, t_command *cmd);
 
 void		handle_sig_normal(int sig);
 void		handle_sig_hered(int sig);

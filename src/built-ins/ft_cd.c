@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 17:14:06 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/12 12:51:05 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/14 13:40:03 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,10 @@ char	*expand_home_directory(const char *path)
 		ft_strcat(expanded_path, path + 1);
 		return (expanded_path);
 	}
+	/*else if (path[0] == '-')
+	{
+		
+	}*/
 	return (ft_strdup(path));
 }
 

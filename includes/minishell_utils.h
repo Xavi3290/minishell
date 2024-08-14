@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_utils.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:18:30 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/13 15:15:45 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/14 14:54:17 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ typedef struct s_shell
 	char		*line;
 	int			last_exit_status;
 	int			parentheses;
+	int			flag_redirects;
 }	t_shell;
 
 #endif
