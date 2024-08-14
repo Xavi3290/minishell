@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_management.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
+/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:22:53 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/14 15:05:12 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/14 15:48:53 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ static void	child_process_logic(t_command *current, int prev_fd, int *fd, \
 	if (prev_fd != -1)
 	{
 		if (dup2(prev_fd, STDIN_FILENO) == -1)
-			handle_error(NULL, NULL, 1);
+			handle_error(NULL, NULL);
 		close(prev_fd);
 	}
 	if (current->next)
 	{
 		close(fd[0]);
 		if (dup2(fd[1], STDOUT_FILENO) == -1)
-			handle_error(NULL, NULL, 1);
+			handle_error(NULL, NULL);
 		close(fd[1]);
 	}
 	num = cmd_type1(current, shell);
@@ -49,7 +49,7 @@ int	create_child_process(t_command *current, int prev_fd, int *fd, \
 
 	pid = fork();
 	if (pid == -1)
-		handle_error(NULL, NULL, 1);
+		handle_error(NULL, NULL);
 	if (pid == 0)
 	{
 		child_process_logic(current, prev_fd, fd, shell);
@@ -74,14 +74,14 @@ void	create_pipeline(t_command *cmd, t_shell *shell, int num_commands, int i)
 
 	pids = malloc(num_commands * sizeof(pid_t));
 	if (!pids)
-		handle_error(NULL, NULL, 1);
+		handle_error(NULL, NULL);
 	prev_fd = -1;
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
 	while (cmd)
 	{
 		if (pipe(fd) == -1)
-			handle_error(NULL, NULL, 1);
+			handle_error(NULL, NULL);
 		pids[i++] = create_child_process(cmd, prev_fd, fd, shell);
 		if (prev_fd != -1)
 			close(prev_fd);

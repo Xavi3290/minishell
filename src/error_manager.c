@@ -3,24 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   error_manager.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
+/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 15:30:37 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/14 10:55:53 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/14 15:46:56 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	handle_error(char *message, t_shell *shell, int flag)
+void	handle_error(char *message, t_shell *shell)
 {
 	if (message)
 		printf("minishell: %s\n", message);
 	else
 	{
 		perror("minishell");
-		if (flag)
-			exit(errno);
+		exit(errno);
 	}
 	shell->last_exit_status = errno;
 }

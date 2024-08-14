@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
+/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:50:13 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/14 11:05:45 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/14 15:47:20 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	handle_input_redirection(t_command *cmd, int num)
 	if (fd == -1 || access(cmd->input_files[num], R_OK) == -1)
 		execution_error("minishell: ", 1, 126, cmd->input_files[num]);
 	if (dup2(fd, STDIN_FILENO) == -1)
-		handle_error(NULL, NULL, 1);
+		handle_error(NULL, NULL);
 	close(fd);
 }
 
@@ -78,7 +78,7 @@ void	handle_output_redirection(t_command *cmd, int num)
 	if (fd == -1)
 		execution_error("minishell: ", 1, 126, cmd->output_files[num]);
 	if (dup2(fd, STDOUT_FILENO) == -1)
-		handle_error(NULL, NULL, 1);
+		handle_error(NULL, NULL);
 	close(fd);
 }
 

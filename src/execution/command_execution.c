@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_execution.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
+/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:22:53 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/14 15:04:31 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/14 15:48:28 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	execute_simple_command(t_command *cmd, t_shell *shell)
 		exec_cmd(shell->env, cmd, shell);
 	}
 	else if (pid < 0)
-		handle_error(NULL, NULL, 1);
+		handle_error(NULL, NULL);
 	else
 	{
 		signal(SIGINT, SIG_IGN);

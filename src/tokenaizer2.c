@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenaizer2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
+/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 15:02:05 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/14 10:59:34 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/14 15:41:14 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_token	*new_token(t_token_type type, char *value)
 
 	token = malloc(sizeof(t_token));
 	if (!token)
-		handle_error(NULL, NULL, 1);
+		handle_error(NULL, NULL);
 	token->type = type;
 	token->value = value;
 	token->next = NULL;
@@ -50,7 +50,7 @@ t_token	*create_basic_token(char type, char *value, int *i)
 		(*i)++;
 	val = ft_strdup(value);
 	if (!val)
-		handle_error(NULL, NULL, 1);
+		handle_error(NULL, NULL);
 	token = new_token(type, val);
 	return (token);
 }

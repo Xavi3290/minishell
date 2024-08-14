@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_herdoc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
+/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 11:07:07 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/14 15:15:55 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/14 15:48:01 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	handle_herdoc(t_command *cmd, int i, t_shell *shell)
 		cmd->fd = open(cmd->input_files[i], O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		if (cmd->fd == -1)
 		{
-			handle_error("Failed to open heredoc file", shell, 0);
+			handle_error("Failed to open heredoc file", shell);
 			return ;
 		}
 		process_heredoc_input(cmd, i, cmd->fd, shell);
