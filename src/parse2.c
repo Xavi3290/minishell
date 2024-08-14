@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 18:05:45 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/14 15:42:02 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/14 16:07:50 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	handle_heredoc_token(t_command *cmd, t_token **current, t_shell *shell)
 		*current = (*current)->next;
 	add_heredoc_file(cmd, filename, (*current)->value, (*current)->type);
 	handle_herdoc(cmd, 0, shell);
+	//process_heredocs(shell, cmd);
 	free(filename);
 }
 
