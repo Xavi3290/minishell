@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_herdoc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 11:07:07 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/13 16:53:27 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/14 11:01:10 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,9 @@ void	process_heredoc_input(t_command *cmd, int i, int fd, t_shell *shell)
 		line = get_next_line(0);
 		if (!line)
 		{
-				handle_errors("warning: here-document delimited by end-of-file", shell, 0);
-				break;
+			handle_errors("warning: here-document delimited by end-of-file", \
+							shell, 0);
+			break	;
 		}
 		if ((ft_strlen(line) - 1) == ft_strlen(cmd->delimiter[i]) && \
 			ft_strncmp(line, cmd->delimiter[i], \
@@ -59,7 +60,7 @@ void	handle_herdoc(t_command *cmd, int i, t_shell *shell)
 		cmd->fd = open(cmd->input_files[i], O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		if (cmd->fd == -1)
 		{
-			handle_error("Failed to open heredoc file", shell);
+			handle_error("Failed to open heredoc file", shell, 0);
 			return ;
 		}
 		process_heredoc_input(cmd, i, cmd->fd, shell);

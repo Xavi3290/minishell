@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenaizer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:05:46 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/08 17:01:35 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/14 10:58:43 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static t_token	*handle_single_quotes(char *line, int *i, t_shell *shell)
 	}
 	value = ft_strndup(&line[start], *i - start);
 	if (!value)
-		handle_error(NULL, NULL);
+		handle_error(NULL, NULL, 1);
 	return (new_token(SINGLE_QUOTES, value));
 }
 
@@ -52,7 +52,7 @@ static t_token	*handle_double_quotes(char *line, int *i, t_shell *shell)
 	}
 	value = ft_strndup(&line[start], *i - start);
 	if (!value)
-		handle_error(NULL, NULL);
+		handle_error(NULL, NULL, 1);
 	return (new_token(DOUBLE_QUOTES, value));
 }
 

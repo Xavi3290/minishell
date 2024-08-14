@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:50:13 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/13 12:47:47 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/14 10:59:53 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	handle_input_redirection(t_command *cmd, int num)
 	if (fd == -1 || access(cmd->input_files[num], R_OK) == -1)
 		execution_error("minishell: ", 1, 126, cmd->input_files[num]);
 	if (dup2(fd, STDIN_FILENO) == -1)
-		handle_error(NULL, NULL);
+		handle_error(NULL, NULL, 1);
 	close(fd);
 	if (cmd->heredoc)
 		unlink(cmd->input_files[num]);
@@ -80,7 +80,7 @@ void	handle_output_redirection(t_command *cmd, int num)
 	if (fd == -1)
 		execution_error("minishell: ", 1, 126, cmd->output_files[num]);
 	if (dup2(fd, STDOUT_FILENO) == -1)
-		handle_error(NULL, NULL);
+		handle_error(NULL, NULL, 1);
 	close(fd);
 }
 

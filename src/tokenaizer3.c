@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenaizer3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 19:19:21 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/08 17:00:08 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/14 10:59:39 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_token	*handle_word(char *line, int *i)
 	}
 	value = ft_strndup(&line[start], *i - start);
 	if (!value)
-		handle_error(NULL, NULL);
+		handle_error(NULL, NULL, 1);
 	token = new_token(WORD, value);
 	(*i)--;
 	return (token);

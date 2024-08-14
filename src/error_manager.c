@@ -6,20 +6,21 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 15:30:37 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/12 13:28:11 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/14 10:55:53 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	handle_error(char *message, t_shell *shell)
+void	handle_error(char *message, t_shell *shell, int flag)
 {
 	if (message)
 		printf("minishell: %s\n", message);
 	else
 	{
 		perror("minishell");
-		exit(errno);
+		if (flag)
+			exit(errno);
 	}
 	shell->last_exit_status = errno;
 }

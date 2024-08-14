@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 18:05:45 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/13 14:57:03 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/14 10:57:27 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	handle_redirect_token(t_token **current, t_command *cmd, t_shell *shell,
 			add_output_file(cmd, (*current)->value, 1);
 	}
 	else
-		handle_error("syntax error: expected file after redirection", shell);
+		handle_error("syntax error: expected file after redirection", shell, 0);
 }
 
 void	handle_heredoc_token(t_command *cmd, t_token **current)

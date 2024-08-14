@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand4.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:23:05 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/13 18:54:39 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/14 10:57:18 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static char	**read_directory(DIR *dir, const char *pattern)
 			matches = ft_realloc(matches, sizeof(char *) * (count + 1), \
 				sizeof(char *) * (count + 2));
 			if (!matches)
-				handle_error(NULL, NULL);
+				handle_error(NULL, NULL, 1);
 			matches[count] = ft_strdup(entry->d_name);
 			count++;
 		}
@@ -69,7 +69,7 @@ char	**expand_wildcards(const char *pattern, t_shell *shell)
 	dir = opendir(".");
 	if (!dir)
 	{
-		handle_error("opendir", shell);
+		handle_error("opendir", shell, 0);
 		return (NULL);
 	}
 	matches = read_directory(dir, pattern);
