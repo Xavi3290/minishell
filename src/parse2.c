@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 18:05:45 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/14 16:07:50 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/15 12:36:18 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,13 @@ void	handle_redirect_token(t_token **current, t_command *cmd, t_shell *shell,
 void	handle_heredoc_token(t_command *cmd, t_token **current, t_shell *shell)
 {
 	char	*filename;
+	(void)shell;
 
 	filename = generate_filename();
 	*current = (*current)->next;
 	while (*current && (*current)->type == SPACES)
 		*current = (*current)->next;
 	add_heredoc_file(cmd, filename, (*current)->value, (*current)->type);
-	handle_herdoc(cmd, 0, shell);
 	//process_heredocs(shell, cmd);
 	free(filename);
 }
