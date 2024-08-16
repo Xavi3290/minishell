@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 11:07:07 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/15 12:32:30 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/16 09:40:54 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	process_heredoc_input(t_command *cmd, int i, int fd, t_shell *shell)
 		{
 			handle_errors("warning: here-document delimited by end-of-file", \
 							shell, 0);
-			break ;
+			exit (1);
 		}
 		if ((ft_strlen(line) - 1) == ft_strlen(cmd->delimiter[i]) && \
 			ft_strncmp(line, cmd->delimiter[i], \
@@ -61,12 +61,13 @@ void	handle_herdoc(t_command *cmd, int i, t_shell *shell)
 		if (cmd->fd == -1)
 		{
 			handle_error("Failed to open heredoc file", shell);
-			return ;
+			exit(1);
 		}
 		process_heredoc_input(cmd, i, cmd->fd, shell);
 		close(cmd->fd);
 		i++;
 	}
+	exit(0);
 }
 
 void	process_heredocs(t_shell *shell, t_command *cmd)

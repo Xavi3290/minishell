@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 13:29:10 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/15 12:43:46 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/16 09:32:42 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	parse_tokens(t_token **tokens, t_shell *shell)
 	while (tmp)
 	{
 		if (tmp->heredoc)
-			handle_herdoc(tmp, 0, shell);
+			process_heredocs(shell, tmp);
 		tmp = tmp->next;
 	}
 }
