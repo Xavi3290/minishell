@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 17:01:00 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/13 15:16:45 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:36:32 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	handle_sig_hered(int sig)
 		// rl_on_new_line();
 		// rl_redisplay();
 		ft_putendl_fd("", 1);
-		//error_exit = 1;
+		g_error = 130;
 		exit(130);
 		//return (130);
 	}
@@ -79,7 +79,26 @@ void	handle_signals(int status, t_shell *shell, int *first)
 	}
 }
 
-/*void	handle_sigint(int sig)
+/*int get_signal(int flag, int value)
+{
+	static int signal;
+	
+	if(flag == 1)
+		signal = value;
+	return signal;
+}
+
+void set_signal(int signal)
+{
+	if (signal == SIGINT)
+	{
+		printf("signal\n");
+		get_signal(1,1);
+		//exit(130);
+	}
+}
+
+void	handle_sigint(int sig)
 {
 	(void)sig;
 	rl_on_new_line();

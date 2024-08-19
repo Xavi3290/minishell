@@ -6,17 +6,11 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 11:07:07 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/19 11:11:34 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:35:58 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-void	setup_heredoc_signals(void)
-{
-	signal(SIGINT, handle_sig_hered);
-	//signal(SIGQUIT, SIG_IGN);
-}
 
 static void	process_line(char *line, t_command *cmd, int i, t_shell *shell)
 {
@@ -40,10 +34,13 @@ void	process_heredoc_input(t_command *cmd, int i, t_shell *shell)
 	{
 		ft_putstr_fd("> ", 1);
 		line = get_next_line(0);
-		if (!line)
+		if (!line || g_error || get_signal(0,0))
 		{
-			handle_errors("warning: here-document delimited by end-of-file", \
+			if (!g_error || !get_signal(0,0))
+            	handle_errors("warning: here-document delimited by end-of-file", \
 							shell, 0);
+			else
+				free(line);
 			exit (1);
 		}
 		if ((ft_strlen(line) - 1) == ft_strlen(cmd->delimiter[i]) && \
@@ -60,7 +57,7 @@ void	process_heredoc_input(t_command *cmd, int i, t_shell *shell)
 
 void	handle_herdoc(t_command *cmd, int i, t_shell *shell)
 {
-	setup_heredoc_signals();
+	signal(SIGINT, handle_sig_hered);
 	while (cmd->input_files[i])
 	{
 		cmd->fd = open(cmd->input_files[i], O_CREAT | O_WRONLY | O_TRUNC, 0644);
@@ -76,7 +73,7 @@ void	handle_herdoc(t_command *cmd, int i, t_shell *shell)
 	exit(0);
 }
 
-void	process_heredocs(t_shell *shell, t_command *cmd)
+/*void	process_heredocs(t_shell *shell, t_command *cmd)
 {
 	pid_t	pid;
 	int		status;
@@ -88,6 +85,6 @@ void	process_heredocs(t_shell *shell, t_command *cmd)
 		handle_herdoc(cmd, 0, shell);
 	else
 		signal(SIGINT, SIG_IGN);
-	wait(&status);
+	waitpid(pid, &status, 0);
 	wifstuff(shell, status);
-}
+}*/

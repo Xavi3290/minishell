@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 13:29:10 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/16 09:32:42 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:30:00 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,17 +72,19 @@ void	parse_tokens(t_token **tokens, t_shell *shell)
 {
 	t_command	*current_cmd;
 	int			paren_level;
-	t_command	*tmp;
+	//t_command	*tmp;
 
 	paren_level = 0;
 	current_cmd = create_command();
 	shell->commands = current_cmd;
 	parse_general_tokens_cmd(tokens, current_cmd, shell, &paren_level);
-	tmp = current_cmd;
+	/*tmp = current_cmd;
 	while (tmp)
 	{
+		if (get_signal(0, 0) || g_error)
+			break ;
 		if (tmp->heredoc)
 			process_heredocs(shell, tmp);
 		tmp = tmp->next;
-	}
+	}*/
 }

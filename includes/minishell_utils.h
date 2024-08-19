@@ -6,14 +6,14 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:18:30 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/14 14:54:17 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/19 15:19:28 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_UTILS_H
 # define MINISHELL_UTILS_H
 
-//extern int	error_exit;
+extern int	g_error;
 
 typedef enum e_token_type
 {

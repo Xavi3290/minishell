@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 17:14:06 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/19 12:10:24 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/19 15:14:29 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	ft_cd(t_shell *shell, t_command *cmd)
 	tmp = cmd->args[1];
 	expanded_path = expand_home_directory(tmp, shell, oldpwd_dir);
 	if (!expanded_path)
-		return (printf("minishell: cd: %s: No such file or directory\n", \
+		return (printf("minishell: cd: %s: No such file or directory\n", 
 			cmd->args[1]), 1);
 	if (chdir(expanded_path) == -1)
 	{

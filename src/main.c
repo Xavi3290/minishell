@@ -6,13 +6,13 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/15 12:37:25 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:38:05 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-//int	error_exit;
+int	g_error;
 
 /*void print_command(t_command *cmd) 
 {
@@ -102,6 +102,7 @@ void	process_command_line(t_shell *shell)
 
 	while (42)
 	{
+		g_error = 0;
         signal(SIGINT, handle_sig_normal);
 	    signal(SIGQUIT, SIG_IGN);
 		shell->line = readline("mini🐚: ");

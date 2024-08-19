@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 20:02:49 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/19 11:33:38 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:36:57 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,5 +139,8 @@ void		handle_eof(void);
 void		setup_signal_handlers(void);
 //void		handle_signals(int status, t_shell *shell);
 void		handle_signals(int status, t_shell *shell, int *first);
+
+/*int get_signal(int flag, int value);
+void set_signal(int signal);*/
 
 #endif
