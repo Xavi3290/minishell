@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 20:02:49 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/14 15:39:57 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/19 11:33:38 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int			ft_env(t_shell *shell, t_command *cmd);
 int			ft_pwd(t_shell *shell, t_command *cmd);
 char		*actual_path(t_shell *shell);
 int			ft_cd(t_shell *shell, t_command *cmd);
+char		*read_env(t_shell *shell, char *key);
 void		put_error(char *bash, char *file, char *error);
 int			ft_exit(t_shell *shell, t_command *cmd);
 int			ft_echo(t_command **command);

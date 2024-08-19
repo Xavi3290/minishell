@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 11:07:07 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/16 09:40:54 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/19 11:11:34 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,23 @@ void	setup_heredoc_signals(void)
 	//signal(SIGQUIT, SIG_IGN);
 }
 
-void	process_heredoc_input(t_command *cmd, int i, int fd, t_shell *shell)
+static void	process_line(char *line, t_command *cmd, int i, t_shell *shell)
+{
+	char	*expanded;
+
+	if (*(cmd->type[i]) == WORD)
+	{
+		expanded = expand_variable(line, shell);
+		ft_putstr_fd(expanded, cmd->fd);
+		free(expanded);
+	}
+	else
+		ft_putstr_fd(line, cmd->fd);
+}
+
+void	process_heredoc_input(t_command *cmd, int i, t_shell *shell)
 {
 	char	*line;
-	char	*expanded;
 
 	while (1)
 	{
@@ -40,14 +53,7 @@ void	process_heredoc_input(t_command *cmd, int i, int fd, t_shell *shell)
 			free(line);
 			break ;
 		}
-		if (*(cmd->type[i]) == WORD)
-		{
-			expanded = expand_variable(line, shell);
-			ft_putstr_fd(expanded, fd);
-			free(expanded);
-		}
-		else
-			ft_putstr_fd(line, fd);
+		process_line(line, cmd, i, shell);
 		free(line);
 	}
 }
@@ -63,7 +69,7 @@ void	handle_herdoc(t_command *cmd, int i, t_shell *shell)
 			handle_error("Failed to open heredoc file", shell);
 			exit(1);
 		}
-		process_heredoc_input(cmd, i, cmd->fd, shell);
+		process_heredoc_input(cmd, i, shell);
 		close(cmd->fd);
 		i++;
 	}
