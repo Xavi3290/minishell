@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 11:07:07 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/19 16:35:58 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:53:30 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@ void	process_heredoc_input(t_command *cmd, int i, t_shell *shell)
 	{
 		ft_putstr_fd("> ", 1);
 		line = get_next_line(0);
-		if (!line || g_error || get_signal(0,0))
+		if (!line || g_error)
 		{
-			if (!g_error || !get_signal(0,0))
+			if (!g_error)
             	handle_errors("warning: here-document delimited by end-of-file", \
 							shell, 0);
 			else
 				free(line);
-			exit (1);
+			break ;
 		}
 		if ((ft_strlen(line) - 1) == ft_strlen(cmd->delimiter[i]) && \
 			ft_strncmp(line, cmd->delimiter[i], \
@@ -62,15 +62,11 @@ void	handle_herdoc(t_command *cmd, int i, t_shell *shell)
 	{
 		cmd->fd = open(cmd->input_files[i], O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		if (cmd->fd == -1)
-		{
 			handle_error("Failed to open heredoc file", shell);
-			exit(1);
-		}
 		process_heredoc_input(cmd, i, shell);
 		close(cmd->fd);
 		i++;
 	}
-	exit(0);
 }
 
 /*void	process_heredocs(t_shell *shell, t_command *cmd)

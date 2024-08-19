@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/19 16:38:05 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:48:01 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	g_error;
 
-/*void print_command(t_command *cmd) 
+void print_command(t_command *cmd) 
 {
     while (cmd)
     {
@@ -57,7 +57,7 @@ int	g_error;
         printf("\n");
         cmd = cmd->next;
     }
-}*/
+}
 
 t_shell	*initialize_shell(int argc, char **env)
 {
