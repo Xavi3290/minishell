@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:14:28 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/13 13:06:09 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/20 12:06:57 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	remove_env_var(char ***env, int index, int *env_num)
 int	compare_env_var(const char *env_var, const char *arg)
 {
 	char	*equal_sign;
-	char	*value;
 	char	*env_cpy;
 
 	env_cpy = ft_strdup(env_var);
@@ -37,9 +36,8 @@ int	compare_env_var(const char *env_var, const char *arg)
 	if (equal_sign != NULL)
 	{
 		*equal_sign = '\0';
-		value = equal_sign + 1;
-		if (ft_strlen(arg) == ft_strlen(value) && \
-			!ft_strncmp(arg, value, ft_strlen(arg)))
+		if (ft_strlen(arg) == ft_strlen(env_cpy) && \
+			!ft_strncmp(arg, env_cpy, ft_strlen(env_cpy)))
 			return (free(env_cpy), 1);
 	}
 	if (ft_strlen(env_var) == ft_strlen(arg) && \

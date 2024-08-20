@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:22:53 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/19 23:48:27 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/20 12:08:33 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,9 +110,9 @@ void	wifstuff(t_shell *shell, int status)
 		shell->last_exit_status = 1;
 	}
 	if (!g_error)
-        handle_signals(status, shell, NULL);
-    else
-        shell->last_exit_status = 130;
+		handle_signals(status, shell, NULL);
+	else
+		shell->last_exit_status = 130;
 }
 
 void	wait_for_children(pid_t *pids, int num_childrens, t_shell *shell)

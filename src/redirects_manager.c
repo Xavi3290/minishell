@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 10:50:29 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/14 15:01:44 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/20 12:14:12 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	create_output_file(char *file_name, int append, t_shell *shell)
 {
-	int	fd;
+	int		fd;
+	char	*error;
 
 	if (shell->flag_redirects)
 	{
@@ -23,20 +24,33 @@ void	create_output_file(char *file_name, int append, t_shell *shell)
 		else
 			fd = open(file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (fd == -1)
+		{
 			shell->flag_redirects = 0;
+			error = ft_strjoin("minishell: ", file_name);
+			perror(error);
+			free(error);
+			shell->last_exit_status = EXIT_FAILURE;
+		}
 		close(fd);
 	}
 }
 
 void	create_input_file(char *file_name, t_shell *shell)
 {
-	int	fd;
+	int		fd;
+	char	*error;
 
 	if (shell->flag_redirects)
 	{
 		fd = open(file_name, O_RDONLY, 0644);
 		if (fd == -1 || access(file_name, R_OK) == -1)
+		{
 			shell->flag_redirects = 0;
+			error = ft_strjoin("minishell: ", file_name);
+			perror(error);
+			free(error);
+			shell->last_exit_status = EXIT_FAILURE;
+		}
 		close(fd);
 	}
 }

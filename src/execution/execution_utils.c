@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:50:13 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/20 08:06:24 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/20 11:04:10 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,19 +55,24 @@ char	*get_path(char *cmd, char **env)
 	return (cmd);
 }
 
-void	handle_input_redirection(t_command *cmd, int num)
+void	handle_input_redirection(t_command *cmd, int num, t_shell *shell)
 {
 	int	fd;
 
 	fd = open(cmd->input_files[num], O_RDONLY, 0644);
 	if (fd == -1 || access(cmd->input_files[num], R_OK) == -1)
-		execution_error("minishell: ", 1, 126, cmd->input_files[num]);
+	{
+		if (shell->flag_redirects)
+			execution_error("minishell: ", 1, 126, cmd->input_files[num]);
+		else
+			exit(EXIT_FAILURE);
+	}
 	if (dup2(fd, STDIN_FILENO) == -1)
 		handle_error(NULL, NULL);
 	close(fd);
 }
 
-void	handle_output_redirection(t_command *cmd, int num)
+void	handle_output_redirection(t_command *cmd, int num, t_shell *shell)
 {
 	int	fd;
 
@@ -76,13 +81,18 @@ void	handle_output_redirection(t_command *cmd, int num)
 	else
 		fd = open(cmd->output_files[num], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
-		execution_error("minishell: ", 1, 126, cmd->output_files[num]);
+	{
+		if (shell->flag_redirects)
+			execution_error("minishell: ", 1, 126, cmd->output_files[num]);
+		else
+			exit(EXIT_FAILURE);
+	}
 	if (dup2(fd, STDOUT_FILENO) == -1)
 		handle_error(NULL, NULL);
 	close(fd);
 }
 
-void	ft_redirectios(t_command *cmd)
+void	ft_redirectios(t_command *cmd, t_shell *shell)
 {
 	int		num_input;
 	int		num_ouput;
@@ -95,12 +105,12 @@ void	ft_redirectios(t_command *cmd)
 	{
 		if (cmd->input_files && num_input > 0)
 		{
-			handle_input_redirection(cmd, i);
+			handle_input_redirection(cmd, i, shell);
 			num_input--;
 		}
 		if (cmd->output_files && num_ouput > 0)
 		{
-			handle_output_redirection(cmd, i);
+			handle_output_redirection(cmd, i, shell);
 			num_ouput--;
 		}
 		i++;

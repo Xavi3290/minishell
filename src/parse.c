@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 13:29:10 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/19 23:43:20 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/20 12:10:10 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	parse_general_tokens_cmd(t_token **tokens, t_command *cmd,
 			|| current->type == APPEND)
 			handle_redirect_token(&current, cmd, shell, current->type);
 		else if (current->type == HEREDOC)
-			handle_heredoc_token(cmd, &current, shell);
+			handle_heredoc_token(cmd, &current);
 		else if (current->type == PIPE)
 			handle_pipe_token(&cmd);
 		else if (current->type == AND || current->type == OR)

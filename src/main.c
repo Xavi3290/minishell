@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/20 08:14:02 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/20 12:12:00 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	g_error;
 
-void print_command(t_command *cmd) 
+/*void print_command(t_command *cmd) 
 {
     while (cmd)
     {
@@ -57,7 +57,7 @@ void print_command(t_command *cmd)
         printf("\n");
         cmd = cmd->next;
     }
-}
+}*/
 
 t_shell	*initialize_shell(int argc, char **env)
 {
@@ -85,11 +85,11 @@ t_shell	*initialize_shell(int argc, char **env)
 void	parse_execute_frees(t_token *tokens, t_shell *shell)
 {
 	parse_tokens(&tokens, shell);
-    //if (shell->commands->num_args > 0)
+	if (shell->commands->num_args > 0)
+		execute_commands(shell);
 	//print_command(shell->commands);
-    execute_commands(shell);
 	shell->parentheses = 0;
-    shell->flag_redirects = 1;
+	shell->flag_redirects = 1;
 	free_tokens(tokens);
 	if (shell->commands->heredoc)
 		unlink(shell->commands->input_files[0]);
@@ -105,8 +105,8 @@ void	process_command_line(t_shell *shell)
 	while (42)
 	{
 		g_error = 0;
-        signal(SIGINT, handle_sig_normal);
-	    signal(SIGQUIT, SIG_IGN);
+		signal(SIGINT, handle_sig_normal);
+		signal(SIGQUIT, SIG_IGN);
 		shell->line = readline("mini🐚: ");
 		if (!shell->line)
 			handle_eof();
@@ -132,7 +132,6 @@ int	main(int argc, char **argv, char **env)
 	t_shell	*shell;
 
 	(void)argv;
-	//error_exit = 0;
 	shell = initialize_shell(argc, env);
 	process_command_line(shell);
 	free_shell(shell);
