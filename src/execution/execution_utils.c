@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:50:13 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/20 11:04:10 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/20 13:10:38 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,20 @@ static char	*get_env(char **env)
 	return (NULL);
 }
 
-char	*get_path(char *cmd, char **env)
+char	*get_path(char *cmd, char **env, int i)
 {
-	int		i;
 	char	**path_list;
 	char	*path;
 	char	*path_final;
 
-	i = 0;
 	path_list = ft_split(get_env(env), ':');
 	if (!path_list)
+	{
+		if (cmd[0] == '/')
+			return (cmd);
 		execution_error(": command not found", 0, 127, cmd);
-	while (path_list[i] && !ft_strchr(cmd, '/'))
+	}
+	while (path_list[++i] && !ft_strchr(cmd, '/'))
 	{
 		path = ft_strjoin(path_list[i], "/");
 		if (!path)
@@ -49,10 +51,8 @@ char	*get_path(char *cmd, char **env)
 		if (!access(path_final, X_OK | F_OK))
 			return (free_paths(path_list), path_final);
 		free(path_final);
-		i++;
 	}
-	free_paths(path_list);
-	return (cmd);
+	return (free_paths(path_list), cmd);
 }
 
 void	handle_input_redirection(t_command *cmd, int num, t_shell *shell)
