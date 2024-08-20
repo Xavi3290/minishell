@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_management.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:22:53 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/20 12:22:33 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/20 15:39:45 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	child_process_logic(t_command *current, int prev_fd, int *fd, \
 	exit(127);
 }
 
-int	create_child_process(t_command *current, int prev_fd, int *fd, \
+static int	create_child_process(t_command *current, int prev_fd, int *fd, \
 	t_shell *shell)
 {
 	pid_t	pid;

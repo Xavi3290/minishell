@@ -6,13 +6,13 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:14:28 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/20 12:06:57 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/20 15:37:35 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	remove_env_var(char ***env, int index, int *env_num)
+static void	remove_env_var(char ***env, int index, int *env_num)
 {
 	free((*env)[index]);
 	while (index < *env_num - 1)
@@ -24,7 +24,7 @@ void	remove_env_var(char ***env, int index, int *env_num)
 	(*env_num)--;
 }
 
-int	compare_env_var(const char *env_var, const char *arg)
+static int	compare_env_var(const char *env_var, const char *arg)
 {
 	char	*equal_sign;
 	char	*env_cpy;
@@ -46,7 +46,7 @@ int	compare_env_var(const char *env_var, const char *arg)
 	return (free(env_cpy), 0);
 }
 
-int	process_unset_arg(t_shell *shell, const char *arg)
+static int	process_unset_arg(t_shell *shell, const char *arg)
 {
 	int	i;
 

@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:50:13 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/20 13:10:38 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/20 15:39:15 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	*get_path(char *cmd, char **env, int i)
 	return (free_paths(path_list), cmd);
 }
 
-void	handle_input_redirection(t_command *cmd, int num, t_shell *shell)
+static void	handle_input_redirection(t_command *cmd, int num, t_shell *shell)
 {
 	int	fd;
 
@@ -72,7 +72,7 @@ void	handle_input_redirection(t_command *cmd, int num, t_shell *shell)
 	close(fd);
 }
 
-void	handle_output_redirection(t_command *cmd, int num, t_shell *shell)
+static void	handle_output_redirection(t_command *cmd, int num, t_shell *shell)
 {
 	int	fd;
 

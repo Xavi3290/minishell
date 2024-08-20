@@ -6,13 +6,13 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:37:21 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/20 13:11:22 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/20 15:30:12 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	check_and_handle_execve_error(char *path, t_command *cmd)
+static void	check_and_handle_execve_error(char *path, t_command *cmd)
 {
 	if (path[0] == '/')
 	{
@@ -27,10 +27,10 @@ void	check_and_handle_execve_error(char *path, t_command *cmd)
 	execution_error(": command not found", 0, 127, cmd->args[0]);
 }
 
-void	handle_command_execution(char **env, t_command *cmd)
+static void	handle_command_execution(char **env, t_command *cmd)
 {
 	char	*path;
-	
+
 	path = get_path(cmd->args[0], env, -1);
 	if (execve(path, cmd->args, env) == -1)
 		check_and_handle_execve_error(path, cmd);

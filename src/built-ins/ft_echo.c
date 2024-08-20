@@ -6,13 +6,13 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 12:33:14 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/13 13:03:04 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/20 15:36:08 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	is_flag(char *str)
+static int	is_flag(char *str)
 {
 	int	i;
 
