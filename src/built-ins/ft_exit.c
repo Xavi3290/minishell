@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 16:25:46 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/12 12:46:06 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/20 12:32:01 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	ft_exit(t_shell *shell, t_command *cmd)
 	n = special_atoi(cmd->args[1], &atoi_error);
 	if (atoi_error == -1)
 	{
-		put_error("exit\nbash: exit", cmd->args[0], \
+		put_error("exit\nbash: exit", cmd->args[1], \
 					"numeric argument required");
 		free_commands(shell->commands);
 		free(shell->line);
@@ -82,11 +82,11 @@ static long long	special_atoi(const char *str, int *atoi_error)
 	nbr = 0;
 	i = 0;
 	flag = 1;
-	if (ft_strlen(str) == 19 \
+	if (ft_strlen(str) > 19 \
 		&& ft_strncmp("9223372036854775807", str, 20) < 0)
 		ft_atoi_error(atoi_error);
 	if (ft_strlen(str) == 20 && (ft_strncmp \
-		("-9223372036854775807", str, 21) < 0 || ft_strlen(str) > 20))
+		("-9223372036854775807", str, 21) < 0 && ft_strlen(str) > 20))
 		ft_atoi_error(atoi_error);
 	if (str[i] && (str[i] == '-' || str[i] == '+'))
 	{
