@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
+/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/20 12:12:00 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/20 12:56:21 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,11 @@ t_shell	*initialize_shell(int argc, char **env)
 		printf("minishell: too many arguments\n");
 		exit(1);
 	}
-	if (!env[0])
+	/*if (!env[0])
 	{
 		printf("minishell: no environment exists\n");
 		exit(1);
-	}
+	}*/
 	shell = init_shell(env);
 	if (!shell)
 	{
@@ -104,7 +104,7 @@ void	process_command_line(t_shell *shell)
 
 	while (42)
 	{
-		g_error = 0;
+		//g_error = 0;
 		signal(SIGINT, handle_sig_normal);
 		signal(SIGQUIT, SIG_IGN);
 		shell->line = readline("mini🐚: ");
