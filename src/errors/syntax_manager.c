@@ -6,11 +6,11 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:52:09 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/12 15:19:14 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/20 15:43:25 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 int	is_unmatched_rparen(t_syntax_state *state)
 {

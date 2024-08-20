@@ -6,11 +6,11 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:22:32 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/13 18:28:14 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/20 15:12:47 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 static char	*get_env_value(char *name, t_shell *shell)
 {

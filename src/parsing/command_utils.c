@@ -6,11 +6,11 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 18:11:20 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/14 15:45:03 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/20 15:32:52 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 void	add_input_file(t_command *cmd, char *file)
 {

@@ -6,11 +6,11 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 15:30:37 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/14 15:46:56 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/20 15:43:15 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 void	handle_error(char *message, t_shell *shell)
 {

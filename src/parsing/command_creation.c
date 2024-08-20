@@ -6,11 +6,11 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 15:37:52 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/12 15:49:58 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/20 15:32:55 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 t_command	*create_command(void)
 {

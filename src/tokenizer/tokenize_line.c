@@ -6,11 +6,11 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:05:46 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/14 15:41:06 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/20 15:24:19 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 static t_token	*handle_single_quotes(char *line, int *i, t_shell *shell)
 {

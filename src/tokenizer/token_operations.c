@@ -6,11 +6,11 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 15:02:05 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/14 15:41:14 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/20 15:24:21 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 t_token	*new_token(t_token_type type, char *value)
 {

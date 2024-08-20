@@ -6,11 +6,11 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:22:50 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/13 18:24:00 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/20 15:12:49 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 t_token	*strings_to_tokens(char **strings)
 {
