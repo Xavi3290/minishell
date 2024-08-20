@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:37:21 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/20 11:05:06 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/20 13:11:22 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	check_and_handle_execve_error(char *path, t_command *cmd)
 void	handle_command_execution(char **env, t_command *cmd)
 {
 	char	*path;
-
-	path = get_path(cmd->args[0], env);
+	
+	path = get_path(cmd->args[0], env, -1);
 	if (execve(path, cmd->args, env) == -1)
 		check_and_handle_execve_error(path, cmd);
 }
