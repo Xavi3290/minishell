@@ -6,11 +6,11 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 18:01:48 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/12 15:43:40 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/20 15:43:37 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 static int	handle_operators_syntax(t_token *token, t_syntax_state *state,
 		t_shell *shell)

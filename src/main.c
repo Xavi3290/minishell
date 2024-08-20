@@ -6,13 +6,13 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/20 12:56:21 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/20 16:00:43 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	g_error;
+//int	g_error;
 
 /*void print_command(t_command *cmd) 
 {

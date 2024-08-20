@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+         #
+#    By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/21 19:54:24 by xroca-pe          #+#    #+#              #
-#    Updated: 2024/08/14 11:06:18 by cgaratej         ###   ########.fr        #
+#    Updated: 2024/08/20 15:49:54 by xroca-pe         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,16 +27,16 @@ NONE=\033[0m
 
 BUILD_DIR = build
 
-SRC = src/main.c src/init.c src/tokenaizer.c src/tokenaizer2.c \
-	  src/tokenaizer3.c src/free_data.c src/utils.c \
-	  src/parse.c src/expand.c src/built-ins/ft_env.c src/built-ins/ft_pwd.c \
-	  src/built-ins/ft_cd.c src/expand2.c src/expand3.c src/built-ins/ft_export_utils.c\
-	  src/expand4.c src/error_manager.c src/built-ins/ft_exit.c \
-	  src/built-ins/ft_echo.c src/syntax_manager.c src/syntax_utils.c \
+SRC = src/main.c src/init.c src/tokenizer/tokenize_line.c src/tokenizer/token_operations.c \
+	  src/tokenizer/token_word_and_parentheses.c src/utils/free_data.c src/utils/utils.c \
+	  src/parsing/parse_tokens.c src/expand/expand_tokens.c src/built-ins/ft_env.c src/built-ins/ft_pwd.c \
+	  src/built-ins/ft_cd.c src/expand/expand_variable.c src/expand/expand_utils.c src/built-ins/ft_export_utils.c\
+	  src/expand/expand_wildcards.c src/errors/error_manager.c src/built-ins/ft_exit.c \
+	  src/built-ins/ft_echo.c src/errors/syntax_manager.c src/errors/syntax_utils.c \
 	  src/built-ins/ft_export.c src/built-ins/ft_unset.c \
-	  src/parse2.c src/parse3.c src/parse4.c src/free_tools.c \
+	  src/parsing/handle_tokens.c src/parsing/command_utils.c src/parsing/command_creation.c src/utils/free_tools.c \
 	  src/execution/execution_utils.c src/execution/process_management.c \
-	  src/execution/command_execution.c src/signals.c src/ft_herdoc.c \
+	  src/execution/command_execution.c src/signals/signals.c src/ft_herdoc.c \
 	  src/execution/exec_cmd_utils.c src/redirects_manager.c
 	  
 OBJ = $(SRC:%.c=$(BUILD_DIR)/%.o)

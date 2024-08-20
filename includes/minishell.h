@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 20:02:49 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/20 13:56:02 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/20 16:00:03 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int			ft_env(t_shell *shell, t_command *cmd);
 int			ft_pwd(t_shell *shell, t_command *cmd);
 char		*actual_path(t_shell *shell);
 int			ft_cd(t_shell *shell, t_command *cmd);
-void		update_env_var(t_shell *shell, const char *var_name, 
+void		update_env_var(t_shell *shell, const char *var_name,
 				const char *new_value);
 char		*read_env(t_shell *shell, char *key);
 void		put_error(char *bash, char *file, char *error);
@@ -128,7 +128,7 @@ void		wifstuff(t_shell *shell, int status);
 void		create_pipeline(t_command *cmd, t_shell *shell, int num_commands,
 				int i);
 //char		*get_path(char *cmd, char **env);
-char        *get_path(char *cmd, char **env, int i);
+char		*get_path(char *cmd, char **env, int i);
 void		ft_redirectios(t_command *cmd, t_shell *shell);
 
 void		create_input_file(char *file_name, t_shell *shell);
@@ -143,6 +143,6 @@ void		setup_signal_handlers(void);
 void		handle_signals(int status, t_shell *shell, int *first);
 
 /*int get_signal(int flag, int value);
-void set_signal(int signal);*/
+void	set_signal(int signal);*/
 
 #endif
