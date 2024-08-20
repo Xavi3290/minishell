@@ -6,11 +6,11 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 10:50:29 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/20 12:14:12 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/20 16:05:25 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 void	create_output_file(char *file_name, int append, t_shell *shell)
 {

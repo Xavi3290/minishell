@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+         #
+#    By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/21 19:54:24 by xroca-pe          #+#    #+#              #
-#    Updated: 2024/08/20 15:49:54 by xroca-pe         ###   ########.fr        #
+#    Updated: 2024/08/20 16:05:43 by cgaratej         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,8 +36,8 @@ SRC = src/main.c src/init.c src/tokenizer/tokenize_line.c src/tokenizer/token_op
 	  src/built-ins/ft_export.c src/built-ins/ft_unset.c \
 	  src/parsing/handle_tokens.c src/parsing/command_utils.c src/parsing/command_creation.c src/utils/free_tools.c \
 	  src/execution/execution_utils.c src/execution/process_management.c \
-	  src/execution/command_execution.c src/signals/signals.c src/ft_herdoc.c \
-	  src/execution/exec_cmd_utils.c src/redirects_manager.c
+	  src/execution/command_execution.c src/signals/signals.c src/redirections/ft_herdoc.c \
+	  src/execution/exec_cmd_utils.c src/redirections/redirects_manager.c
 	  
 OBJ = $(SRC:%.c=$(BUILD_DIR)/%.o)
 DEPS = $(SRC:%.c=$(BUILD_DIR)/$.d)

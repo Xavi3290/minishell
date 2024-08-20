@@ -6,11 +6,11 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 11:07:07 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/20 15:33:55 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/20 16:05:19 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 static void	process_line(char *line, t_command *cmd, int i, t_shell *shell)
 {
