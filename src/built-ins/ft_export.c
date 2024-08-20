@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:54:22 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/08 17:36:55 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/20 23:16:47 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	process_and_print_env_var(char *env_var);
 static void	pritn_declare(t_shell *shell, int i);
 static int	validate_and_process_arg(char *arg, t_shell *shell);
+static int	is_valid(char *arg, t_shell *shell);
 
 int	ft_export(t_command *cmd, t_shell *shell)
 {
@@ -67,13 +68,9 @@ static void	pritn_declare(t_shell *shell, int i)
 static int	validate_and_process_arg(char *arg, t_shell *shell)
 {
 	char	*name;
-
-	if (!(ft_isalpha(arg[0]) || arg[0] == '_'))
-	{
-		put_error("minishell: export", arg, "not a valid identifier");
-		shell->last_exit_status = 1;
+	
+	if (!is_valid(arg, shell))
 		return (0);
-	}
 	name = is_set_env(arg);
 	if (!name)
 		return (1);
@@ -87,4 +84,29 @@ static int	validate_and_process_arg(char *arg, t_shell *shell)
 	}
 	free(name);
 	return (0);
+}
+
+static int	is_valid(char *arg, t_shell *shell)
+{
+	int		i;
+
+	i = 0;
+	if (!(ft_isalpha(arg[i]) || arg[i] == '_'))
+	{
+		put_error("minishell: export", arg, "not a valid identifier");
+		shell->last_exit_status = 1;
+		return (0);
+	}
+	i++;
+	while (arg[i] && arg[i] != '=')
+	{
+		if (!(ft_isalnum(arg[i])))
+		{
+			put_error("minishell: export", arg, "not a valid identifier");
+			shell->last_exit_status = 1;
+			return (0);
+		}
+		i++;
+	}
+	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/20 16:00:43 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/20 22:59:06 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,25 @@
     }
 }*/
 
+int	check_only_space(char *s)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	j = 0;
+	while (s[++i])
+	{
+		if (s[i] == '\t' || s[i] == '\n'
+			|| s[i] == '\v' || s[i] == '\f'
+			|| s[i] == '\r' || s[i] == ' ')
+			j++;
+	}
+	if (j == i)
+		return (-1);
+	return (0);
+}
+
 t_shell	*initialize_shell(int argc, char **env)
 {
 	t_shell	*shell;
@@ -110,7 +129,9 @@ void	process_command_line(t_shell *shell)
 		shell->line = readline("mini🐚: ");
 		if (!shell->line)
 			handle_eof();
-		if (shell->line && shell->line[0])
+        if (check_only_space(shell->line) == -1 || shell->line[0] == '\0')
+			free(shell->line);
+		else if (shell->line && shell->line[0])
 		{
 			add_history(shell->line);
 			tokens = tokenize_and_expand(shell->line, shell);
