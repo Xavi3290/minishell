@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/19 16:48:01 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/20 08:14:02 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,9 @@ t_shell	*initialize_shell(int argc, char **env)
 void	parse_execute_frees(t_token *tokens, t_shell *shell)
 {
 	parse_tokens(&tokens, shell);
-	execute_commands(shell);
+    //if (shell->commands->num_args > 0)
+	//print_command(shell->commands);
+    execute_commands(shell);
 	shell->parentheses = 0;
     shell->flag_redirects = 1;
 	free_tokens(tokens);

@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:37:21 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/19 16:52:27 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/20 08:15:58 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,15 @@ void	exec_cmd(char **env, t_command *cmd, t_shell *shell)
 {
 	int	num;
 
-	ft_redirectios(cmd);
+	if (shell->last_exit_status != 130 && cmd->heredoc)
+		ft_redirectios(cmd);
 	num = cmd_type2(cmd, shell);
 	if (num == 2)
 	{
-		if (!cmd->args)
-			exit(1);
+		if (!cmd->args && cmd->heredoc)
+			exit(shell->last_exit_status);
+		else if (!cmd->args)
+			exit (0);
 		handle_command_execution(env, cmd);
 	}
 	else if (num != 0)
