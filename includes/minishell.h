@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 20:02:49 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/20 12:55:04 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/20 13:56:02 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,8 @@ void		wait_for_children(pid_t *pids, int num_childrens, t_shell *shell);
 void		wifstuff(t_shell *shell, int status);
 void		create_pipeline(t_command *cmd, t_shell *shell, int num_commands,
 				int i);
-char		*get_path(char *cmd, char **env);
+//char		*get_path(char *cmd, char **env);
+char        *get_path(char *cmd, char **env, int i);
 void		ft_redirectios(t_command *cmd, t_shell *shell);
 
 void		create_input_file(char *file_name, t_shell *shell);

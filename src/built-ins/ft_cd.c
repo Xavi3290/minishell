@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
+/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 17:14:06 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/20 13:29:42 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/20 13:59:31 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,28 @@
 void	update_env_var(t_shell *shell, const char *var_name, \
 						const char *new_value)
 {
-	int		i;
-	char	*tmp;
-	int		var_name_len;
+	int     i;
+    char    *tmp;
+    int     var_name_len;
 
-	var_name_len = ft_strlen(var_name);
-	i = 0;
-	while (i < shell->env_num)
-	{
-		if (shell->env[i] && !ft_strncmp(shell->env[i], var_name, var_name_len))
-		{
-			tmp = ft_strjoin(var_name, new_value);
-			free(shell->env[i]);
-			shell->env[i] = tmp;
-			return ;
-		}
-		i++;
-	}
-	shell->env[shell->env_num] = ft_strjoin(var_name, new_value);
-	shell->env_num++;
+    var_name_len = ft_strlen(var_name);
+    i = 0;
+    while (i < shell->env_num)
+    {
+        if (shell->env[i] && !ft_strncmp(shell->env[i], var_name, var_name_len))
+        {
+            tmp = ft_strjoin(var_name, new_value);
+            free(shell->env[i]);
+            shell->env[i] = tmp;
+            return ;
+        }
+        i++;
+    }
+    shell->env = ft_realloc(shell->env, sizeof(char *) * shell->env_num, sizeof(char *) * (shell->env_num + 2));
+    if (!shell->env)
+        handle_error(NULL, NULL);
+    shell->env[shell->env_num] = ft_strjoin(var_name, new_value);
+    shell->env_num++;
 }
 
 void	pwd_value(char *path_actual, t_shell *shell, int flag)
