@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   parse_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 13:29:10 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/20 15:32:45 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/21 15:20:20 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,18 +73,34 @@ void	parse_tokens(t_token **tokens, t_shell *shell)
 	t_command	*current_cmd;
 	int			paren_level;
 	t_command	*tmp;
+	t_token 	*current = *tokens;
 
 	paren_level = 0;
 	current_cmd = create_command();
 	shell->commands = current_cmd;
 	parse_general_tokens_cmd(tokens, current_cmd, shell, &paren_level);
 	tmp = current_cmd;
+	printf("parse %d\n", shell->flag_redirects);
 	while (tmp)
 	{
 		if (tmp->heredoc)
 			process_heredocs(shell, tmp);
 		if (shell->last_exit_status == 130)
+		{
+			shell->flag_redirects = 0;
 			break ;
+		}
 		tmp = tmp->next;
+	}
+	while (current)
+	{
+		if (current->type == REDIRECT_IN || current->type == REDIRECT_OUT
+			|| current->type == APPEND )
+		{
+			handle_redirect_token2(&current, shell, current->type);
+		}
+		else if (current->type == PIPE)
+			shell->flag_redirects = 2;
+		current = current->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/21 11:33:29 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/21 15:21:19 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,14 +92,18 @@ void	parse_execute_frees(t_token *tokens, t_shell *shell)
 	{
 		if (current->num_args > 0)
 		{
-			execute_commands(shell);
+			printf("a %d\n", shell->flag_redirects);
+			if (shell->flag_redirects)
+				execute_commands(shell);
+			shell->flag_redirects = 1;
 			break ;
 		}
 		current = current->next;
 	}
+	shell->flag_redirects = 1;
+	printf("b %d\n", shell->flag_redirects);
 	//print_command(shell->commands);
 	shell->parentheses = 0;
-	shell->flag_redirects = 1;
 	free_tokens(tokens);
 	if (shell->commands->heredoc)
 		unlink(shell->commands->input_files[0]);
