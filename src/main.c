@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/21 11:13:10 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/21 11:33:29 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 //int	g_error;
 
-/*void print_command(t_command *cmd) 
+void print_command(t_command *cmd) 
 {
     while (cmd)
     {
@@ -57,9 +57,9 @@
         printf("\n");
         cmd = cmd->next;
     }
-}*/
+}
 
-static t_shell	*initialize_shell(int argc, char **env)
+t_shell	*initialize_shell(int argc, char **env)
 {
 	t_shell	*shell;
 
@@ -82,11 +82,21 @@ static t_shell	*initialize_shell(int argc, char **env)
 	return (shell);
 }
 
-static void	parse_execute_frees(t_token *tokens, t_shell *shell)
+void	parse_execute_frees(t_token *tokens, t_shell *shell)
 {
+	t_command	*current;
+
 	parse_tokens(&tokens, shell);
-	if (shell->commands->num_args > 0)
-		execute_commands(shell);
+	current = shell->commands;
+	while (current)
+	{
+		if (current->num_args > 0)
+		{
+			execute_commands(shell);
+			break ;
+		}
+		current = current->next;
+	}
 	//print_command(shell->commands);
 	shell->parentheses = 0;
 	shell->flag_redirects = 1;
@@ -98,19 +108,15 @@ static void	parse_execute_frees(t_token *tokens, t_shell *shell)
 	shell->line = NULL;
 }
 
-static void handle_signal_main(void)
-{
-    signal(SIGINT, handle_sig_normal);
-    signal(SIGQUIT, SIG_IGN);
-}
-
 void	process_command_line(t_shell *shell)
 {
 	t_token	*tokens;
 
 	while (42)
 	{
-		handle_signal_main();
+		//g_error = 0;
+		signal(SIGINT, handle_sig_normal);
+		signal(SIGQUIT, SIG_IGN);
 		shell->line = readline("mini🐚: ");
 		if (!shell->line)
 			handle_eof(shell);

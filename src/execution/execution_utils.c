@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:50:13 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/20 15:39:15 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/21 11:41:33 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static void	handle_output_redirection(t_command *cmd, int num, t_shell *shell)
 		fd = open(cmd->output_files[num], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
 	{
-		if (shell->flag_redirects)
+		if (shell->flag_redirects == 1)
 			execution_error("minishell: ", 1, 126, cmd->output_files[num]);
 		else
 			exit(EXIT_FAILURE);
