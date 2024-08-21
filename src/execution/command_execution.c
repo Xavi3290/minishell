@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_execution.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:22:53 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/21 15:40:22 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/21 15:53:05 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ void	execute_commands(t_shell *shell)
 
 	cmd = shell->commands;
 	num_commands = count_comands(cmd);
-	shell->flag_redirects = 2;
 	if (num_commands > 1)
 		create_pipeline(cmd, shell, num_commands, 0);
 	else if (num_commands == 1)

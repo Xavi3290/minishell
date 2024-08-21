@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 13:29:10 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/21 15:43:25 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/21 16:09:31 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,11 +98,9 @@ void	parse_tokens(t_token **tokens, t_shell *shell)
 	{
 		if (current->type == REDIRECT_IN || current->type == REDIRECT_OUT
 			|| current->type == APPEND )
-		{
 			handle_redirect_token2(&current, shell, current->type);
-		}
-		/*else if (current->type == PIPE)
-			shell->flag_redirects = 2;*/
+		else if (current->type == PIPE)
+			shell->flag_redirects = 1;
 		current = current->next;
 	}
 }

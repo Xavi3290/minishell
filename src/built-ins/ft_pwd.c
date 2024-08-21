@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 18:47:13 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/20 15:27:25 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/21 16:11:50 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ char	*read_env(t_shell *shell, char *key)
 		free(arg_cpy);
 	if (shell->env[i])
 		return (value);
+	free(value);
 	return (NULL);
 }
 
