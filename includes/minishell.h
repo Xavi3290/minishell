@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 20:02:49 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/20 16:00:03 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/21 11:10:07 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,8 @@ void		process_heredocs(t_shell *shell, t_command *cmd);
 
 void		handle_sig_normal(int sig);
 void		handle_sig_hered(int sig);
-void		handle_eof(void);
+//void		handle_eof(void);
+void        handle_eof(t_shell *shell);
 void		setup_signal_handlers(void);
 //void		handle_signals(int status, t_shell *shell);
 void		handle_signals(int status, t_shell *shell, int *first);

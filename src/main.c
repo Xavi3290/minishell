@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
+/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/21 11:06:55 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/21 11:13:10 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@
     }
 }*/
 
-t_shell	*initialize_shell(int argc, char **env)
+static t_shell	*initialize_shell(int argc, char **env)
 {
 	t_shell	*shell;
 
@@ -82,7 +82,7 @@ t_shell	*initialize_shell(int argc, char **env)
 	return (shell);
 }
 
-void	parse_execute_frees(t_token *tokens, t_shell *shell)
+static void	parse_execute_frees(t_token *tokens, t_shell *shell)
 {
 	parse_tokens(&tokens, shell);
 	if (shell->commands->num_args > 0)
@@ -98,18 +98,22 @@ void	parse_execute_frees(t_token *tokens, t_shell *shell)
 	shell->line = NULL;
 }
 
+static void handle_signal_main(void)
+{
+    signal(SIGINT, handle_sig_normal);
+    signal(SIGQUIT, SIG_IGN);
+}
+
 void	process_command_line(t_shell *shell)
 {
 	t_token	*tokens;
 
 	while (42)
 	{
-		//g_error = 0;
-		signal(SIGINT, handle_sig_normal);
-		signal(SIGQUIT, SIG_IGN);
+		handle_signal_main();
 		shell->line = readline("mini🐚: ");
 		if (!shell->line)
-			handle_eof();
+			handle_eof(shell);
 		if (ft_check_only_space(shell->line) == -1 || shell->line[0] == '\0')
 			free(shell->line);
 		else if (shell->line && shell->line[0])
