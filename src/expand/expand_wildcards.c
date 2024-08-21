@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand4.c                                          :+:      :+:    :+:   */
+/*   expand_wildcards.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:23:05 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/20 15:12:54 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/21 12:36:07 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ static char	**read_directory(DIR *dir, const char *pattern)
 	{
 		if (match_pattern(pattern, entry->d_name))
 		{
-			matches = ft_realloc(matches, sizeof(char *) * (count + 1), \
-				sizeof(char *) * (count + 2));
+			matches = ft_realloc(matches, sizeof(char *) * (count + 1),
+					sizeof(char *) * (count + 2));
 			if (!matches)
 				handle_error(NULL, NULL);
 			matches[count] = ft_strdup(entry->d_name);
@@ -74,4 +74,23 @@ char	**expand_wildcards(const char *pattern, t_shell *shell)
 	}
 	matches = read_directory(dir, pattern);
 	return (matches);
+}
+
+void	expand_wildcard_token(t_token **tokens, t_shell *shell,
+		t_token **current, t_token **prev)
+{
+	char	**expansions;
+	t_token	*new_tokens;
+
+	expansions = expand_wildcards((*current)->value, shell);
+	if (expansions)
+	{
+		new_tokens = strings_to_tokens(expansions);
+		insert_tokens(tokens, new_tokens, *prev, *current);
+		if (*prev)
+			*current = (*prev)->next;
+		else
+			*current = *tokens;
+	}
+	free_string_array(expansions);
 }

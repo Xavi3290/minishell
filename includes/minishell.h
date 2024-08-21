@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 20:02:49 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/21 11:10:07 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/21 12:39:17 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ void		remove_empty_token(t_token **tokens, t_token **current,
 char		*handle_dollar_signs(char *str, int i);
 char		*expand_variable(char *str, t_shell *shell);
 char		**expand_wildcards(const char *pattern, t_shell *shell);
+void		expand_wildcard_token(t_token **tokens, t_shell *shell,
+				t_token **current, t_token **prev);
 t_token		*strings_to_tokens(char **strings);
 void		insert_tokens(t_token **tokens, t_token *new_tokens, t_token *prev,
 				t_token *current);
@@ -138,7 +140,7 @@ void		process_heredocs(t_shell *shell, t_command *cmd);
 void		handle_sig_normal(int sig);
 void		handle_sig_hered(int sig);
 //void		handle_eof(void);
-void        handle_eof(t_shell *shell);
+void		handle_eof(t_shell *shell);
 void		setup_signal_handlers(void);
 //void		handle_signals(int status, t_shell *shell);
 void		handle_signals(int status, t_shell *shell, int *first);

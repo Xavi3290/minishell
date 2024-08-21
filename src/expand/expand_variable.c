@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand2.c                                          :+:      :+:    :+:   */
+/*   expand_variable.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:22:32 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/20 15:12:47 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/21 12:23:50 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ char	*expand_variable(char *str, t_shell *shell)
 		else
 			expanded = expand_general_variable(expanded, str, &i);
 	}
-	if (ft_strlen(expanded) == 0)
+	if (expanded == NULL || ft_strlen(expanded) == 0)
 	{
 		free(expanded);
 		return (NULL);
