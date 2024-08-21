@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 20:02:49 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/21 12:39:17 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/21 13:36:03 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,10 @@ void		handle_eof(t_shell *shell);
 void		setup_signal_handlers(void);
 //void		handle_signals(int status, t_shell *shell);
 void		handle_signals(int status, t_shell *shell, int *first);
+
+
+void	handle_redirect_token2(t_token **current, t_shell *shell,
+		int type);
 
 /*int get_signal(int flag, int value);
 void	set_signal(int signal);*/

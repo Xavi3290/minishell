@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirects_manager.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
+/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 10:50:29 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/20 16:05:25 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/21 13:40:25 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	create_output_file(char *file_name, int append, t_shell *shell)
 		if (fd == -1)
 		{
 			shell->flag_redirects = 0;
+			printf("2\n");
 			error = ft_strjoin("minishell: ", file_name);
 			perror(error);
 			free(error);
@@ -46,6 +47,7 @@ void	create_input_file(char *file_name, t_shell *shell)
 		if (fd == -1 || access(file_name, R_OK) == -1)
 		{
 			shell->flag_redirects = 0;
+			printf("1\n");
 			error = ft_strjoin("minishell: ", file_name);
 			perror(error);
 			free(error);
