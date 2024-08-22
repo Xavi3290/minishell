@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/22 14:40:04 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/22 15:23:06 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ static  void	parse_execute_frees(t_token *tokens, t_shell *shell)
 			//printf("a %d\n", shell->flag_redirects);
 			if (shell->flag_redirects)
 				execute_commands(shell);
-			shell->flag_redirects = 1;
+			//shell->flag_redirects = 1;
 			break ;
 		}
 		current = current->next;
