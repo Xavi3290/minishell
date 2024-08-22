@@ -6,17 +6,11 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 13:29:10 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/22 15:36:57 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/22 16:19:48 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-void	handle_pipe_token(t_command **cmd)
-{
-	(*cmd)->next = create_command();
-	*cmd = (*cmd)->next;
-}
 
 static void	handle_left_parenthesis(t_command **cmd, int *paren_level)
 {
@@ -51,7 +45,7 @@ void	parse_general_tokens_cmd(t_token **tokens, t_command *cmd,
 		if (current->type == WORD || current->type == DOUBLE_QUOTES \
 			|| current->type == SINGLE_QUOTES || current->type == WILDC \
 			|| current->type == DELIMITER)
-				add_argument(cmd, current->value);
+			add_argument(cmd, current->value);
 		else if (current->type == REDIRECT_IN || current->type == REDIRECT_OUT
 			|| current->type == APPEND)
 			handle_redirect_token(&current, cmd, shell, current->type);
@@ -69,12 +63,29 @@ void	parse_general_tokens_cmd(t_token **tokens, t_command *cmd,
 	}
 }
 
+void	handle_redirections(t_token **tokens, t_shell *shell)
+{
+	t_token	*current;
+
+	current = *tokens;
+	if (shell->last_exit_status == 130)
+		return ;
+	while (current)
+	{
+		if (current->type == REDIRECT_IN || current->type == REDIRECT_OUT \
+			|| current->type == APPEND)
+			process_redirection_file(&current, shell, current->type);
+		else if (current->type == PIPE)
+			shell->flag_redirects = 2;
+		current = current->next;
+	}
+}
+
 void	parse_tokens(t_token **tokens, t_shell *shell)
 {
 	t_command	*current_cmd;
 	int			paren_level;
 	t_command	*tmp;
-	t_token 	*current = *tokens;
 
 	paren_level = 0;
 	current_cmd = create_command();
@@ -91,18 +102,8 @@ void	parse_tokens(t_token **tokens, t_shell *shell)
 				shell->flag_redirects = 0;
 				break ;
 			}
-		}		
+		}
 		tmp = tmp->next;
 	}
-	if (shell->last_exit_status == 130)
-		return;
-	while (current)
-	{
-		if (current->type == REDIRECT_IN || current->type == REDIRECT_OUT \
-			|| current->type == APPEND )
-			handle_redirect_token2(&current, shell, current->type);
-		else if (current->type == PIPE)
-			shell->flag_redirects = 2;
-		current = current->next;
-	}
+	handle_redirections(tokens, shell);
 }

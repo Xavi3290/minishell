@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 20:02:49 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/22 16:10:20 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/22 16:21:08 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,10 @@ void		handle_signals(int status, t_shell *shell, int *first);
 /*int get_signal(int flag, int value);
 void	set_signal(int signal);*/
 
-void	handle_redirect_token2(t_token **current, t_shell *shell,
-		int type);
+void		process_redirection_file(t_token **current, t_shell *shell,
+			int type);
+int			generate_random_number(void);
+char		*generate_filename(void);
+void		handle_pipe_token(t_command **cmd);
 
 #endif
