@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
+/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 20:02:49 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/22 16:21:08 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/22 16:47:00 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ t_token		*strings_to_tokens(char **strings);
 void		insert_tokens(t_token **tokens, t_token *new_tokens, t_token *prev,
 				t_token *current);
 void		join_adjacent_tokens(t_token **tokens);
-void		join_token_values(t_token *current, t_token *next);
 void		join_token_values(t_token *current, t_token *next);
 
 int			check_syntax(t_token *tokens, t_shell *shell);
