@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 12:33:14 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/20 15:36:08 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/22 11:05:07 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@ static int	is_flag(char *str)
 	int	i;
 
 	i = 0;
-	if (str[i++] != '-')
+	if (str[i] != '-')
 		return (0);
+	i++;
 	while (str[i] == 'n')
 		i++;
 	if (str[i])
