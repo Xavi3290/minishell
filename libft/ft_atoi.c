@@ -6,13 +6,11 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 15:34:24 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/01/26 13:25:40 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/22 12:13:38 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include <stdlib.h>
-#include <stdio.h>
 
 int	ft_atoi(const char *nptr)
 {

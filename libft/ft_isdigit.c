@@ -6,11 +6,9 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 13:13:55 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/01/12 12:21:13 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/22 12:12:29 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "libft.h"
 
 int	ft_isdigit(int c)
 {

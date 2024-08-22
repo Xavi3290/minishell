@@ -6,11 +6,11 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 16:34:45 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/01/29 11:54:23 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/22 12:13:33 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stddef.h>
 
 void	ft_bzero(void *str, size_t n)
 {

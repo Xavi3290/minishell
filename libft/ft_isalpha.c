@@ -6,11 +6,9 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 12:32:53 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/01/11 14:23:07 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/22 12:12:11 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "libft.h"
 
 int	ft_isalpha(int c)
 {

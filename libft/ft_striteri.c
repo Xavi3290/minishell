@@ -6,11 +6,9 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 13:24:01 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/01/25 10:48:39 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/22 12:16:20 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "libft.h"
 
 void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {

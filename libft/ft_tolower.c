@@ -6,11 +6,9 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 16:42:49 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/01/10 16:46:19 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/22 12:18:21 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "libft.h"
 
 int	ft_tolower(int c)
 {

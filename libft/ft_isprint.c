@@ -6,11 +6,9 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 15:46:19 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/21 11:06:46 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/22 12:12:38 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "libft.h"
 
 int	ft_isprint(int c)
 {
