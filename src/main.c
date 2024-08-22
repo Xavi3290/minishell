@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/22 13:54:05 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/22 14:40:04 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void print_command(t_command *cmd)
     }
 }
 
-t_shell	*initialize_shell(int argc, char **env)
+static  t_shell	*initialize_shell(int argc, char **env)
 {
 	t_shell	*shell;
 
@@ -82,7 +82,7 @@ t_shell	*initialize_shell(int argc, char **env)
 	return (shell);
 }
 
-void	parse_execute_frees(t_token *tokens, t_shell *shell)
+static  void	parse_execute_frees(t_token *tokens, t_shell *shell)
 {
 	t_command	*current;
 
@@ -112,23 +112,27 @@ void	parse_execute_frees(t_token *tokens, t_shell *shell)
 	shell->line = NULL;
 }
 
-void	process_command_line(t_shell *shell)
+static  void signals_and_readline(t_shell *shell)
+{
+    signal(SIGINT, handle_sig_normal);
+    signal(SIGQUIT, SIG_IGN);
+    shell->line = readline("mini🐚: ");
+    if (g_error)
+    {
+        shell->last_exit_status = 130;
+        g_error = 0;
+    }
+    if (!shell->line)
+        handle_eof(shell);
+}
+
+static  void	process_command_line(t_shell *shell)
 {
 	t_token	*tokens;
 
 	while (42)
 	{
-		//g_error = 0;
-		signal(SIGINT, handle_sig_normal);
-		signal(SIGQUIT, SIG_IGN);
-		shell->line = readline("mini🐚: ");
-        if (g_error)
-        {
-            shell->last_exit_status = 130;
-            g_error = 0;
-        }
-		if (!shell->line)
-			handle_eof(shell);
+        signals_and_readline(shell);
 		if (ft_check_only_space(shell->line) == -1 || shell->line[0] == '\0')
 			free(shell->line);
 		else if (shell->line && shell->line[0])
