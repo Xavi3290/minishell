@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 11:07:07 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/22 15:35:34 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/22 16:21:40 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	process_heredoc_input(t_command *cmd, int i, t_shell *shell)
 		if (!line)
 		{
 			//if (!g_error)
-			handle_errors("warning: here-document delimited by end-of-file",
+			handle_errors("warning: here-document delimited by end-of-file", \
 					shell, 0);
 			//else
 			//	free(line);

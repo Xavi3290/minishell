@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 10:50:29 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/22 15:16:24 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/22 16:21:58 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	create_input_file(char *file_name, t_shell *shell)
 	{
 		fd = open(file_name, O_RDONLY, 0644);
 		if (fd == -1 || access(file_name, R_OK) == -1)
-		{	
+		{
 			error = ft_strjoin("minishell: ", file_name);
 			perror(error);
 			free(error);

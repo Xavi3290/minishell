@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse4.c                                           :+:      :+:    :+:   */
+/*   command_creation.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 15:37:52 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/20 15:32:55 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/22 16:20:05 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,31 @@ t_command	*create_command(void)
 	cmd->fd = -1;
 	cmd->next = NULL;
 	return (cmd);
+}
+
+int	generate_random_number(void)
+{
+	static unsigned int	seed;
+
+	if (seed == 0)
+		seed = 12345;
+	seed = (seed * 1103515245 + 12345) & 0x7fffffff;
+	return (seed % 10000);
+}
+
+char	*generate_filename(void)
+{
+	char	*str;
+	char	*num;
+
+	num = ft_itoa(generate_random_number());
+	str = ft_strjoin("/tmp/.hdoc_tmp_file", num);
+	free(num);
+	return (str);
+}
+
+void	handle_pipe_token(t_command **cmd)
+{
+	(*cmd)->next = create_command();
+	*cmd = (*cmd)->next;
 }

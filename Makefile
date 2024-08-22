@@ -6,7 +6,7 @@
 #    By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/21 19:54:24 by xroca-pe          #+#    #+#              #
-#    Updated: 2024/08/22 12:35:14 by cgaratej         ###   ########.fr        #
+#    Updated: 2024/08/22 16:45:00 by cgaratej         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,10 +33,10 @@ SRC = src/main.c src/init.c src/tokenizer/tokenize_line.c src/tokenizer/token_op
    src/expand/expand_wildcards.c src/errors/error_manager.c src/built-ins/ft_exit.c \
    src/built-ins/ft_echo.c src/errors/syntax_manager.c src/errors/syntax_utils.c \
    src/built-ins/ft_export.c src/built-ins/ft_unset.c \
-   src/parsing/handle_tokens.c src/parsing/command_utils.c src/parsing/command_creation.c src/utils/free_tools.c \
+   src/parsing/handle_tokens.c src/parsing/command_utils.c src/parsing/parsing_utils.c src/utils/free_tools.c \
    src/execution/execution_utils.c src/execution/process_management.c \
    src/execution/command_execution.c src/signals/signals.c src/redirections/ft_herdoc.c \
-   src/execution/exec_cmd_utils.c src/redirections/redirects_manager.c
+   src/execution/exec_cmd_utils.c src/redirections/redirects_manager.c src/expand/token_join.c
 
 OBJ = $(SRC:%.c=$(BUILD_DIR)/%.o)
 DEPS = $(SRC:%.c=$(BUILD_DIR)/%.d)
