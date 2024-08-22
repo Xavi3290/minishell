@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 16:23:12 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/21 12:36:48 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/22 12:31:43 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,27 @@ static void	expand_variable_token(t_token **tokens, t_shell *shell,
 	}
 }
 
-static void	expand_double_quotes_token(t_token *current, t_shell *shell)
+static void	expand_double_quotes_token(t_token **tokens, t_shell *shell,
+		t_token **current, t_token **prev)  //t_token *current, t_shell *shell
 {
 	char	*expanded;
+	t_token	*new_tokens;
 
-	expanded = expand_variable(current->value, shell);
-	if (expanded)
+	expanded = expand_variable((*current)->value, shell);
+	if (expanded && expanded[0] != '\0')
 	{
-		free(current->value);
-		current->value = expanded;
+		new_tokens = tokenize(expanded, shell);
+		insert_tokens(tokens, new_tokens, *prev, *current);
+		if (*prev)
+			*current = (*prev)->next;
+		else
+			*current = *tokens;
+		free(expanded);
+	}
+	else
+	{
+		remove_empty_token(tokens, current, prev);
+		free(expanded);
 	}
 }
 
@@ -69,11 +81,7 @@ void	expand_tokens(t_token **tokens, t_shell *shell)
 			expand_variable_token(tokens, shell, &current, &prev);
 		else if (current->type == DOUBLE_QUOTES && ft_strchr(current->value,
 				'$'))
-		{
-			expand_double_quotes_token(current, shell);
-			prev = current;
-			current = current->next;
-		}
+			expand_double_quotes_token(tokens, shell, &current, &prev);   
 		else if (current->type == WORD && ft_strchr(current->value, '*'))
 			handle_wildcard_expansion(tokens, shell, &current, &prev);
 		else
