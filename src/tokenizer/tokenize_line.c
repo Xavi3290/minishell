@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenaizer.c                                       :+:      :+:    :+:   */
+/*   tokenize_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:05:46 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/20 15:24:19 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/22 15:09:08 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static t_token	*handle_double_quotes(char *line, int *i, t_shell *shell)
 {
 	int		start;
 	char	*value;
+	t_token	*token;
 
 	(*i)++;
 	start = (*i);
@@ -53,25 +54,30 @@ static t_token	*handle_double_quotes(char *line, int *i, t_shell *shell)
 	value = ft_strndup(&line[start], *i - start);
 	if (!value)
 		handle_error(NULL, NULL);
-	return (new_token(DOUBLE_QUOTES, value));
+	if (shell->heredoc)
+		token = new_token(DELIMITER, value);
+	else
+		token = new_token(DOUBLE_QUOTES, value);
+	shell->heredoc = 0;
+	return (token);
 }
 
-static t_token	*handle_special_tokens(char *line, int *i)
+static t_token	*handle_special_tokens(char *line, int *i, t_shell *shell)
 {
 	if (line[*i] == '|' && line[*i + 1] == '|')
-		return (create_basic_token(OR, "||", i));
+		return (create_basic_token(OR, "||", i, shell));
 	else if (line[*i] == '|')
-		return (create_basic_token(PIPE, "|", i));
+		return (create_basic_token(PIPE, "|", i, shell));
 	else if (line[*i] == '&' && line[*i + 1] == '&')
-		return (create_basic_token(AND, "&&", i));
+		return (create_basic_token(AND, "&&", i, shell));
 	if (line[*i] == '<' && line[*i + 1] == '<')
-		return (create_basic_token(HEREDOC, "<<", i));
+		return (create_basic_token(HEREDOC, "<<", i, shell));
 	else if (line[*i] == '>' && line[*i + 1] == '>')
-		return (create_basic_token(APPEND, ">>", i));
+		return (create_basic_token(APPEND, ">>", i, shell));
 	else if (line[*i] == '<')
-		return (create_basic_token(REDIRECT_IN, "<", i));
+		return (create_basic_token(REDIRECT_IN, "<", i, shell));
 	else if (line[*i] == '>')
-		return (create_basic_token(REDIRECT_OUT, ">", i));
+		return (create_basic_token(REDIRECT_OUT, ">", i, shell));
 	return (NULL);
 }
 
@@ -79,7 +85,7 @@ static t_token	*get_next_token(char *line, int *i, t_shell *shell)
 {
 	t_token	*token;
 
-	token = handle_special_tokens(line, i);
+	token = handle_special_tokens(line, i, shell);
 	if (token)
 		return (token);
 	if (line[*i] == '(')
@@ -91,9 +97,9 @@ static t_token	*get_next_token(char *line, int *i, t_shell *shell)
 	else if (line[*i] == '"')
 		token = handle_double_quotes(line, i, shell);
 	else if (ft_is_space(line[*i]))
-		token = handle_space(line, i);
+		token = handle_space(line, i, shell);
 	else
-		token = handle_word(line, i);
+		token = handle_word(line, i, shell);
 	return (token);
 }
 

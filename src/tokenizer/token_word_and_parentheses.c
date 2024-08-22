@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenaizer3.c                                      :+:      :+:    :+:   */
+/*   token_word_and_parentheses.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 19:19:21 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/20 15:24:25 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/22 15:11:59 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_token	*handle_word(char *line, int *i)
+t_token	*handle_word(char *line, int *i, t_shell *shell)
 {
 	int		start;
 	char	*value;
@@ -30,7 +30,11 @@ t_token	*handle_word(char *line, int *i)
 	value = ft_strndup(&line[start], *i - start);
 	if (!value)
 		handle_error(NULL, NULL);
-	token = new_token(WORD, value);
+	if (shell->heredoc)
+		token = new_token(DELIMITER, value);
+	else
+		token = new_token(WORD, value);
+	shell->heredoc = 0;
 	(*i)--;
 	return (token);
 }
@@ -60,7 +64,7 @@ t_token	*handle_left_parentheses(char *line, int *i, t_shell *shell)
 		}
 		shell->parentheses = 1;
 	}
-	token = create_basic_token(LPAREN, "(", i);
+	token = create_basic_token(LPAREN, "(", i, shell);
 	return (token);
 }
 
@@ -72,5 +76,5 @@ t_token	*handle_right_parentheses(t_shell *shell, int *i)
 		return (NULL);
 	}
 	else
-		return (create_basic_token(RPAREN, ")", i));
+		return (create_basic_token(RPAREN, ")", i, shell));
 }

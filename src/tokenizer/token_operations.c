@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenaizer2.c                                      :+:      :+:    :+:   */
+/*   token_operations.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 15:02:05 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/20 15:24:21 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/22 15:04:16 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	add_token(t_token **tokens, t_token *new_token)
 	last->next = new_token;
 }
 
-t_token	*create_basic_token(char type, char *value, int *i)
+t_token	*create_basic_token(char type, char *value, int *i, t_shell *shell)
 {
 	char	*val;
 	t_token	*token;
@@ -52,14 +52,16 @@ t_token	*create_basic_token(char type, char *value, int *i)
 	if (!val)
 		handle_error(NULL, NULL);
 	token = new_token(type, val);
+	if (token->type == HEREDOC)
+		shell->heredoc = 1;
 	return (token);
 }
 
-t_token	*handle_space(const char *line, int *i)
+t_token	*handle_space(const char *line, int *i, t_shell *shell)
 {
 	while (line[*i] && (line[*i] == ' ' || line[*i] == '\n' || line[*i] == '\t'
 			|| line[*i] == '\v' || line[*i] == '\f' || line[*i] == '\r'))
 		(*i)++;
 	(*i)--;
-	return (create_basic_token(SPACES, " ", i));
+	return (create_basic_token(SPACES, " ", i, shell));
 }

@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 18:01:48 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/20 15:43:37 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/22 15:15:05 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ int	handle_general_tokens_syn(t_token *token, t_syntax_state *state,
 			return (0);
 	}
 	else if (token->type == WORD || token->type == DOUBLE_QUOTES
-		|| token->type == SINGLE_QUOTES || token->type == WILDC)
+		|| token->type == SINGLE_QUOTES || token->type == WILDC || token->type == DELIMITER)
 	{
 		if (!handle_word_syntax(token, state, shell))
 			return (0);

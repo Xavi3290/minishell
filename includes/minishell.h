@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
+/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 20:02:49 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/22 11:39:28 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/22 15:06:22 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,15 @@ void		free_string_array(char **str);
 void		free_shell(t_shell *shell);
 
 t_token		*tokenize(char *line, t_shell *shell);
-t_token		*create_basic_token(char type, char *value, int *i);
+//t_token		*create_basic_token(char type, char *value, int *i);
+t_token		*create_basic_token(char type, char *value, int *i, t_shell *shell);
 void		free_tokens(t_token *tokens);
 void		add_token(t_token **tokens, t_token *new_token);
 t_token		*new_token(t_token_type type, char *value);
-t_token		*handle_space(const char *line, int *i);
-t_token		*handle_word(char *line, int *i);
+//t_token		*handle_space(const char *line, int *i);
+t_token		*handle_space(const char *line, int *i, t_shell *shell);
+//t_token		*handle_word(char *line, int *i);
+t_token		*handle_word(char *line, int *i, t_shell *shell);
 int			handle_end_quotes(int *i, char *line, t_shell *shell, char c);
 t_token		*handle_left_parentheses(char *line, int *i, t_shell *shell);
 t_token		*handle_right_parentheses(t_shell *shell, int *i);

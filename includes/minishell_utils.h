@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:18:30 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/22 13:52:38 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/22 14:58:00 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ typedef enum e_token_type
 	SINGLE_QUOTES,
 	LPAREN,
 	RPAREN,
-	WILDC
+	WILDC,
+	DELIMITER
 }	t_token_type;
 
 typedef struct s_token
@@ -95,6 +96,7 @@ typedef struct s_shell
 	char		*line;
 	int			last_exit_status;
 	int			parentheses;
+	int			heredoc;
 	int			flag_redirects;
 }	t_shell;
 
