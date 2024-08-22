@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:23:05 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/22 16:40:01 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/22 16:50:19 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@
 	}
 	return (*pattern == '\0' && *filename == '\0');
 }*/
-
 static int	match_pattern(const char *pattern, const char *filename)
 {
 	while (*pattern)
@@ -73,7 +72,7 @@ static int	match_pattern(const char *pattern, const char *filename)
 		if (entry->d_name[0] == '.')
 		{
 			entry = readdir(dir);
-			continue;
+			continue ;
 		}
 		if (match_pattern(pattern, entry->d_name))
 		{
@@ -91,8 +90,8 @@ static int	match_pattern(const char *pattern, const char *filename)
 		matches[count] = NULL;
 	return (matches);
 }*/
-
-static char	**get_matching_files(char **matches, int *count, const char *pattern, const char *filename)
+static char	**get_matching_files(char **matches, int *count,
+		const char *pattern, const char *filename)
 {
 	if (match_pattern(pattern, filename))
 	{
@@ -118,7 +117,8 @@ static char	**read_directory(DIR *dir, const char *pattern)
 	while (entry != NULL)
 	{
 		if (entry->d_name[0] != '.')
-			matches = get_matching_files(matches, &count, pattern, entry->d_name);
+			matches = get_matching_files(matches, &count, pattern,
+					entry->d_name);
 		entry = readdir(dir);
 	}
 	closedir(dir);
@@ -126,7 +126,6 @@ static char	**read_directory(DIR *dir, const char *pattern)
 		matches[count] = NULL;
 	return (matches);
 }
-
 
 char	**expand_wildcards(const char *pattern, t_shell *shell)
 {

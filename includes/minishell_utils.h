@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:18:30 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/22 14:58:00 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/22 16:53:10 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
-typedef struct s_syntax_state
+typedef struct s_syntax
 {
 	int	last_was_operator;
 	int	last_was_pipe;
@@ -52,7 +52,7 @@ typedef struct s_syntax_state
 	int	paren_opened;
 	int	last_was_word;
 	int	num_heredocs;
-}	t_syntax_state;
+}	t_syntax;
 
 /*
 typedef struct s_command

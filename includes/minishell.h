@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 20:02:49 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/22 16:47:00 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/22 17:00:46 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ t_token		*handle_word(char *line, int *i, t_shell *shell);
 int			handle_end_quotes(int *i, char *line, t_shell *shell, char c);
 t_token		*handle_left_parentheses(char *line, int *i, t_shell *shell);
 t_token		*handle_right_parentheses(t_shell *shell, int *i);
-
 
 char		*ft_strndup(const char *s, size_t n);
 int			ft_is_space(char line);
@@ -91,9 +90,10 @@ void		join_adjacent_tokens(t_token **tokens);
 void		join_token_values(t_token *current, t_token *next);
 
 int			check_syntax(t_token *tokens, t_shell *shell);
-int			handle_general_tokens_syn(t_token *token, t_syntax_state *state,
+int			handle_general_tokens_syn(t_token *token, t_syntax *state,
 				t_shell *shell);
-int			is_unmatched_rparen(t_syntax_state *state);
+int			is_unmatched_rparen(t_syntax *state);
+void		handle_heredoc_token_sum(t_token *token, t_syntax *state);
 
 void		parse_tokens(t_token **tokens, t_shell *shell);
 t_command	*create_command(void);
@@ -154,7 +154,7 @@ void		handle_signals(int status, t_shell *shell, int *first);
 void	set_signal(int signal);*/
 
 void		process_redirection_file(t_token **current, t_shell *shell,
-			int type);
+				int type);
 int			generate_random_number(void);
 char		*generate_filename(void);
 void		handle_pipe_token(t_command **cmd);

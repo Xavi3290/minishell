@@ -6,13 +6,13 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:52:09 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/20 15:43:25 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/22 17:03:39 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	is_unmatched_rparen(t_syntax_state *state)
+int	is_unmatched_rparen(t_syntax *state)
 {
 	return (state->paren_count == 0 || state->last_was_operator || \
 			state->last_was_pipe || state->last_was_redirect || \
@@ -21,10 +21,10 @@ int	is_unmatched_rparen(t_syntax_state *state)
 
 int	check_syntax(t_token *tokens, t_shell *shell)
 {
-	t_syntax_state	state;
-	t_token			*current;
+	t_syntax	state;
+	t_token		*current;
 
-	state = (t_syntax_state){0, 0, 0, 0, 0, 0, 0, 0, 0};
+	state = (t_syntax){0, 0, 0, 0, 0, 0, 0, 0, 0};
 	current = tokens;
 	while (current)
 	{
@@ -43,4 +43,10 @@ int	check_syntax(t_token *tokens, t_shell *shell)
 	if (state.num_heredocs > 16)
 		handle_errors("maximum here-document count exceeded", shell, 2);
 	return (1);
+}
+
+void	handle_heredoc_token_sum(t_token *token, t_syntax *state)
+{
+	if (token->type == HEREDOC)
+		state->num_heredocs++;
 }
