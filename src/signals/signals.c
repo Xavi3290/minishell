@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 17:01:00 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/21 11:09:42 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/22 13:53:11 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	handle_sig_normal(int sig)
 		rl_replace_line("", 1);
 		rl_on_new_line();
 		rl_redisplay();
-		//error_exit = 1;
+		g_error = 1;
 	}
 }
 

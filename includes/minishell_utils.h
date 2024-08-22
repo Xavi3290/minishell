@@ -6,14 +6,14 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:18:30 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/20 12:21:53 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/22 13:52:38 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_UTILS_H
 # define MINISHELL_UTILS_H
 
-//extern int	g_error;
+extern int	g_error;
 
 typedef enum e_token_type
 {
