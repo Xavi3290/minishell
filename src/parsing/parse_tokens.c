@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 13:29:10 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/22 15:18:27 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/22 15:36:57 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,10 @@ void	parse_general_tokens_cmd(t_token **tokens, t_command *cmd,
 	current = *tokens;
 	while (current)
 	{
-		if (current->type == WORD || current->type == DOUBLE_QUOTES
-			|| current->type == SINGLE_QUOTES || current->type == WILDC)
-			add_argument(cmd, current->value);
+		if (current->type == WORD || current->type == DOUBLE_QUOTES \
+			|| current->type == SINGLE_QUOTES || current->type == WILDC \
+			|| current->type == DELIMITER)
+				add_argument(cmd, current->value);
 		else if (current->type == REDIRECT_IN || current->type == REDIRECT_OUT
 			|| current->type == APPEND)
 			handle_redirect_token(&current, cmd, shell, current->type);

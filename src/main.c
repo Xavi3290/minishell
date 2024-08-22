@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/22 15:23:06 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/22 15:31:38 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,12 +90,12 @@ static  void	parse_execute_frees(t_token *tokens, t_shell *shell)
 	current = shell->commands;
 	while (current)
 	{
+		//printf("error %s\n", current->args[0]);
 		if (current->num_args > 0)
 		{
-			//printf("a %d\n", shell->flag_redirects);
 			if (shell->flag_redirects)
 				execute_commands(shell);
-			//shell->flag_redirects = 1;
+			shell->flag_redirects = 1;
 			break ;
 		}
 		current = current->next;

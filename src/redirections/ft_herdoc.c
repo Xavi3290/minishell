@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 11:07:07 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/20 16:05:19 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/22 15:35:34 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	process_line(char *line, t_command *cmd, int i, t_shell *shell)
 {
 	char	*expanded;
 
-	if (*(cmd->type[i]) == WORD)
+	if (*(cmd->type[i]) == DELIMITER || *(cmd->type[i]) == WORD)
 	{
 		expanded = expand_variable(line, shell);
 		ft_putstr_fd(expanded, cmd->fd);
