@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
+/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:22:50 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/22 16:25:36 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/22 18:52:51 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,8 @@ void	join_adjacent_tokens(t_token **tokens)
 			next->type == SINGLE_QUOTES)
 		{
 			if (current->type == WORD || current->type == DOUBLE_QUOTES \
-				|| current->type == SINGLE_QUOTES || current->type == DELIMITER)
+				|| current->type == SINGLE_QUOTES || current->type == DELIMITER
+				|| current->type == WILDC)
 			{
 				join_token_values(current, next);
 				continue ;
