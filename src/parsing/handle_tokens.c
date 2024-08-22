@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_tokens.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
+/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 18:05:45 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/22 16:18:34 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/22 17:45:14 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ void	handle_redirect_token(t_token **current, t_command *cmd, t_shell *shell,
 	*current = (*current)->next;
 	while (*current && (*current)->type == SPACES)
 		*current = (*current)->next;
-	if (*current && (*current)->type == WORD)
+	if (*current && ((*current)->type == WORD
+			|| (*current)->type == DOUBLE_QUOTES
+			|| (*current)->type == SINGLE_QUOTES))
 	{
 		if (type == REDIRECT_IN)
 			add_input_file(cmd, (*current)->value);
@@ -28,7 +30,7 @@ void	handle_redirect_token(t_token **current, t_command *cmd, t_shell *shell,
 			add_output_file(cmd, (*current)->value, 1);
 	}
 	else
-		handle_errors("syntax error: expected file after redirection", \
+		handle_errors("syntax error: expected file after redirection",
 			shell, 2);
 }
 
@@ -37,7 +39,9 @@ void	process_redirection_file(t_token **current, t_shell *shell, int type)
 	*current = (*current)->next;
 	while (*current && (*current)->type == SPACES)
 		*current = (*current)->next;
-	if (*current && (*current)->type == WORD)
+	if (*current && ((*current)->type == WORD
+			|| (*current)->type == DOUBLE_QUOTES
+			|| (*current)->type == SINGLE_QUOTES))
 	{
 		if (type == REDIRECT_IN)
 			create_input_file((*current)->value, shell);
@@ -47,7 +51,7 @@ void	process_redirection_file(t_token **current, t_shell *shell, int type)
 			create_output_file((*current)->value, 1, shell);
 	}
 	else
-		handle_errors("syntax error: expected file after redirection", \
+		handle_errors("syntax error: expected file after redirection",
 			shell, 2);
 }
 
