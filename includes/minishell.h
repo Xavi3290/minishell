@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 20:02:49 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/22 15:06:22 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/22 16:10:20 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ t_token		*handle_word(char *line, int *i, t_shell *shell);
 int			handle_end_quotes(int *i, char *line, t_shell *shell, char c);
 t_token		*handle_left_parentheses(char *line, int *i, t_shell *shell);
 t_token		*handle_right_parentheses(t_shell *shell, int *i);
+
 
 char		*ft_strndup(const char *s, size_t n);
 int			ft_is_space(char line);
@@ -87,6 +88,8 @@ t_token		*strings_to_tokens(char **strings);
 void		insert_tokens(t_token **tokens, t_token *new_tokens, t_token *prev,
 				t_token *current);
 void		join_adjacent_tokens(t_token **tokens);
+void		join_token_values(t_token *current, t_token *next);
+void		join_token_values(t_token *current, t_token *next);
 
 int			check_syntax(t_token *tokens, t_shell *shell);
 int			handle_general_tokens_syn(t_token *token, t_syntax_state *state,

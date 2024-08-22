@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand3.c                                          :+:      :+:    :+:   */
+/*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:22:50 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/20 15:12:49 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/22 16:10:47 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ char	*handle_dollar_signs(char *str, int i)
 	return (ft_strdup(""));
 }
 
-void	join_adjacent_tokens(t_token **tokens)
+/*void	join_adjacent_tokens(t_token **tokens)
 {
 	t_token	*current;
 	t_token	*next;
@@ -91,7 +91,7 @@ void	join_adjacent_tokens(t_token **tokens)
 			|| next->type == SINGLE_QUOTES)
 		{
 			if (current->type == WORD || current->type == DOUBLE_QUOTES \
-			|| current->type == SINGLE_QUOTES)
+			|| current->type == SINGLE_QUOTES || current->type == DELIMITER)
 			{
 				joined_value = ft_strjoin(current->value, next->value);
 				free(current->value);
@@ -99,6 +99,29 @@ void	join_adjacent_tokens(t_token **tokens)
 				current->next = next->next;
 				free(next->value);
 				free(next);
+				if (current->type == DELIMITER)
+					current->type = DOUBLE_QUOTES;
+				continue ;
+			}
+		}
+		current = current->next;
+	}
+}*/
+
+void	join_adjacent_tokens(t_token **tokens)
+{
+	t_token	*current;
+	t_token	*next;
+
+	current = *tokens;
+	while (current && current->next)
+	{
+		next = current->next;
+		if (next->type == WORD || next->type == DOUBLE_QUOTES || next->type == SINGLE_QUOTES)
+		{
+			if (current->type == WORD || current->type == DOUBLE_QUOTES || current->type == SINGLE_QUOTES || current->type == DELIMITER)
+			{
+				join_token_values(current, next);
 				continue ;
 			}
 		}
