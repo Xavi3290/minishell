@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 17:26:35 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/08 17:37:25 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/22 10:55:58 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,11 @@ int	check_env_var(t_shell *shell, char *name, char *arg)
 	find_existing_var_indices(shell, name, &existing_var_index, &existing_var);
 	if (existing_var_index != -1)
 	{
-		free(shell->env[existing_var_index]);
-		shell->env[existing_var_index] = ft_strdup(arg);
+		if (ft_strchr(arg, '=') != 0)
+		{
+			free(shell->env[existing_var_index]);
+			shell->env[existing_var_index] = ft_strdup(arg);
+		}
 		return (1);
 	}
 	else if (existing_var != -1)
