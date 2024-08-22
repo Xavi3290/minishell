@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 10:50:29 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/21 15:55:44 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/22 15:16:24 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	create_output_file(char *file_name, int append, t_shell *shell)
 	int		fd;
 	char	*error;
 
-	printf("error %d\n", shell->flag_redirects);
+	//printf("error %d\n", shell->flag_redirects);
 	if (shell->flag_redirects == 1 || shell->flag_redirects == 2)
 	{
 		if (append)

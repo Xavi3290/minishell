@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 13:29:10 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/21 16:09:31 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/22 15:18:27 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,12 @@ void	parse_tokens(t_token **tokens, t_shell *shell)
 	shell->commands = current_cmd;
 	parse_general_tokens_cmd(tokens, current_cmd, shell, &paren_level);
 	tmp = current_cmd;
-	//printf("parse %d\n", shell->flag_redirects);
 	while (tmp)
 	{
 		if (tmp->heredoc)
 		{
 			process_heredocs(shell, tmp);
-				if (shell->last_exit_status == 130)
+			if (shell->last_exit_status == 130)
 			{
 				shell->flag_redirects = 0;
 				break ;
@@ -94,13 +93,15 @@ void	parse_tokens(t_token **tokens, t_shell *shell)
 		}		
 		tmp = tmp->next;
 	}
+	if (shell->last_exit_status == 130)
+		return;
 	while (current)
 	{
-		if (current->type == REDIRECT_IN || current->type == REDIRECT_OUT
+		if (current->type == REDIRECT_IN || current->type == REDIRECT_OUT \
 			|| current->type == APPEND )
 			handle_redirect_token2(&current, shell, current->type);
 		else if (current->type == PIPE)
-			shell->flag_redirects = 1;
+			shell->flag_redirects = 2;
 		current = current->next;
 	}
 }
