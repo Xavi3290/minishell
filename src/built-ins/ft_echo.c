@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
+/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 12:33:14 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/22 11:05:07 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/22 13:37:47 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,19 @@ static int	is_flag(char *str)
 	return (1);
 }
 
+static int	handle_echo_flags(t_command **command, int *i)
+{
+	int	n;
+
+	n = 1;
+	while ((*command)->args[*i] && is_flag((*command)->args[*i]))
+	{
+		n = 0;
+		(*i)++;
+	}
+	return (n);
+}
+
 int	ft_echo(t_command **command)
 {
 	int	n;
@@ -34,17 +47,17 @@ int	ft_echo(t_command **command)
 
 	if (!(*command)->args[1] && printf("\n"))
 		return (0);
-	n = 1;
 	i = 1;
-	while ((*command)->args[i] && is_flag((*command)->args[i]))
-	{
-		n = 0;
-		i++;
-	}
+	n = handle_echo_flags(command, &i);
 	while (i < (*command)->num_args)
 	{
+		if(!ft_strcmp((*command)->args[i], "''"))
+		{
+			ft_putstr_fd(" ", 1);	
+			i++;
+		}
 		ft_putstr_fd((*command)->args[i], 1);
-		if ((*command)->args[i + 1] != ((*command)->args[(*command)->num_args]))
+		if (i + 1 < (*command)->num_args)
 			ft_putstr_fd(" ", 1);
 		i++;
 	}
