@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 12:33:14 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/22 13:37:47 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/22 13:51:10 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ static int	is_flag(char *str)
 	if (str[i] != '-')
 		return (0);
 	i++;
+	if (!str[i])
+		return (0);
 	while (str[i] == 'n')
 		i++;
 	if (str[i])
