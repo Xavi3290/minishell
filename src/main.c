@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/22 15:31:38 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/22 16:42:55 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	g_error;
 
-void print_command(t_command *cmd) 
+/*void print_command(t_command *cmd) 
 {
     while (cmd)
     {
@@ -57,9 +57,9 @@ void print_command(t_command *cmd)
         printf("\n");
         cmd = cmd->next;
     }
-}
+}*/
 
-static  t_shell	*initialize_shell(int argc, char **env)
+static t_shell	*initialize_shell(int argc, char **env)
 {
 	t_shell	*shell;
 
@@ -82,7 +82,7 @@ static  t_shell	*initialize_shell(int argc, char **env)
 	return (shell);
 }
 
-static  void	parse_execute_frees(t_token *tokens, t_shell *shell)
+static void	parse_execute_frees(t_token *tokens, t_shell *shell)
 {
 	t_command	*current;
 
@@ -95,7 +95,7 @@ static  void	parse_execute_frees(t_token *tokens, t_shell *shell)
 		{
 			if (shell->flag_redirects)
 				execute_commands(shell);
-			shell->flag_redirects = 1;
+			//shell->flag_redirects = 1;
 			break ;
 		}
 		current = current->next;
@@ -112,27 +112,27 @@ static  void	parse_execute_frees(t_token *tokens, t_shell *shell)
 	shell->line = NULL;
 }
 
-static  void signals_and_readline(t_shell *shell)
+static void	signals_and_readline(t_shell *shell)
 {
-    signal(SIGINT, handle_sig_normal);
-    signal(SIGQUIT, SIG_IGN);
-    shell->line = readline("mini🐚: ");
-    if (g_error)
-    {
-        shell->last_exit_status = 130;
-        g_error = 0;
-    }
-    if (!shell->line)
-        handle_eof(shell);
+	signal(SIGINT, handle_sig_normal);
+	signal(SIGQUIT, SIG_IGN);
+	shell->line = readline("mini🐚: ");
+	if (g_error)
+	{
+		shell->last_exit_status = 130;
+		g_error = 0;
+	}
+	if (!shell->line)
+		handle_eof(shell);
 }
 
-static  void	process_command_line(t_shell *shell)
+static void	process_command_line(t_shell *shell)
 {
 	t_token	*tokens;
 
 	while (42)
 	{
-        signals_and_readline(shell);
+		signals_and_readline(shell);
 		if (ft_check_only_space(shell->line) == -1 || shell->line[0] == '\0')
 			free(shell->line);
 		else if (shell->line && shell->line[0])

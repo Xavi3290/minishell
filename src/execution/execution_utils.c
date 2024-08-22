@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:50:13 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/22 12:02:56 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/22 16:29:00 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ char	*get_path(char *cmd, char **env, int i)
 	if (!path_list || ft_strchr(cmd, '/'))
 	{
 		if (path_list)
-			return(free_paths(path_list), cmd);
-		return(cmd);
+			return (free_paths(path_list), cmd);
+		return (cmd);
 	}
 	while (path_list[++i])
 	{

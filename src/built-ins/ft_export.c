@@ -6,7 +6,7 @@
 /*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:54:22 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/20 23:16:47 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/22 16:26:11 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static void	pritn_declare(t_shell *shell, int i)
 static int	validate_and_process_arg(char *arg, t_shell *shell)
 {
 	char	*name;
-	
+
 	if (!is_valid(arg, shell))
 		return (0);
 	name = is_set_env(arg);
