@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirects_manager.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
+/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 10:50:29 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/22 16:21:58 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/26 12:35:46 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	create_output_file(char *file_name, int append, t_shell *shell)
 	int		fd;
 	char	*error;
 
-	//printf("error %d\n", shell->flag_redirects);
 	if (shell->flag_redirects == 1 || shell->flag_redirects == 2)
 	{
 		if (append)

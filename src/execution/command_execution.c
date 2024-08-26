@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_execution.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
+/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:22:53 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/21 15:53:05 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/26 12:33:43 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ void	execute_simple_command(t_command *cmd, t_shell *shell)
 	pid = fork();
 	if (pid == 0)
 	{
-		/*if (cmd->heredoc)
-			handle_herdoc(cmd, 0, shell);*/
 		setup_signal_handlers();
 		exec_cmd(shell->env, cmd, shell);
 	}

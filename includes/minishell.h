@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
+/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 20:02:49 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/26 11:30:00 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/26 12:38:20 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,11 @@ void		free_string_array(char **str);
 void		free_shell(t_shell *shell);
 
 t_token		*tokenize(char *line, t_shell *shell);
-//t_token		*create_basic_token(char type, char *value, int *i);
 t_token		*create_basic_token(char type, char *value, int *i, t_shell *shell);
 void		free_tokens(t_token *tokens);
 void		add_token(t_token **tokens, t_token *new_token);
 t_token		*new_token(t_token_type type, char *value);
-//t_token		*handle_space(const char *line, int *i);
 t_token		*handle_space(const char *line, int *i, t_shell *shell);
-//t_token		*handle_word(char *line, int *i);
 t_token		*handle_word(char *line, int *i, t_shell *shell);
 int			handle_end_quotes(int *i, char *line, t_shell *shell, char c);
 t_token		*handle_left_parentheses(char *line, int *i, t_shell *shell);
@@ -67,7 +64,6 @@ int			ft_echo(t_command **command);
 int			ft_export(t_command *cmd, t_shell *shell);
 int			ft_unset(t_shell *shell, t_command *cmd);
 
-/*expor utils*/
 void		find_existing_var_indices(t_shell *shell, char *name,
 				int *existing_var_index, int *existing_var);
 int			check_env_var(t_shell *shell, char *name, char *arg);
@@ -97,7 +93,6 @@ void		handle_heredoc_token_sum(t_token *token, t_syntax *state);
 
 void		parse_tokens(t_token **tokens, t_shell *shell);
 t_command	*create_command(void);
-//void		add_heredoc_file(t_command *cmd, char *file);
 void		add_heredoc_file(t_command *cmd, char *file, char *delimiter,
 				t_token_type type);
 void		add_argument(t_command *cmd, char *arg);
@@ -109,16 +104,6 @@ void		handle_redirect_token(t_token **current, t_command *cmd,
 				t_shell *shell, int type);
 void		free_commands(t_command *cmd);
 void		free_paths(char **path);
-
-/*void parse_general_tokens_cmd(t_token **tokens, t_command *cmd, \
-			t_shell *shell);
-void	parse_parentheses(t_token **tokens, t_command *current_cmd, \
-			t_shell *shell);
-t_command	*create_command(void);
-t_command	*parse_tokens_to_commands(t_token *tokens);
-t_command	*parse_commands(t_token *tokens);
-t_command	*parse_tokens_to_commands(t_token *tokens, t_shell *shell);
-void	parse_tokens(t_token *tokens, t_shell *shell);*/
 
 void		print_command(t_command *cmd);
 
@@ -134,7 +119,6 @@ void		wait_for_children(pid_t *pids, int num_childrens, t_shell *shell);
 void		wifstuff(t_shell *shell, int status);
 void		create_pipeline(t_command *cmd, t_shell *shell, int num_commands,
 				int i);
-//char		*get_path(char *cmd, char **env);
 char		*get_path(char *cmd, char **env, int i);
 void		ft_redirectios(t_command *cmd, t_shell *shell);
 
@@ -144,20 +128,15 @@ void		process_heredocs(t_shell *shell, t_command *cmd);
 
 void		handle_sig_normal(int sig);
 void		handle_sig_hered(int sig);
-//void		handle_eof(void);
 void		handle_eof(t_shell *shell);
 void		setup_signal_handlers(void);
-//void		handle_signals(int status, t_shell *shell);
 void		handle_signals(int status, t_shell *shell, int *first);
-
-/*int get_signal(int flag, int value);
-void	set_signal(int signal);*/
 
 void		process_redirection_file(t_token **current, t_shell *shell,
 				int type);
 int			generate_random_number(void);
 char		*generate_filename(void);
 void		handle_pipe_token(t_command **cmd);
-void 		free_herdocs(t_command *cmd);
+void		free_herdocs(t_command *cmd);
 
 #endif

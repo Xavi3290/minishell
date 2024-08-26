@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:22:50 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/22 18:52:51 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/26 12:34:46 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,37 +76,6 @@ char	*handle_dollar_signs(char *str, int i)
 	}
 	return (ft_strdup(""));
 }
-
-/*void	join_adjacent_tokens(t_token **tokens)
-{
-	t_token	*current;
-	t_token	*next;
-	char	*joined_value;
-
-	current = *tokens;
-	while (current && current->next)
-	{
-		next = current->next;
-		if (next->type == WORD || next->type == DOUBLE_QUOTES \
-			|| next->type == SINGLE_QUOTES)
-		{
-			if (current->type == WORD || current->type == DOUBLE_QUOTES \
-			|| current->type == SINGLE_QUOTES || current->type == DELIMITER)
-			{
-				joined_value = ft_strjoin(current->value, next->value);
-				free(current->value);
-				current->value = joined_value;
-				current->next = next->next;
-				free(next->value);
-				free(next);
-				if (current->type == DELIMITER)
-					current->type = DOUBLE_QUOTES;
-				continue ;
-			}
-		}
-		current = current->next;
-	}
-}*/
 
 void	join_adjacent_tokens(t_token **tokens)
 {

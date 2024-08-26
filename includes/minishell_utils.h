@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:18:30 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/22 16:53:10 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/26 12:32:05 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,23 +53,6 @@ typedef struct s_syntax
 	int	last_was_word;
 	int	num_heredocs;
 }	t_syntax;
-
-/*
-typedef struct s_command
-{
-    char **args;            // Argumentos del comando
-    int num_args;           // Número de argumentos del comando
-    char **input_files;     // Archivos de input para redirección
-    char **output_files;    // Archivos de output para redirección
-    int append_output;      // Flag de append
-    int heredoc;            // Flag de heredoc
-    char **heredoc_files;   // Archivos de heredoc
-    int and;                // Flag de and
-    int or;                 // Flag de or
-    int parentheses;        // Flag de paréntesis
-    struct s_command *next;
-} t_command;
-*/
 
 typedef struct s_command
 {

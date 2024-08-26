@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 16:23:12 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/26 12:26:45 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/26 12:38:53 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	expand_tokens(t_token **tokens, t_shell *shell)
 			prev = current;
 			current = current->next;
 		}
-		else if (current->type == WORD && ft_strchr(current->value, '*'))	
+		else if (current->type == WORD && ft_strchr(current->value, '*'))
 			handle_wildcard_expansion(tokens, shell, &current, &prev);
 		else
 		{
@@ -101,158 +101,3 @@ t_token	*tokenize_and_expand(char *line, t_shell *shell)
 	join_adjacent_tokens(&tokens);
 	return (tokens);
 }
-
-/*t_token	*tokenize_and_expand(char *line, t_shell *shell)
-{
-	t_token	*tokens;
-	t_token	*tokens;
-
-	tokens = tokenize(line, shell);
-	if (!tokens)
-		return (NULL);
-	expand_tokens(&tokens, shell);
-	join_adjacent_tokens(&tokens);
-	if (!check_syntax(tokens, shell))
-    {
-        free_tokens(tokens);
-        free(shell->line);
-        shell->line = NULL;
-        return (NULL);
-    }
-	parse_tokens(&tokens, shell);
-    //execute_commands(shell);
-	return (tokens);
-}*/
-/*
-t_token	*tokenize_and_expand_segment(char *segment, t_shell *shell)
-{
-	tokens = tokenize(segment, shell);
-	if (!tokens)
-		return (NULL);
-	expand_tokens(&tokens, shell);
-	join_adjacent_tokens(&tokens);
-	if (!check_syntax(tokens, shell))
-	{
-		free_tokens(tokens);
-		return (NULL);
-	}
-	return (tokens);
-}
-
-void	execute_segment(char *segment, t_shell *shell)
-{
-	t_token	*tokens;
-	t_token	*current;
-
-	tokens = tokenize_and_expand_segment(segment, shell);
-	if (tokens)
-	{
-		parse_tokens(&tokens, shell);
-		execute_commands(shell);
-		free_tokens(tokens);
-	}
-}*/
-/*int is_logical_operator(t_token *token)
-{
-	return (token->type == AND || token->type == OR);
-}*/
-/*
-int	count_segments(t_token *tokens)
-{
-	current = tokens;
-	int count = 1;  // Al menos un segmento
-	while (current)
-	{
-		if (current->type == AND || current->type == OR)
-			count++;
-		current = current->next;
-	}
-	return (count);
-}
-
-char	**extract_segments(t_token *tokens, char *line, int count)
-{
-	char	**segments;
-	t_token	*current;
-	char	*segment_start;
-	int		segment_index;
-	int		len;
-
-	segments = malloc(sizeof(char *) * (count + 1));
-	if (!segments)
-		handle_error(NULL, NULL);
-	current = tokens;
-	segment_start = line;
-	segment_index = 0;
-	while (current)
-	{
-		if (current->type == AND || current->type == OR)
-		{
-			len = current->value - segment_start;
-			segments[segment_index] = ft_strndup(segment_start, len);
-			segment_start = current->value + ft_strlen(current->value);
-			segment_index++;
-		}
-		current = current->next;
-	}
-	segments[segment_index] = ft_strdup(segment_start);
-	segments[segment_index + 1] = NULL;
-	return (segments);
-}
-
-char	**split_by_logical_operators(char *line, t_shell *shell)
-{
-	t_token	*tokens;
-	int		count;
-	char	**segments;
-
-	tokens = tokenize(line, shell);
-	if (!tokens)
-		return (NULL);
-	count = count_segments(tokens);
-	segments = extract_segments(tokens, line, count);
-	
-	free_tokens(tokens);
-	return (segments);
-}
-
-
-void	execute_segments(char **segments, t_shell *shell)
-{
-	int	i;
-
-	i = 0;
-	while (segments[i])
-	{
-		execute_segment(segments[i], shell);
-		if ((shell->last_exit_status == 0 && shell->commands->and) ||
-			(shell->last_exit_status != 0 && shell->commands->or))
-		{
-			i++;
-		}
-		else
-		{
-			break ;
-		}
-		i++;
-	}
-}
-
-void	tokenize_expand_cmd_execute(char *line, t_shell *shell)
-{
-	char	**segments;
-	int		i;
-
-	segments = split_by_logical_operators(line, shell);
-	if (!segments)
-		return ;
-	execute_segments(segments, shell);
-	i = 0;
-	while (segments[i])
-	{
-		free(segments[i]);
-		i++;
-	}
-	free(segments);
-}
-*/

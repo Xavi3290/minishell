@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_herdoc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
+/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 11:07:07 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/22 16:21:40 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/26 12:35:39 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,8 @@ static void	process_heredoc_input(t_command *cmd, int i, t_shell *shell)
 		line = get_next_line(0);
 		if (!line)
 		{
-			//if (!g_error)
 			handle_errors("warning: here-document delimited by end-of-file", \
 					shell, 0);
-			//else
-			//	free(line);
 			exit(1);
 		}
 		if ((ft_strlen(line) - 1) == ft_strlen(cmd->delimiter[i]) && \

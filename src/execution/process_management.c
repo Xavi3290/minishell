@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_management.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
+/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:22:53 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/20 15:39:45 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/26 12:34:18 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ static void	child_process_logic(t_command *current, int prev_fd, int *fd, \
 {
 	int	num;
 
-	/*if (current->heredoc)
-		handle_herdoc(current, 0, shell);*/
 	setup_signal_handlers();
 	if (prev_fd != -1)
 	{
@@ -45,7 +43,6 @@ static int	create_child_process(t_command *current, int prev_fd, int *fd, \
 	t_shell *shell)
 {
 	pid_t	pid;
-	//int		status;
 
 	pid = fork();
 	if (pid == -1)
@@ -54,15 +51,6 @@ static int	create_child_process(t_command *current, int prev_fd, int *fd, \
 	{
 		child_process_logic(current, prev_fd, fd, shell);
 	}
-	/*if (current->heredoc)
-	{
-		signal(SIGINT, SIG_IGN);
-		signal(SIGQUIT, SIG_IGN);
-		waitpid(pid, &status, 0);
-		wifstuff(shell, status);
-		if (current->heredoc)
-			unlink(current->input_files[0]);
-	}*/
 	return (pid);
 }
 
@@ -100,19 +88,14 @@ void	wifstuff(t_shell *shell, int status)
 	{
 		if (status == 256)
 		{
-			//error_exit = 1;
 			shell->last_exit_status = 1;
 		}
 	}
 	else if (WIFSIGNALED(status) && (WTERMSIG(status) == SIGINT))
 	{
-		//error_exit = 1;
 		shell->last_exit_status = 1;
 	}
-	//if (!g_error)
 	handle_signals(status, shell, NULL);
-	//else
-	//	shell->last_exit_status = 130;
 }
 
 void	wait_for_children(pid_t *pids, int num_childrens, t_shell *shell)
