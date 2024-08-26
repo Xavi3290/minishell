@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_tools.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 14:59:35 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/20 15:50:12 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/26 11:29:38 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,28 @@ void	free_tokens(t_token *tokens)
 		free(token->value);
 		free(token);
 		token = next;
+	}
+}
+
+void free_herdocs(t_command *cmd)
+{
+	t_command	*current;
+	int			num_input;
+	int			i;
+
+	i = 0;
+	current = cmd;
+	while (current)
+	{
+		if (current->heredoc)
+		{	
+			num_input = ft_strlen_d(current->input_files);
+			while (i <= num_input)
+			{
+				unlink(current->input_files[num_input]);
+				num_input--;
+			}
+		}
+		current = current->next;
 	}
 }

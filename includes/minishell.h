@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
+/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 20:02:49 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/22 17:00:46 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/26 11:30:00 by cgaratej         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,5 +158,6 @@ void		process_redirection_file(t_token **current, t_shell *shell,
 int			generate_random_number(void);
 char		*generate_filename(void);
 void		handle_pipe_token(t_command **cmd);
+void 		free_herdocs(t_command *cmd);
 
 #endif
