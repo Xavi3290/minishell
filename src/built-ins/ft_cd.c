@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 17:14:06 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/26 13:15:22 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/26 16:08:24 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,16 +83,18 @@ int	ft_cd(t_shell *shell, t_command *cmd)
 {
 	char	*expanded_path;
 	char	*oldpwd_dir;
+	char	*tmp;
 
 	oldpwd_dir = read_env(shell, "OLDPWD");
 	pwd_value(NULL, shell, 0);
 	if (cmd->num_args == 1)
 	{
-		if (chdir(read_env(shell, "HOME")) == -1)
+		tmp = read_env(shell, "HOME");
+		if (chdir(tmp) == -1)
 			return (printf("minishell: cd: HOME not set\n"), \
-					free(oldpwd_dir), 1);
+					free(oldpwd_dir), free(tmp), 1);
 		pwd_value(NULL, shell, 1);
-		return (free(oldpwd_dir), 0);
+		return (free(oldpwd_dir), free(tmp), 0);
 	}
 	expanded_path = expand_home_directory(cmd->args[1], shell, oldpwd_dir);
 	if (!expanded_path)

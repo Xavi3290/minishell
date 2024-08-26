@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:22:50 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/26 12:34:46 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/26 16:09:09 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ char	*handle_dollar_signs(char *str, int i)
 		memset(dollar_str, '$', dollar_count - 1);
 		dollar_str[dollar_count - 1] = '\0';
 		dup = ft_strdup(dollar_str);
+		free(dollar_str);
 		return (dup);
 	}
 	return (ft_strdup(""));

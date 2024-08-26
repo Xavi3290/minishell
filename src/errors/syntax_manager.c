@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:52:09 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/22 17:03:39 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/26 16:10:37 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,10 @@ int	check_syntax(t_token *tokens, t_shell *shell)
 		return (0);
 	}
 	if (state.num_heredocs > 16)
+	{
 		handle_errors("maximum here-document count exceeded", shell, 2);
+		exit(shell->last_exit_status);
+	}
 	return (1);
 }
 
