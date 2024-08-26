@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_tokens.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cgaratej <cgaratej@student.42barcel>       +#+  +:+       +#+        */
+/*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 16:23:12 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/22 16:25:58 by cgaratej         ###   ########.fr       */
+/*   Updated: 2024/08/26 12:26:45 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ static void	expand_double_quotes_token(t_token *current, t_shell *shell)
 static void	handle_wildcard_expansion(t_token **tokens, t_shell *shell,
 		t_token **current, t_token **prev)
 {
+	join_adjacent_tokens(tokens);
 	expand_wildcard_token(tokens, shell, current, prev);
 	*prev = *current;
 	*current = (*current)->next;
@@ -79,7 +80,7 @@ void	expand_tokens(t_token **tokens, t_shell *shell)
 			prev = current;
 			current = current->next;
 		}
-		else if (current->type == WORD && ft_strchr(current->value, '*'))
+		else if (current->type == WORD && ft_strchr(current->value, '*'))	
 			handle_wildcard_expansion(tokens, shell, &current, &prev);
 		else
 		{
