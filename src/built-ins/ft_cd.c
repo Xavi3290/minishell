@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 17:14:06 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/22 13:21:54 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/26 13:15:22 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	update_env_var(t_shell *shell, const char *var_name, \
 		handle_error(NULL, NULL);
 	shell->env[shell->env_num] = ft_strjoin(var_name, new_value);
 	shell->env_num++;
+	shell->env[shell->env_num] = NULL;
 }
 
 static void	pwd_value(char *path_actual, t_shell *shell, int flag)
@@ -87,7 +88,7 @@ int	ft_cd(t_shell *shell, t_command *cmd)
 	pwd_value(NULL, shell, 0);
 	if (cmd->num_args == 1)
 	{
-		if (chdir(getenv("HOME")) == -1)
+		if (chdir(read_env(shell, "HOME")) == -1)
 			return (printf("minishell: cd: HOME not set\n"), \
 					free(oldpwd_dir), 1);
 		pwd_value(NULL, shell, 1);
