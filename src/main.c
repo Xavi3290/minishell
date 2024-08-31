@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 13:13:04 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/26 12:37:35 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/31 12:48:19 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	parse_execute_frees(t_token *tokens, t_shell *shell)
 	current = shell->commands;
 	while (current)
 	{
-		if (current->num_args > 0)
+		if (current->num_args > 0 && !shell->wildc)
 		{
 			if (shell->flag_redirects)
 				execute_commands(shell);
@@ -48,6 +48,7 @@ static void	parse_execute_frees(t_token *tokens, t_shell *shell)
 		}
 		current = current->next;
 	}
+	shell->wildc = 0;
 	shell->flag_redirects = 1;
 	shell->parentheses = 0;
 	free_tokens(tokens);

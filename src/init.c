@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:37:33 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/31 11:14:55 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/31 12:50:27 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,17 @@ static char	**copy_env(char **env)
 	return (new_env);
 }
 
+void	values_shell(t_shell *shell)
+{
+	shell->commands = NULL;
+	shell->line = NULL;
+	shell->last_exit_status = 0;
+	shell->parentheses = 0;
+	shell->heredoc = 0;
+	shell->flag_redirects = 1;
+	shell->wildc = 0;
+}
+
 t_shell	*init_shell(char **env)
 {
 	t_shell	*shell;
@@ -108,12 +119,7 @@ t_shell	*init_shell(char **env)
 	}
 	if (!shell->env)
 		return (NULL);
-	shell->commands = NULL;
-	shell->line = NULL;
-	shell->last_exit_status = 0;
-	shell->parentheses = 0;
-	shell->heredoc = 0;
-	shell->flag_redirects = 1;
+	values_shell(shell);
 	update_shlvl(shell);
 	return (shell);
 }

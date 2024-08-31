@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 18:05:45 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/22 17:45:14 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/31 12:49:39 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	handle_redirect_token(t_token **current, t_command *cmd, t_shell *shell,
 		*current = (*current)->next;
 	if (*current && ((*current)->type == WORD
 			|| (*current)->type == DOUBLE_QUOTES
-			|| (*current)->type == SINGLE_QUOTES))
+			|| (*current)->type == SINGLE_QUOTES
+			|| (*current)->type == WILDC))
 	{
 		if (type == REDIRECT_IN)
 			add_input_file(cmd, (*current)->value);
@@ -41,7 +42,8 @@ void	process_redirection_file(t_token **current, t_shell *shell, int type)
 		*current = (*current)->next;
 	if (*current && ((*current)->type == WORD
 			|| (*current)->type == DOUBLE_QUOTES
-			|| (*current)->type == SINGLE_QUOTES))
+			|| (*current)->type == SINGLE_QUOTES
+			|| (*current)->type == WILDC))
 	{
 		if (type == REDIRECT_IN)
 			create_input_file((*current)->value, shell);
@@ -49,6 +51,11 @@ void	process_redirection_file(t_token **current, t_shell *shell, int type)
 			create_output_file((*current)->value, 0, shell);
 		else if (type == APPEND)
 			create_output_file((*current)->value, 1, shell);
+		if ((*current)->type == WILDC)
+		{
+			handle_errors("*: ambiguous redirect", shell, 1);
+			shell->wildc = 1;
+		}
 	}
 	else
 		handle_errors("syntax error: expected file after redirection",

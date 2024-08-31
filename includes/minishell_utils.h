@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 11:18:30 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/26 12:32:05 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/31 12:46:24 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ typedef struct s_shell
 	int			parentheses;
 	int			heredoc;
 	int			flag_redirects;
+	int			wildc;
 }	t_shell;
 
 #endif
