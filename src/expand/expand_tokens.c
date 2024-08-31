@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 16:23:12 by xroca-pe          #+#    #+#             */
-/*   Updated: 2024/08/26 12:38:53 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/08/31 11:26:33 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	expand_double_quotes_token(t_token *current, t_shell *shell)
 	else
 	{
 		free(current->value);
-		current->value = ft_strdup("''");
+		current->value = ft_strdup("");
 	}
 }
 
