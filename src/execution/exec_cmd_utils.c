@@ -6,7 +6,7 @@
 /*   By: xroca-pe <xroca-pe@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 12:37:21 by cgaratej          #+#    #+#             */
-/*   Updated: 2024/08/26 13:16:22 by xroca-pe         ###   ########.fr       */
+/*   Updated: 2024/09/02 11:23:01 by xroca-pe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ static void	handle_command_execution(char **env, t_command *cmd)
 	path = get_path(cmd->args[0], env, -1);
 	if (execve(path, cmd->args, env) == -1)
 	{
+		if (cmd->args[0][0] == '\0')
+			execution_error("Command '' not found", 0, 127, cmd->args[0]);
 		if (ft_strchr(path, '/'))
 		{
 			if (!access(path, X_OK | F_OK))
